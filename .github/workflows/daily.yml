@@ -5,10 +5,6 @@ on:
     - cron: "0 12 * * *"
   workflow_dispatch:
 
-defaults:
-  run:
-    node-version: '24'
-
 jobs:
   run-agent:
     runs-on: ubuntu-latest
@@ -33,5 +29,3 @@ jobs:
         with:
           name: job-agent-reports
           path: reports/
-
-
