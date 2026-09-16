@@ -2,9 +2,11 @@ import json
 import hashlib
 import requests
 import yaml
+import os
 from bs4 import BeautifulSoup
 from pathlib import Path
 from datetime import datetime
+from openai import OpenAI
 
 # ---------- Paths ----------
 BASE_DIR = Path(__file__).parent
@@ -42,71 +44,140 @@ def make_job_id(source_name, title, url):
 
 # ---------- HTML fetch ----------
 def fetch_html(url):
-    resp = requests.get(url, timeout=20)
-    resp.raise_for_status()
-    return resp.text
+    try:
+        resp = requests.get(url, timeout=20)
+        resp.raise_for_status()
+        return resp.text
+    except:
+        return ""
 
-# ---------- Parsers (placeholder for now) ----------
-def parse_jobs_from_html(source_name, url, html):
+# ---------- Extract job description ----------
+def extract_job_text(html):
     soup = BeautifulSoup(html, "html.parser")
-    jobs = []
+    texts = []
 
-    for a in soup.find_all("a"):
-        text = (a.get_text() or "").strip()
-        href = a.get("href") or ""
-        if not text or not href:
-            continue
+    for tag in soup.find_all(["p", "li", "div"]):
+        t = tag.get_text(" ", strip=True)
+        if t:
+            texts.append(t)
 
-        if "job" in href.lower() or "careers" in href.lower() or "jobs" in text.lower():
-            from urllib.parse import urljoin
-            full_url = urljoin(url, href) if href.startswith("/") else href
+    return "\n".join(texts)[:5000]  # safety limit
 
-            job_id = make_job_id(source_name, text, full_url)
-            jobs.append({
-                "id": job_id,
-                "source": source_name,
-                "title": text,
-                "url": full_url
-            })
+# ---------- Embeddings ----------
+def embed_text(client, text):
+    try:
+        response = client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text
+        )
+        return response.data[0].embedding
+    except Exception as e:
+        print(f"[ERROR] Embedding failed: {e}")
+        return None
 
-    return jobs
+# ---------- Cosine similarity ----------
+import numpy as np
+
+def cosine_similarity(a, b):
+    a = np.array(a)
+    b = np.array(b)
+    return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 # ---------- Main pipeline ----------
 def main():
+    # OpenAI client
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    # Load experience library and embed it
     experience_text = load_experience_library()
+    experience_embedding = embed_text(client, experience_text)
+
     sources = load_sources()
     memory = load_memory()
-
     seen_ids = {job["id"] for job in memory["jobs"]}
-    new_jobs = []
+
+    scored_jobs = []
 
     for src in sources:
         name = src["name"]
         url = src["url"]
         print(f"[INFO] Fetching {name} -> {url}")
 
-        try:
-            html = fetch_html(url)
-            jobs = parse_jobs_from_html(name, url, html)
-            print(f"[INFO] Found {len(jobs)} candidate links on {name}")
-        except Exception as e:
-            print(f"[ERROR] Failed to fetch/parse {name}: {e}")
+        html = fetch_html(url)
+        if not html:
+            print(f"[WARN] No HTML returned for {name}")
             continue
 
+        soup = BeautifulSoup(html, "html.parser")
+
+        # Find job links
+        jobs = []
+        for a in soup.find_all("a"):
+            text = (a.get_text() or "").strip()
+            href = a.get("href") or ""
+            if not text or not href:
+                continue
+
+            if "job" in href.lower() or "careers" in href.lower() or "jobs" in text.lower():
+                from urllib.parse import urljoin
+                full_url = urljoin(url, href) if href.startswith("/") else href
+
+                job_id = make_job_id(name, text, full_url)
+                jobs.append({
+                    "id": job_id,
+                    "source": name,
+                    "title": text,
+                    "url": full_url
+                })
+
+        print(f"[INFO] Found {len(jobs)} candidate links on {name}")
+
+        # Process each job
         for job in jobs:
-            if job["id"] not in seen_ids:
-                new_jobs.append(job)
-                memory["jobs"].append(job)
-                seen_ids.add(job["id"])
+            if job["id"] in seen_ids:
+                continue
+
+            job_html = fetch_html(job["url"])
+            job_text = extract_job_text(job_html)
+
+            if not job_text:
+                continue
+
+            job_embedding = embed_text(client, job_text)
+            if not job_embedding:
+                continue
+
+            score = cosine_similarity(experience_embedding, job_embedding)
+
+            job["score"] = score
+            job["snippet"] = job_text[:300]
+
+            scored_jobs.append(job)
+            memory["jobs"].append(job)
+            seen_ids.add(job["id"])
 
     save_memory(memory)
 
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    report_path = REPORTS_DIR / f"report-{today}.json"
-    with open(report_path, "w", encoding="utf-8") as f:
-        json.dump({"new_jobs": new_jobs}, f, indent=2)
+    # Sort by score
+    scored_jobs.sort(key=lambda x: x["score"], reverse=True)
 
-    print(f"[INFO] Saved report with {len(new_jobs)} new jobs to {report_path}")
+    # Write Markdown report
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    report_path = REPORTS_DIR / f"report-{today}.md"
+
+    with open(report_path, "w", encoding="utf-8") as f:
+        f.write(f"# Job Agent Report — {today}\n\n")
+        f.write("Ranked job matches based on your master experience library.\n\n")
+
+        for job in scored_jobs:
+            f.write(f"## {job['title']}\n")
+            f.write(f"**Source:** {job['source']}\n\n")
+            f.write(f"**Score:** {job['score']:.4f}\n\n")
+            f.write(f"[Job Link]({job['url']})\n\n")
+            f.write(f"**Snippet:**\n\n{job['snippet']}\n\n")
+            f.write("---\n\n")
+
+    print(f"[INFO] Saved ranked report with {len(scored_jobs)} jobs → {report_path}")
 
 if __name__ == "__main__":
     main()
