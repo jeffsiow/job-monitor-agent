@@ -6,7 +6,8 @@ import os
 from bs4 import BeautifulSoup
 from pathlib import Path
 from datetime import datetime
-from openai import OpenAI
+
+from sentence_transformers import SentenceTransformer
 
 # ---------- Paths ----------
 BASE_DIR = Path(__file__).parent
@@ -30,8 +31,11 @@ def load_sources():
 def load_memory():
     if MEMORY_PATH.exists():
         with open(MEMORY_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"jobs": []}
+            mem = json.load(f)
+            if "cache" not in mem:
+                mem["cache"] = {}
+            return mem
+    return {"jobs": [], "cache": {}}
 
 def save_memory(memory):
     with open(MEMORY_PATH, "w", encoding="utf-8") as f:
@@ -74,19 +78,7 @@ def extract_job_text(html):
 
     return "\n".join(texts)[:5000]
 
-# ---------- Embeddings ----------
-def embed_text(client, text):
-    try:
-        response = client.embeddings.create(
-            model="text-embedding-3-small",
-            input=text
-        )
-        return response.data[0].embedding
-    except Exception as e:
-        print(f"[ERROR] Embedding failed: {e}")
-        return None
-
-# ---------- Cosine similarity (pure Python) ----------
+# ---------- Cosine similarity ----------
 def cosine_similarity(a, b):
     dot = sum(x * y for x, y in zip(a, b))
     norm_a = sum(x * x for x in a) ** 0.5
@@ -191,13 +183,15 @@ function filterTable() {
 
 # ---------- Main pipeline ----------
 def main():
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    # Load free embedding model
+    model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
     experience_text = load_experience_library()
-    experience_embedding = embed_text(client, experience_text)
+    experience_embedding = model.encode(experience_text)
 
     sources = load_sources()
     memory = load_memory()
+    cache = memory["cache"]
 
     scored_jobs = []
 
@@ -238,20 +232,32 @@ def main():
             if is_duplicate(job, memory):
                 continue
 
-            job_html = fetch_html(job["url"])
-            job_text = extract_job_text(job_html)
+            url = job["url"]
 
-            if not job_text:
-                continue
+            # ---------- CACHE CHECK ----------
+            if url in cache:
+                print(f"[CACHE] Using cached embedding for {url}")
+                job_embedding = cache[url]["embedding"]
+                snippet = cache[url]["snippet"]
+            else:
+                job_html = fetch_html(url)
+                job_text = extract_job_text(job_html)
 
-            job_embedding = embed_text(client, job_text)
-            if not job_embedding:
-                continue
+                if not job_text:
+                    continue
+
+                job_embedding = model.encode(job_text)
+                snippet = job_text[:300]
+
+                cache[url] = {
+                    "embedding": job_embedding,
+                    "snippet": snippet
+                }
 
             score = cosine_similarity(experience_embedding, job_embedding)
 
             job["score"] = score
-            job["snippet"] = job_text[:300]
+            job["snippet"] = snippet
 
             scored_jobs.append(job)
             memory["jobs"].append(job)
