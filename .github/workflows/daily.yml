@@ -1,4 +1,7 @@
 name: Daily Job Agent
+  env:
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  run: python agent.py
 
 on:
   schedule:
