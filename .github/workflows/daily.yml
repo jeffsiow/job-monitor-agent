@@ -1,7 +1,4 @@
-- name: Run agent
-  env:
-    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-  run: python agent.py
+name: Daily Job Agent
 
 on:
   schedule:
@@ -25,6 +22,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run agent
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python agent.py
 
       - name: Upload reports
