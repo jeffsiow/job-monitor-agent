@@ -37,7 +37,18 @@ def save_memory(memory):
     with open(MEMORY_PATH, "w", encoding="utf-8") as f:
         json.dump(memory, f, indent=2)
 
-# ---------- Simple job model ----------
+# ---------- Duplicate suppression ----------
+def is_duplicate(job, memory):
+    for existing in memory["jobs"]:
+        if job["id"] == existing["id"]:
+            return True
+        if job["url"] == existing["url"]:
+            return True
+        if job["title"].lower() == existing["title"].lower():
+            return True
+    return False
+
+# ---------- Job ID ----------
 def make_job_id(source_name, title, url):
     raw = f"{source_name}|{title}|{url}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
@@ -61,7 +72,7 @@ def extract_job_text(html):
         if t:
             texts.append(t)
 
-    return "\n".join(texts)[:5000]  # safety limit
+    return "\n".join(texts)[:5000]
 
 # ---------- Embeddings ----------
 def embed_text(client, text):
@@ -75,26 +86,118 @@ def embed_text(client, text):
         print(f"[ERROR] Embedding failed: {e}")
         return None
 
-# ---------- Cosine similarity ----------
+# ---------- Cosine similarity (pure Python) ----------
 def cosine_similarity(a, b):
     dot = sum(x * y for x, y in zip(a, b))
     norm_a = sum(x * x for x in a) ** 0.5
     norm_b = sum(y * y for y in b) ** 0.5
     return dot / (norm_a * norm_b)
 
+# ---------- HTML Report ----------
+def write_html_report(scored_jobs):
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    report_path = REPORTS_DIR / f"report-{today}.html"
+
+    html = """
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Job Agent Report</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 12px; border: 1px solid #ccc; }
+th { cursor: pointer; background: #f2f2f2; }
+tr:hover { background: #fafafa; }
+#searchBox { margin-bottom: 12px; padding: 8px; width: 300px; }
+</style>
+<script>
+function sortTable(n) {
+  var table = document.getElementById("jobTable");
+  var rows = table.rows;
+  var switching = true;
+  var dir = "desc";
+  while (switching) {
+    switching = false;
+    for (var i = 1; i < rows.length - 1; i++) {
+      var x = rows[i].getElementsByTagName("TD")[n];
+      var y = rows[i + 1].getElementsByTagName("TD")[n];
+      var cmp = (n === 2) ? parseFloat(x.innerHTML) - parseFloat(y.innerHTML)
+                          : x.innerHTML.localeCompare(y.innerHTML);
+      if ((dir === "asc" && cmp > 0) || (dir === "desc" && cmp < 0)) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        break;
+      }
+    }
+    if (!switching && dir === "desc") {
+      dir = "asc";
+      switching = true;
+    }
+  }
+}
+
+function filterTable() {
+  var input = document.getElementById("searchBox").value.toLowerCase();
+  var rows = document.getElementById("jobTable").rows;
+  for (var i = 1; i < rows.length; i++) {
+    var rowText = rows[i].innerText.toLowerCase();
+    rows[i].style.display = rowText.includes(input) ? "" : "none";
+  }
+}
+</script>
+</head>
+<body>
+
+<h1>Job Agent Report — """ + today + """</h1>
+<input type="text" id="searchBox" onkeyup="filterTable()" placeholder="Search jobs...">
+
+<table id="jobTable">
+<thead>
+<tr>
+<th onclick="sortTable(0)">Title</th>
+<th onclick="sortTable(1)">Source</th>
+<th onclick="sortTable(2)">Score</th>
+<th>Link</th>
+<th>Snippet</th>
+</tr>
+</thead>
+<tbody>
+"""
+
+    for job in scored_jobs:
+        html += f"""
+<tr>
+<td>{job['title']}</td>
+<td>{job['source']}</td>
+<td>{job['score']:.4f}</td>
+<td><a href="{job['url']}" target="_blank">Open</a></td>
+<td>{job['snippet']}</td>
+</tr>
+"""
+
+    html += """
+</tbody>
+</table>
+</body>
+</html>
+"""
+
+    with open(report_path, "w", encoding="utf-8") as f:
+        f.write(html)
+
+    print(f"[INFO] Saved HTML report → {report_path}")
 
 # ---------- Main pipeline ----------
 def main():
-    # OpenAI client
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    # Load experience library and embed it
     experience_text = load_experience_library()
     experience_embedding = embed_text(client, experience_text)
 
     sources = load_sources()
     memory = load_memory()
-    seen_ids = {job["id"] for job in memory["jobs"]}
 
     scored_jobs = []
 
@@ -110,7 +213,6 @@ def main():
 
         soup = BeautifulSoup(html, "html.parser")
 
-        # Find job links
         jobs = []
         for a in soup.find_all("a"):
             text = (a.get_text() or "").strip()
@@ -132,9 +234,8 @@ def main():
 
         print(f"[INFO] Found {len(jobs)} candidate links on {name}")
 
-        # Process each job
         for job in jobs:
-            if job["id"] in seen_ids:
+            if is_duplicate(job, memory):
                 continue
 
             job_html = fetch_html(job["url"])
@@ -154,30 +255,12 @@ def main():
 
             scored_jobs.append(job)
             memory["jobs"].append(job)
-            seen_ids.add(job["id"])
 
     save_memory(memory)
 
-    # Sort by score
     scored_jobs.sort(key=lambda x: x["score"], reverse=True)
 
-    # Write Markdown report
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    report_path = REPORTS_DIR / f"report-{today}.md"
-
-    with open(report_path, "w", encoding="utf-8") as f:
-        f.write(f"# Job Agent Report — {today}\n\n")
-        f.write("Ranked job matches based on your master experience library.\n\n")
-
-        for job in scored_jobs:
-            f.write(f"## {job['title']}\n")
-            f.write(f"**Source:** {job['source']}\n\n")
-            f.write(f"**Score:** {job['score']:.4f}\n\n")
-            f.write(f"[Job Link]({job['url']})\n\n")
-            f.write(f"**Snippet:**\n\n{job['snippet']}\n\n")
-            f.write("---\n\n")
-
-    print(f"[INFO] Saved ranked report with {len(scored_jobs)} jobs → {report_path}")
+    write_html_report(scored_jobs)
 
 if __name__ == "__main__":
     main()
