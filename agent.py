@@ -85,6 +85,11 @@ def cosine_similarity(a, b):
     norm_b = sum(y * y for y in b) ** 0.5
     return dot / (norm_a * norm_b)
 
+
+def to_python_floats(vec):
+    return [float(x) for x in vec]
+ 
+
 # ---------- HTML Report ----------
 def write_html_report(scored_jobs):
     today = datetime.utcnow().strftime("%Y-%m-%d")
@@ -187,7 +192,7 @@ def main():
     model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
     experience_text = load_experience_library()
-    experience_embedding = model.encode(experience_text)
+    experience_embedding = to_python_floats(model.encode(experience_text))
 
     sources = load_sources()
     memory = load_memory()
@@ -250,7 +255,7 @@ def main():
                 snippet = job_text[:300]
 
                 cache[url] = {
-                    "embedding": job_embedding,
+                    "embedding": to_python_floats(job_embedding),
                     "snippet": snippet
                 }
 
