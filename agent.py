@@ -17,6 +17,10 @@ MEMORY_PATH = BASE_DIR / "memory.json"
 REPORTS_DIR = BASE_DIR / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
+# ---------- Utility ----------
+def to_python_floats(vec):
+    return [float(x) for x in vec]
+
 # ---------- Load experience library ----------
 def load_experience_library():
     return EXPERIENCE_PATH.read_text(encoding="utf-8")
@@ -27,14 +31,19 @@ def load_sources():
         data = yaml.safe_load(f)
     return data["sources"]
 
-# ---------- Load memory ----------
+# ---------- Load memory (self-healing) ----------
 def load_memory():
-    if MEMORY_PATH.exists():
-        with open(MEMORY_PATH, "r", encoding="utf-8") as f:
-            mem = json.load(f)
-            if "cache" not in mem:
-                mem["cache"] = {}
-            return mem
+    try:
+        if MEMORY_PATH.exists():
+            with open(MEMORY_PATH, "r", encoding="utf-8") as f:
+                mem = json.load(f)
+                if "cache" not in mem:
+                    mem["cache"] = {}
+                return mem
+    except json.JSONDecodeError:
+        print("[WARN] memory.json corrupted — resetting.")
+        return {"jobs": [], "cache": {}}
+
     return {"jobs": [], "cache": {}}
 
 def save_memory(memory):
@@ -84,11 +93,6 @@ def cosine_similarity(a, b):
     norm_a = sum(x * x for x in a) ** 0.5
     norm_b = sum(y * y for y in b) ** 0.5
     return dot / (norm_a * norm_b)
-
-
-def to_python_floats(vec):
-    return [float(x) for x in vec]
- 
 
 # ---------- HTML Report ----------
 def write_html_report(scored_jobs):
@@ -184,7 +188,7 @@ function filterTable() {
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"[INFO] Saved HTML report → {report_path}")
+    print(f"[INFO] Saved HTML report →", report_path)
 
 # ---------- Main pipeline ----------
 def main():
@@ -251,11 +255,12 @@ def main():
                 if not job_text:
                     continue
 
-                job_embedding = model.encode(job_text)
+                raw_embedding = model.encode(job_text)
+                job_embedding = to_python_floats(raw_embedding)
                 snippet = job_text[:300]
 
                 cache[url] = {
-                    "embedding": to_python_floats(job_embedding),
+                    "embedding": job_embedding,
                     "snippet": snippet
                 }
 
@@ -263,6 +268,7 @@ def main():
 
             job["score"] = score
             job["snippet"] = snippet
+            job["embedding"] = job_embedding  # JSON-safe
 
             scored_jobs.append(job)
             memory["jobs"].append(job)
