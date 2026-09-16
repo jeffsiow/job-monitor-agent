@@ -1,0 +1,38 @@
+sources:
+  - name: avea_workday
+    type: html
+    url: "https://aveva.wd3.myworkdayjobs.com/en-GB/AVEVA_careers?locationCountry=a30a87ed25634629aa6c3958aa2b91ea"
+
+  - name: indeed_ca
+    type: html
+    url: "https://ca.indeed.com/jobs?q=project+engineer+cleantech&l=Canada"
+
+  - name: linkedin_jobs
+    type: html
+    url: "https://www.linkedin.com/jobs/search/?keywords=project%20engineer&location=Canada"
+
+  - name: carbon_upcycling
+    type: html
+    url: "https://jobs.deel.com/carbon-upcycling-technologies"
+
+  - name: seeq
+    type: html
+    url: "https://apply.workable.com/seeq/"
+
+  - name: kanin_energy
+    type: html
+    url: "https://kaninenergy.com/careers/"
+
+  - name: mantel_capture
+    type: html
+    url: "https://mantelcapture.com/careers/"
+
+  - name: eavor
+    type: html
+    url: "https://eavortechnologies.bamboohr.com/careers"
+
+  - name: eavor
+    type: html
+    url: "https://www.calgary.ca/careers.html"
+
+
