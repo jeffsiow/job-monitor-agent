@@ -7,9 +7,17 @@ sources:
     type: html
     url: "https://ca.indeed.com/jobs?q=project+engineer+cleantech&l=Canada"
 
-  - name: linkedin_jobs
+  - name: linkedin_eng
     type: html
-    url: "https://www.linkedin.com/jobs/search/?keywords=project%20engineer&location=Canada"
+    url: "https://www.linkedin.com/jobs/search/?keywords=engineer&location=Calgary%2C%20Alberta%2C%20Canada"
+
+  - name: linkedin_PM
+    type: html
+    url: "https://www.linkedin.com/jobs/search/?keywords=project%20manager&location=Calgary%2C%20Alberta%2C%20Canada"
+
+  - name: linkedin_projectdirector
+    type: html
+    url: "https://www.linkedin.com/jobs/search/?keywords=project%20director&location=Calgary%2C%20Alberta%2C%20Canada"
 
   - name: carbon_upcycling
     type: html
