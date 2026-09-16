@@ -76,12 +76,12 @@ def embed_text(client, text):
         return None
 
 # ---------- Cosine similarity ----------
-import numpy as np
-
 def cosine_similarity(a, b):
-    a = np.array(a)
-    b = np.array(b)
-    return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
+    dot = sum(x * y for x, y in zip(a, b))
+    norm_a = sum(x * x for x in a) ** 0.5
+    norm_b = sum(y * y for y in b) ** 0.5
+    return dot / (norm_a * norm_b)
+
 
 # ---------- Main pipeline ----------
 def main():
