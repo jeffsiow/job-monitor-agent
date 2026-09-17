@@ -2,36 +2,34 @@ import json
 import hashlib
 import requests
 import yaml
-import os
 from bs4 import BeautifulSoup
 from pathlib import Path
 from datetime import datetime
-
 from sentence_transformers import SentenceTransformer
 
-# ---------- Paths ----------
 BASE_DIR = Path(__file__).parent
 EXPERIENCE_PATH = BASE_DIR / "experience_library.md"
 SOURCES_PATH = BASE_DIR / "sources.yaml"
 MEMORY_PATH = BASE_DIR / "memory.json"
 REPORTS_DIR = BASE_DIR / "reports"
-REPORTS_DIR.mkdir(exist_ok=True)
+DOCS_DIR = BASE_DIR / "docs"
+HISTORY_DIR = DOCS_DIR / "history"
 
-# ---------- Utility ----------
+REPORTS_DIR.mkdir(exist_ok=True)
+DOCS_DIR.mkdir(exist_ok=True)
+HISTORY_DIR.mkdir(exist_ok=True)
+
 def to_python_floats(vec):
     return [float(x) for x in vec]
 
-# ---------- Load experience library ----------
 def load_experience_library():
     return EXPERIENCE_PATH.read_text(encoding="utf-8")
 
-# ---------- Load sources ----------
 def load_sources():
     with open(SOURCES_PATH, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     return data["sources"]
 
-# ---------- Load memory (self-healing) ----------
 def load_memory():
     try:
         if MEMORY_PATH.exists():
@@ -43,14 +41,12 @@ def load_memory():
     except json.JSONDecodeError:
         print("[WARN] memory.json corrupted — resetting.")
         return {"jobs": [], "cache": {}}
-
     return {"jobs": [], "cache": {}}
 
 def save_memory(memory):
     with open(MEMORY_PATH, "w", encoding="utf-8") as f:
         json.dump(memory, f, indent=2)
 
-# ---------- Duplicate suppression ----------
 def is_duplicate(job, memory):
     for existing in memory["jobs"]:
         if job["id"] == existing["id"]:
@@ -61,12 +57,10 @@ def is_duplicate(job, memory):
             return True
     return False
 
-# ---------- Job ID ----------
 def make_job_id(source_name, title, url):
     raw = f"{source_name}|{title}|{url}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
-# ---------- HTML fetch ----------
 def fetch_html(url):
     try:
         resp = requests.get(url, timeout=20)
@@ -75,29 +69,59 @@ def fetch_html(url):
     except:
         return ""
 
-# ---------- Extract job description ----------
 def extract_job_text(html):
     soup = BeautifulSoup(html, "html.parser")
     texts = []
-
     for tag in soup.find_all(["p", "li", "div"]):
         t = tag.get_text(" ", strip=True)
         if t:
             texts.append(t)
-
     return "\n".join(texts)[:5000]
 
-# ---------- Cosine similarity ----------
+def extract_company_and_date(html, url):
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Company
+    company = None
+    # Common patterns
+    meta_site = soup.find("meta", attrs={"property": "og:site_name"})
+    if meta_site and meta_site.get("content"):
+        company = meta_site["content"].strip()
+    if not company:
+        title_tag = soup.find("title")
+        if title_tag and title_tag.get_text():
+            company = title_tag.get_text().strip()
+    if not company:
+        # Fallback to domain
+        from urllib.parse import urlparse
+        domain = urlparse(url).netloc
+        company = domain.replace("www.", "").split(".")[0].replace("-", " ").title()
+
+    # Date posted
+    posted = "Unknown"
+    time_tag = soup.find("time")
+    if time_tag and time_tag.get_text():
+        posted = time_tag.get_text().strip()
+    else:
+        # Look for "Posted" text
+        for tag in soup.find_all(["span", "div", "p"]):
+            text = tag.get_text(" ", strip=True)
+            if "Posted" in text or "posted" in text:
+                posted = text.strip()
+                break
+
+    return company, posted
+
 def cosine_similarity(a, b):
     dot = sum(x * y for x, y in zip(a, b))
     norm_a = sum(x * x for x in a) ** 0.5
     norm_b = sum(y * y for y in b) ** 0.5
     return dot / (norm_a * norm_b)
 
-# ---------- HTML Report ----------
 def write_html_report(scored_jobs):
     today = datetime.utcnow().strftime("%Y-%m-%d")
-    report_path = REPORTS_DIR / f"report-{today}.html"
+    report_name = f"report-{today}.html"
+    report_path = REPORTS_DIR / report_name
 
     html = """
 <!DOCTYPE html>
@@ -138,7 +162,6 @@ function sortTable(n) {
     }
   }
 }
-
 function filterTable() {
   var input = document.getElementById("searchBox").value.toLowerCase();
   var rows = document.getElementById("jobTable").rows;
@@ -158,10 +181,11 @@ function filterTable() {
 <thead>
 <tr>
 <th onclick="sortTable(0)">Title</th>
-<th onclick="sortTable(1)">Source</th>
+<th onclick="sortTable(1)">Company</th>
 <th onclick="sortTable(2)">Score</th>
+<th onclick="sortTable(3)">Source</th>
+<th onclick="sortTable(4)">Posted</th>
 <th>Link</th>
-<th>Snippet</th>
 </tr>
 </thead>
 <tbody>
@@ -171,10 +195,11 @@ function filterTable() {
         html += f"""
 <tr>
 <td>{job['title']}</td>
-<td>{job['source']}</td>
+<td>{job['company']}</td>
 <td>{job['score']:.4f}</td>
+<td>{job['source']}</td>
+<td>{job['posted']}</td>
 <td><a href="{job['url']}" target="_blank">Open</a></td>
-<td>{job['snippet']}</td>
 </tr>
 """
 
@@ -188,11 +213,20 @@ function filterTable() {
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"[INFO] Saved HTML report →", report_path)
+    # Copy to docs/current.html and docs/history
+    current_path = DOCS_DIR / "current.html"
+    history_path = HISTORY_DIR / report_name
 
-# ---------- Main pipeline ----------
+    with open(current_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    with open(history_path, "w", encoding="utf-8") as f:
+        f.write(html)
+
+    print(f"[INFO] Saved HTML report → {report_path}")
+    print(f"[INFO] Updated current → {current_path}")
+    print(f"[INFO] Archived → {history_path}")
+
 def main():
-    # Load free embedding model
     model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
     experience_text = load_experience_library()
@@ -222,11 +256,9 @@ def main():
             href = a.get("href") or ""
             if not text or not href:
                 continue
-
             if "job" in href.lower() or "careers" in href.lower() or "jobs" in text.lower():
                 from urllib.parse import urljoin
                 full_url = urljoin(url, href) if href.startswith("/") else href
-
                 job_id = make_job_id(name, text, full_url)
                 jobs.append({
                     "id": job_id,
@@ -243,32 +275,33 @@ def main():
 
             url = job["url"]
 
-            # ---------- CACHE CHECK ----------
             if url in cache:
                 print(f"[CACHE] Using cached embedding for {url}")
                 job_embedding = cache[url]["embedding"]
-                snippet = cache[url]["snippet"]
+                company = cache[url].get("company", "")
+                posted = cache[url].get("posted", "Unknown")
             else:
                 job_html = fetch_html(url)
                 job_text = extract_job_text(job_html)
-
                 if not job_text:
                     continue
 
                 raw_embedding = model.encode(job_text)
                 job_embedding = to_python_floats(raw_embedding)
-                snippet = job_text[:300]
+                company, posted = extract_company_and_date(job_html, url)
 
                 cache[url] = {
                     "embedding": job_embedding,
-                    "snippet": snippet
+                    "company": company,
+                    "posted": posted
                 }
 
             score = cosine_similarity(experience_embedding, job_embedding)
 
             job["score"] = score
-            job["snippet"] = snippet
-            job["embedding"] = job_embedding  # JSON-safe
+            job["company"] = company
+            job["posted"] = posted
+            job["embedding"] = job_embedding
 
             scored_jobs.append(job)
             memory["jobs"].append(job)
