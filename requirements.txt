@@ -1,5 +1,4 @@
-requests
-beautifulsoup4
 pyyaml
+beautifulsoup4
 sentence-transformers
-torch
+playwright
