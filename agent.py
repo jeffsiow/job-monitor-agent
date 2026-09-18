@@ -107,24 +107,27 @@ def parse_linkedin(soup, source_name):
     return jobs
 
 def parse_generic_ats(soup, url, source_name):
-    """Fallback parser for Workday, BambooHR, Workable, Deel, etc."""
+    """Scrapes target company ATS boards and job lists."""
     jobs = []
     from urllib.parse import urljoin, urlparse
-    
     domain_name = urlparse(url).netloc.replace("www.", "").split(".")[0].title()
 
-    for a in soup.find_all("a"):
-        text = (a.get_text() or "").strip()
-        href = a.get("href") or ""
+    # Find all anchor tags across the page
+    links = soup.find_all("a", href=True)
+
+    for a in links:
+        text = a.get_text(separator=" ", strip=True)
+        href = a["href"]
         
-        # Avoid navigation footer links like 'Privacy Policy', 'Cookie', 'Sign In'
-        if not text or len(text) < 4 or any(bad in text.lower() for bad in ["privacy", "terms", "sign in", "cookie", "login", "easy apply"]):
+        # Skip utility / policy links
+        if not text or len(text) < 4 or any(bad in text.lower() for bad in ["privacy", "terms", "sign in", "cookie", "login", "alert"]):
             continue
-            
-        # Match URL patterns indicative of actual job postings
-        if any(keyword in href.lower() for keyword in ["/job/", "/careers/", "/o/", "/jobs/"]) or \
-           any(keyword in text.lower() for keyword in ["engineer", "manager", "lead", "director", "specialist"]):
-            
+
+        # Look for engineering / management roles or ATS URL indicators
+        is_job_url = any(k in href.lower() for k in ["/job", "/career", "/o/", "/jobs", "detail", "vacanc", "position", "posting"])
+        is_job_title = any(k in text.lower() for k in ["engineer", "manager", "lead", "director", "specialist", "project", "supervisor", "co-op"])
+
+        if is_job_url or is_job_title:
             full_url = urljoin(url, href)
             job_id = make_job_id(source_name, text, full_url)
             
@@ -136,6 +139,7 @@ def parse_generic_ats(soup, url, source_name):
                 "url": full_url,
                 "posted": "Recent"
             })
+            
     return jobs
 
 def extract_detailed_job_text(page, url):
