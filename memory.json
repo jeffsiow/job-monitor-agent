@@ -1,4 +1,635 @@
 {
-  "jobs": [],
+  "jobs": [
+    {
+      "id": "d44e5ab7b4f8493d",
+      "source": "indeed_ca",
+      "title": "Find salaries",
+      "company": "Ca",
+      "url": "https://www.indeed.com/career/salaries",
+      "posted": "Recent",
+      "body_text": "Security Check - Indeed.com Additional Verification Required Please enable JavaScript to complete the security check. Return home Additional Verification Required Your Ray ID for this request is a3d32f6d1d74f099 Enable JavaScript and cookies to continue Return home \u2192 Troubleshooting Cloudflare Errors Need more help? Contact us",
+      "score": -8.898409843444824
+    },
+    {
+      "id": "d44e5ab7b4f8493d",
+      "source": "indeed_ca",
+      "title": "Find salaries",
+      "company": "Ca",
+      "url": "https://www.indeed.com/career/salaries",
+      "posted": "Recent",
+      "body_text": "Security Check - Indeed.com Additional Verification Required Please enable JavaScript to complete the security check. Return home Additional Verification Required Your Ray ID for this request is a3d32f6dfd2f2549 Enable JavaScript and cookies to continue Return home \u2192 Troubleshooting Cloudflare Errors Need more help? Contact us",
+      "score": -8.93537712097168
+    },
+    {
+      "id": "9ab156aafc231ac7",
+      "source": "indeed_ca",
+      "title": "Troubleshooting Cloudflare Errors",
+      "company": "Ca",
+      "url": "https://www.indeed.com/help/job-seekers/articles/33465379855501-cloudflare-errors-basic-troubleshooting?hl=en",
+      "posted": "Recent",
+      "body_text": "Help Center Help Center for Job Seekers Topics Guides Contact Cloudflare Errors: Basic Troubleshooting Cloudflare is a service that helps protect and speed up websites. Errors usually mean a security setting or network issue blocked or interrupted your connection to the site. While you can't opt out of Cloudflare, following these steps in order may help fix the problem. Important : Contact us if you're receiving a 403 Forbidden Cloudflare error. We'll need a screenshot or recording of the issue. Desktop and mobile browsers Step 1: Disable your browser extensions. Disable all browser extensions, including privacy-related ones. Examples are McAfee, Norton 360, Survey Junkie, or Surf to Earn. Reload the page. Step 2: Turn off the VPN or proxy. Switch off any VPN or proxy services you're using. Step 3: Disable ad blockers. Switch off any ad-blocking extensions or software. Step 4: Check your browser settings. Use Chrome, Edge, Safari, or Firefox. These browsers give the best experience. Check that your browser is up to date . Enable JavaScript and cookies. Clear your browser cache. Find out how to do this for mobile or desktop browsers. Step 5: Try incognito mode. Open your browser in incognito or private mode. Step 6: Try a different browser. Open a different web browser. Make sure there are no extensions for this browser. Enter the website address to check if it loads. Mobile app Step 1: Delete and reinstall the app. Reinstall the app on your device. Check the Apple or Android Help Centers for more info. Restart your phone after reinstalling the app. Step 2: Turn off the VPN or proxy. Switch off any VPN or proxy services you're using. Step 3: Clear your cache and cookies. Check our Mobile Apps article for instructions on clearing app files and data. Next steps If you're still experiencing issues after following the steps above, you can: Step 1: Use a different network. Switch to another Wi-Fi network in your device's settings. You can also use your mobile network or hotspot. Step 2: Reset your router. Follow your router's instructions to reset it. Step 3: Use a different device. Switch between mobile and desktop. Contacting us When to contact us You still have issues after trying the steps above You're getting a 403 Forbidden Cloudflare error What to include Whether you tried the troubleshooting steps above A recording of the issue (best option) The RayID details (if possible) A full-page screenshot of the Turnstile Troubleshooter page When the issue happens",
+      "score": -9.016236305236816
+    },
+    {
+      "id": "ff19eed4d67d934c",
+      "source": "linkedin_eng",
+      "title": "Staff CIAM Software Engineer",
+      "company": "Affirm",
+      "url": "https://ca.linkedin.com/jobs/view/staff-ciam-software-engineer-at-affirm-4452701493",
+      "posted": "2 weeks ago",
+      "body_text": "Staff CIAM Software Engineer at Affirm \u2014 Calgary, Alberta, Canada | LinkedIn Jobs Skip to main content Staff CIAM Software Engineer Affirm Calgary, Alberta, Canada Apply Join or sign in to find your next job Join to apply for the Staff CIAM Software Engineer role at Affirm Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Staff CIAM Software Engineer Affirm Calgary, Alberta, Canada 2 weeks ago Be among the first 25 applicants See who Affirm has hired for this role Apply Join or sign in to find your next job Join to apply for the Staff CIAM Software Engineer role at Affirm Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Save Join or sign in to save this job Join to save Staff CIAM Software Engineer at Affirm Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Report this job At Affirm, we exist for the moments that matter\u2014giving people a clear, predictable way to pay over time, with no hidden fees, no surprises, and no tradeoffs on what matters most. Affirm is building the next generation of customer identity and authentication. This role is a hands-on engineering position inside Information Security, focused on designing and shipping core CIAM capabilities that protect customers and support growth. You will build and operate backend services that power registration, login, authorization, and account lifecycle flows across B2C and B2B experiences. You will work closely with partner engineering teams and ensure identity features are delivered with strong security fundamentals, reliability, and operational rigor. What you'll do You have 7+ years of experience designing, developing and launching backend systems at scale using languages like Python or Kotlin. You have an extensive track record of developing highly available distributed systems using technologies like AWS, MySQL, Spark and Kubernetes. You have strong verbal and written communication skills that support effective collaboration with our global engineering team. You have experience delivering ma",
+      "score": -10.071090698242188
+    },
+    {
+      "id": "158c7efedced86a1",
+      "source": "linkedin_eng",
+      "title": "Software Engineer I, Frontend (Upfunnel)",
+      "company": "Affirm",
+      "url": "https://ca.linkedin.com/jobs/view/software-engineer-i-frontend-upfunnel-at-affirm-4465178314",
+      "posted": "6 days ago",
+      "body_text": "Software Engineer I, Frontend (Upfunnel)",
+      "score": -8.63212776184082
+    },
+    {
+      "id": "e6583bc9294382c3",
+      "source": "linkedin_eng",
+      "title": "Staff, Security Engineer",
+      "company": "Fullscript",
+      "url": "https://ca.linkedin.com/jobs/view/staff-security-engineer-at-fullscript-4450679084",
+      "posted": "1 month ago",
+      "body_text": "Staff, Security Engineer",
+      "score": -8.563451766967773
+    },
+    {
+      "id": "c3548638ecb0d71c",
+      "source": "linkedin_eng",
+      "title": "Senior Mechanical Engineer",
+      "company": "DIALOG",
+      "url": "https://ca.linkedin.com/jobs/view/senior-mechanical-engineer-at-dialog-4427991963",
+      "posted": "3 months ago",
+      "body_text": "Senior Mechanical Engineer",
+      "score": -8.338390350341797
+    },
+    {
+      "id": "38c5dc2061c1b538",
+      "source": "linkedin_eng",
+      "title": "Senior Machine Learning Engineer",
+      "company": "Fullscript",
+      "url": "https://ca.linkedin.com/jobs/view/senior-machine-learning-engineer-at-fullscript-4466359241",
+      "posted": "1 week ago",
+      "body_text": "Senior Machine Learning Engineer at Fullscript \u2014 Calgary, Alberta, Canada | LinkedIn Jobs Skip to main content Senior Machine Learning Engineer Fullscript Calgary, Alberta, Canada Apply Join or sign in to find your next job Join to apply for the Senior Machine Learning Engineer role at Fullscript Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Senior Machine Learning Engineer Fullscript Calgary, Alberta, Canada 1 week ago 32 applicants See who Fullscript has hired for this role Apply Join or sign in to find your next job Join to apply for the Senior Machine Learning Engineer role at Fullscript Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Save Join or sign in to save this job Join to save Senior Machine Learning Engineer at Fullscript Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Report this job About Fullscript We\u2019re an industry-leading health technology company on a mission to help people get better. We started in 2011 with one simple idea. Make it easier for practitioners to access the products they trust so they can deliver better care. That simple idea grew into a platform that powers every part of care. Today, more than 125,000 practitioners use Fullscript for clinical insights, lab interpretations, patient analytics, education, and access to high-quality supplements. Over 10 million patients rely on Fullscript to stay connected to their care plans and follow through on treatment. We build tools that make care smarter and more human. Tools that save time, simplify decisions, and help practitioners stay closely connected to the people they care for. When everything they need is in one place, they can focus on what matters most: helping people get better. This is your invitation. Bring your ideas, your grit, and your care for people. Join us and shape the future of care. The Opportunity We\u2019re hiring a Senior Machine Learning Engineer to join our AI & Analytics Engineering team. This team builds AI-powered lab interpretation, clinician deci",
+      "score": -9.779720306396484
+    },
+    {
+      "id": "6fdc6d674ac30610",
+      "source": "linkedin_eng",
+      "title": "Junior Refrigeration Engineer/EIT",
+      "company": "LAPORTE",
+      "url": "https://ca.linkedin.com/jobs/view/junior-refrigeration-engineer-eit-at-laporte-4467568063",
+      "posted": "1 day ago",
+      "body_text": "Junior Refrigeration Engineer/EIT at LAPORTE \u2014 Greater Calgary Metropolitan Area | LinkedIn Jobs Skip to main content Junior Refrigeration Engineer/EIT LAPORTE Greater Calgary Metropolitan Area Apply Join or sign in to find your next job Join to apply for the Junior Refrigeration Engineer/EIT role at LAPORTE Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Junior Refrigeration Engineer/EIT LAPORTE Greater Calgary Metropolitan Area 1 day ago Be among the first 25 applicants See who LAPORTE has hired for this role Apply Join or sign in to find your next job Join to apply for the Junior Refrigeration Engineer/EIT role at LAPORTE Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Save Join or sign in to save this job Join to save Junior Refrigeration Engineer/EIT at LAPORTE Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Report this job LAPORTE is a consulting engineering firm providing high-value engineering services to the pharmaceutical, food and beverage, industrial biotechnology, and industrial manufacturing sectors, with 30 offices across North America and Europe and more than 520 dedicated employees. We are an independent company wholly owned by 45 of our principal engineers. We offer a stimulating environment where autonomy, collaboration and professional growth are at the heart of our daily work. We believe in a flexible working environment that values work-life balance while encouraging efficiency and creativity on a daily basis. Discover an employer who takes care of its greatest asset: its employees! Canada LAPORTE is seeking a Refrigeration Engineer with 1 to 2 years of experience in industrial refrigeration system design and analysis. This hybrid position is available in all of our office locations in Canada. Reporting to the Lead Engineer, our Refrigeration Engineer will contribute to the design, analysis, and implementation of refrigeration systems for food & beverage, pharmaceutical, and biotech process systems. Responsibilities: Collabor",
+      "score": -9.837217330932617
+    },
+    {
+      "id": "81e28add258264cf",
+      "source": "linkedin_eng",
+      "title": "Junior Refrigeration Engineer/EIT",
+      "company": "LAPORTE",
+      "url": "https://ca.linkedin.com/jobs/view/junior-refrigeration-engineer-eit-at-laporte-4453493601",
+      "posted": "1 day ago",
+      "body_text": "Junior Refrigeration Engineer/EIT at LAPORTE \u2014 Calgary, Alberta, Canada | LinkedIn Jobs Skip to main content Junior Refrigeration Engineer/EIT LAPORTE Calgary, Alberta, Canada Apply Junior Refrigeration Engineer/EIT LAPORTE Calgary, Alberta, Canada 1 day ago Be among the first 25 applicants See who LAPORTE has hired for this role Apply Save Join or sign in to save this job Join to save Junior Refrigeration Engineer/EIT at LAPORTE Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Report this job Direct message the job poster from LAPORTE Aloys Doumergue Aloys Doumergue Bilingual Talent Acquisition Advisor LAPORTE is a consulting engineering firm providing high-value engineering services to the pharmaceutical, food and beverage, industrial biotechnology, and industrial manufacturing sectors, with 30 offices across North America and Europe and more than 520 dedicated employees. We are an independent company wholly owned by 45 of our principal engineers. We offer a stimulating environment where autonomy, collaboration and professional growth are at the heart of our daily work. We believe in a flexible working environment that values work-life balance while encouraging efficiency and creativity on a daily basis. Discover an employer who takes care of its greatest asset: its employees! Calgary, AB LAPORTE is seeking a Refrigeration Engineer with 1 to 2 years of experience in industrial refrigeration system design and analysis. This hybrid position is available in all of our office locations in Canada. Reporting to the Lead Engineer, our Refrigeration Engineer will contribute to the design, analysis, and implementation of refrigeration systems for food & beverage, pharmaceutical, and biotech process systems. Responsibilities: Collaborate on the design and analysis of refrigeration plants and systems; Perform CAD drafting of refrigeration system schematics and layouts in AutoCAD; Supervise and perform drafting of refrigeration system schematics and layouts in Revit and/or Plant3D; Conduct safety and code compliance audits; Participate in developing refrigeration-related SOPs, HAZOPS, and other safety analyses; Conduct site inspections of refrigeration systems; Write, format, and proofread specifications, proposals, reports, templates, and other documents; Organize and maintain project records; Pr",
+      "score": -9.574668884277344
+    },
+    {
+      "id": "311c70e1299ccaec",
+      "source": "linkedin_eng",
+      "title": "Senior Cybersecurity Engineer",
+      "company": "Charger Logistics Inc.",
+      "url": "https://ca.linkedin.com/jobs/view/senior-cybersecurity-engineer-at-charger-logistics-inc-4468617698",
+      "posted": "1 day ago",
+      "body_text": "Senior Cybersecurity Engineer at Charger Logistics Inc. \u2014 Calgary, Alberta, Canada | LinkedIn Jobs Skip to main content Senior Cybersecurity Engineer Charger Logistics Inc. Calgary, Alberta, Canada Apply Senior Cybersecurity Engineer Charger Logistics Inc. Calgary, Alberta, Canada 1 day ago 33 applicants See who Charger Logistics Inc. has hired for this role Apply Save Join or sign in to save this job Join to save Senior Cybersecurity Engineer at Charger Logistics Inc. Email or phone Password Show Forgot password? Sign in Sign in with Email or New to LinkedIn? Join now By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie Policy . Report this job Charger logistics Inc. is a world- class asset-based carrier with locations across North America. With over 20 years of experience providing the best logistics solutions, Charger logistics has transformed into a world-class transport provider and continue to grow. We are looking for a Senior Cybersecurity Engineer to design, implement, operate, and continuously improve cybersecurity capabilities across endpoint, identity, network, cloud, and security operations. The ideal candidate will bring strong enterprise experience across security engineering, threat detection, incident response, vulnerability management, and cloud security. This is a hands-on technical engineering role, focused on building, configuring, investigating, tuning, and automating security technologies. The role is not primarily focused on governance, risk, compliance, policy, or security management, but on strengthening the organization's security posture through practical technical implementation and continuous improvement. Responsibilities: Security Operations & SIEM : Design, configure, and optimize Microsoft Sentinel, including data ingestion, analytics rules, workbooks, alerts, and security monitoring. Threat Detection & Hunting: Develop and tune detection capabilities using Microsoft Defender XDR and KQL, and proactively hunt for suspicious activity and emerging threats. Identity & Cloud Security: Implement and maintain security controls across Microsoft Entra ID, Azure, and cloud environments, with a focus on identity protection and Zero Trust principles. Endpoint & Network Security: Engineer and improve security controls across endpoints, networks, and cloud infrastructure to reduce attack surface and strengthen protection. Incident Response: Investigate and respond to security incid",
+      "score": -9.203949928283691
+    },
+    {
+      "id": "e13e0377abc05dbd",
+      "source": "linkedin_eng",
+      "title": "Senior Transportation Engineer",
+      "company": "HDR",
+      "url": "https://ca.linkedin.com/jobs/view/senior-transportation-engineer-at-hdr-4451914740",
+      "posted": "2 weeks ago",
+      "body_text": "Senior Transportation Engineer",
+      "score": -8.76716136932373
+    },
+    {
+      "id": "4317132dfb528fb7",
+      "source": "linkedin_eng",
+      "title": "Senior Hydraulic Engineer \u2013 Hydropower Plants and Dams",
+      "company": "AECOM",
+      "url": "https://ca.linkedin.com/jobs/view/senior-hydraulic-engineer-%E2%80%93-hydropower-plants-and-dams-at-aecom-4457182115",
+      "posted": "3 weeks ago",
+      "body_text": "Senior Hydraulic Engineer \u2013 Hydropower Plants and Dams",
+      "score": -9.029241561889648
+    },
+    {
+      "id": "b352b439b939e3c4",
+      "source": "linkedin_eng",
+      "title": "Senior Heavy Mechanical Engineer \u2013 Hydropower and Dams",
+      "company": "AECOM",
+      "url": "https://ca.linkedin.com/jobs/view/senior-heavy-mechanical-engineer-%E2%80%93-hydropower-and-dams-at-aecom-4457165515",
+      "posted": "3 weeks ago",
+      "body_text": "Senior Heavy Mechanical Engineer \u2013 Hydropower and Dams",
+      "score": -8.498497009277344
+    },
+    {
+      "id": "4c6b32d4b9cf51af",
+      "source": "linkedin_eng",
+      "title": "Senior Drainage Engineer",
+      "company": "Mott MacDonald",
+      "url": "https://ca.linkedin.com/jobs/view/senior-drainage-engineer-at-mott-macdonald-4438537304",
+      "posted": "1 week ago",
+      "body_text": "Senior Drainage Engineer",
+      "score": -8.659780502319336
+    },
+    {
+      "id": "0abb2220d753a822",
+      "source": "linkedin_eng",
+      "title": "Senior Mechanical Power Engineer",
+      "company": "HDR",
+      "url": "https://ca.linkedin.com/jobs/view/senior-mechanical-power-engineer-at-hdr-4393034288",
+      "posted": "3 weeks ago",
+      "body_text": "Senior Mechanical Power Engineer",
+      "score": -8.37844181060791
+    },
+    {
+      "id": "02b77d0899968eba",
+      "source": "linkedin_eng",
+      "title": "Senior Transmission Engineer (Calgary)",
+      "company": "Burns & McDonnell",
+      "url": "https://ca.linkedin.com/jobs/view/senior-transmission-engineer-calgary-at-burns-mcdonnell-4456117297",
+      "posted": "1 week ago",
+      "body_text": "Senior Transmission Engineer (Calgary)",
+      "score": -8.861875534057617
+    },
+    {
+      "id": "2378e35dd31b0500",
+      "source": "linkedin_eng",
+      "title": "Staff Engineer",
+      "company": "ZayZoon",
+      "url": "https://ca.linkedin.com/jobs/view/staff-engineer-at-zayzoon-4427674410",
+      "posted": "3 months ago",
+      "body_text": "Staff Engineer",
+      "score": -8.542143821716309
+    },
+    {
+      "id": "1e6e3656e80fe500",
+      "source": "linkedin_eng",
+      "title": "Mechanical Engineer, Mission Critical",
+      "company": "Stantec",
+      "url": "https://ca.linkedin.com/jobs/view/mechanical-engineer-mission-critical-at-stantec-4468341507",
+      "posted": "3 weeks ago",
+      "body_text": "Mechanical Engineer, Mission Critical",
+      "score": -8.226900100708008
+    },
+    {
+      "id": "8a4e9a1235cd9652",
+      "source": "linkedin_eng",
+      "title": "Senior Signalling Engineer, Rail & Transit",
+      "company": "WSP in Canada",
+      "url": "https://ca.linkedin.com/jobs/view/senior-signalling-engineer-rail-transit-at-wsp-in-canada-4441840382",
+      "posted": "1 week ago",
+      "body_text": "Senior Signalling Engineer, Rail & Transit",
+      "score": -8.858173370361328
+    },
+    {
+      "id": "43be6e8a5591c879",
+      "source": "linkedin_eng",
+      "title": "Software Engineer - Magnet One (front-end, back-end, or full-stack opportunities)",
+      "company": "Magnet Forensics",
+      "url": "https://ca.linkedin.com/jobs/view/software-engineer-magnet-one-front-end-back-end-or-full-stack-opportunities-at-magnet-forensics-4446358739",
+      "posted": "1 week ago",
+      "body_text": "Software Engineer - Magnet One (front-end, back-end, or full-stack opportunities)",
+      "score": -8.710453033447266
+    },
+    {
+      "id": "5343e294b3357b94",
+      "source": "linkedin_eng",
+      "title": "Electrical Engineer - Electric Power",
+      "company": "Enerflex Ltd.",
+      "url": "https://ca.linkedin.com/jobs/view/electrical-engineer-electric-power-at-enerflex-ltd-4459238963",
+      "posted": "2 weeks ago",
+      "body_text": "Electrical Engineer - Electric Power",
+      "score": -8.720952987670898
+    },
+    {
+      "id": "e7f5ab9cbec23be7",
+      "source": "linkedin_eng",
+      "title": "Senior Substation Design Engineer",
+      "company": "Spark Power \u26a1",
+      "url": "https://ca.linkedin.com/jobs/view/senior-substation-design-engineer-at-spark-power-%E2%9A%A1-4357721701",
+      "posted": "1 week ago",
+      "body_text": "Senior Substation Design Engineer",
+      "score": -8.52760124206543
+    },
+    {
+      "id": "024fa845494f7890",
+      "source": "linkedin_eng",
+      "title": "Principal Structural Engineer- Global Energy Services",
+      "company": "Rimkus",
+      "url": "https://ca.linkedin.com/jobs/view/principal-structural-engineer-global-energy-services-at-rimkus-4446669302",
+      "posted": "1 month ago",
+      "body_text": "Principal Structural Engineer- Global Energy Services",
+      "score": -8.675251007080078
+    },
+    {
+      "id": "4a7c4c711a9494e4",
+      "source": "linkedin_eng",
+      "title": "AI/ML Platform Software Developer",
+      "company": "Curve Dental",
+      "url": "https://ca.linkedin.com/jobs/view/ai-ml-platform-software-developer-at-curve-dental-4436179837",
+      "posted": "2 months ago",
+      "body_text": "AI/ML Platform Software Developer",
+      "score": -8.725818634033203
+    },
+    {
+      "id": "5e54d5ff1ba480d0",
+      "source": "linkedin_eng",
+      "title": "Transmission Lines Engineer",
+      "company": "AtkinsR\u00e9alis",
+      "url": "https://ca.linkedin.com/jobs/view/transmission-lines-engineer-at-atkinsr%C3%A9alis-4407158978",
+      "posted": "4 months ago",
+      "body_text": "Transmission Lines Engineer",
+      "score": -8.681573867797852
+    },
+    {
+      "id": "b0ab8fe0a5a1420d",
+      "source": "linkedin_eng",
+      "title": "Senior Mobile Engineer (iOS or Android)",
+      "company": "Cohere",
+      "url": "https://ca.linkedin.com/jobs/view/senior-mobile-engineer-ios-or-android-at-cohere-4458308546",
+      "posted": "1 day ago",
+      "body_text": "Senior Mobile Engineer (iOS or Android)",
+      "score": -8.63614273071289
+    },
+    {
+      "id": "e764e315f56284f6",
+      "source": "linkedin_eng",
+      "title": "Senior Hydrotechnical Engineer (Open Channel Hydraulics)",
+      "company": "WSP in Canada",
+      "url": "https://ca.linkedin.com/jobs/view/senior-hydrotechnical-engineer-open-channel-hydraulics-at-wsp-in-canada-4439871337",
+      "posted": "3 days ago",
+      "body_text": "Senior Hydrotechnical Engineer (Open Channel Hydraulics)",
+      "score": -9.053398132324219
+    },
+    {
+      "id": "51ea41c9b3573089",
+      "source": "linkedin_eng",
+      "title": "Senior Signaling and Communications Engineer",
+      "company": "AtkinsR\u00e9alis",
+      "url": "https://ca.linkedin.com/jobs/view/senior-signaling-and-communications-engineer-at-atkinsr%C3%A9alis-4409915653",
+      "posted": "3 months ago",
+      "body_text": "Senior Signaling and Communications Engineer",
+      "score": -8.546339988708496
+    },
+    {
+      "id": "9b78793af0b8c9cc",
+      "source": "linkedin_eng",
+      "title": "Specialist Mechanical Engineer - Heat Transfer Equipment",
+      "company": "Worley",
+      "url": "https://ca.linkedin.com/jobs/view/specialist-mechanical-engineer-heat-transfer-equipment-at-worley-4429785164",
+      "posted": "1 week ago",
+      "body_text": "Specialist Mechanical Engineer - Heat Transfer Equipment",
+      "score": -8.37784194946289
+    },
+    {
+      "id": "11e634cd3a36b5df",
+      "source": "linkedin_eng",
+      "title": "Civil Engineer",
+      "company": "Mott MacDonald",
+      "url": "https://ca.linkedin.com/jobs/view/civil-engineer-at-mott-macdonald-4438536341",
+      "posted": "1 week ago",
+      "body_text": "Civil Engineer",
+      "score": -8.737163543701172
+    },
+    {
+      "id": "3eb0a4fd8c9ad828",
+      "source": "linkedin_eng",
+      "title": "Senior Structural Engineer",
+      "company": "WalterFedy",
+      "url": "https://ca.linkedin.com/jobs/view/senior-structural-engineer-at-walterfedy-4464813851",
+      "posted": "1 week ago",
+      "body_text": "Senior Structural Engineer",
+      "score": -8.652256965637207
+    },
+    {
+      "id": "056576f1238145da",
+      "source": "linkedin_eng",
+      "title": "Senior GNSS Engineer",
+      "company": "u-blox",
+      "url": "https://ca.linkedin.com/jobs/view/senior-gnss-engineer-at-u-blox-4467205309",
+      "posted": "4 days ago",
+      "body_text": "Senior GNSS Engineer",
+      "score": -8.491312026977539
+    },
+    {
+      "id": "bc60efa6714fa7c0",
+      "source": "linkedin_eng",
+      "title": "Principal Mechanical Engineer - HVAC",
+      "company": "Worley",
+      "url": "https://ca.linkedin.com/jobs/view/principal-mechanical-engineer-hvac-at-worley-4441277538",
+      "posted": "3 weeks ago",
+      "body_text": "Principal Mechanical Engineer - HVAC",
+      "score": -8.437442779541016
+    },
+    {
+      "id": "0a09ee3a72770084",
+      "source": "linkedin_eng",
+      "title": "Senior Backend Engineer",
+      "company": "Plooto",
+      "url": "https://ca.linkedin.com/jobs/view/senior-backend-engineer-at-plooto-4466567469",
+      "posted": "3 days ago",
+      "body_text": "Senior Backend Engineer",
+      "score": -8.50250244140625
+    },
+    {
+      "id": "b0e581180c23127d",
+      "source": "linkedin_eng",
+      "title": "Structural Design Engineer - Kiewit Power Engineering",
+      "company": "Kiewit",
+      "url": "https://ca.linkedin.com/jobs/view/structural-design-engineer-kiewit-power-engineering-at-kiewit-4437919952",
+      "posted": "1 week ago",
+      "body_text": "Structural Design Engineer - Kiewit Power Engineering",
+      "score": -8.58530044555664
+    },
+    {
+      "id": "73392fbd91541f5f",
+      "source": "linkedin_eng",
+      "title": "AC Mitigation Engineer",
+      "company": "Stantec",
+      "url": "https://ca.linkedin.com/jobs/view/ac-mitigation-engineer-at-stantec-4468330528",
+      "posted": "3 weeks ago",
+      "body_text": "AC Mitigation Engineer",
+      "score": -8.504556655883789
+    },
+    {
+      "id": "314b661c57aaf9f2",
+      "source": "linkedin_eng",
+      "title": "Staff Substation Engineer (Calgary)",
+      "company": "Burns & McDonnell",
+      "url": "https://ca.linkedin.com/jobs/view/staff-substation-engineer-calgary-at-burns-mcdonnell-4450625975",
+      "posted": "4 hours ago",
+      "body_text": "Staff Substation Engineer (Calgary)",
+      "score": -8.681761741638184
+    },
+    {
+      "id": "b76f9352f84dd46b",
+      "source": "linkedin_eng",
+      "title": "Senior P&C Engineer",
+      "company": "CIMA+",
+      "url": "https://ca.linkedin.com/jobs/view/senior-p-c-engineer-at-cima%2B-4456791598",
+      "posted": "4 weeks ago",
+      "body_text": "Senior P&C Engineer",
+      "score": -8.251025199890137
+    },
+    {
+      "id": "39403cb5eb580fbd",
+      "source": "linkedin_eng",
+      "title": "Senior Structural Engineer - Dynamic Design Specialist",
+      "company": "Wood",
+      "url": "https://ca.linkedin.com/jobs/view/senior-structural-engineer-dynamic-design-specialist-at-wood-4375864524",
+      "posted": "2 weeks ago",
+      "body_text": "Senior Structural Engineer - Dynamic Design Specialist",
+      "score": -8.557769775390625
+    },
+    {
+      "id": "bd308b955e7d4f2d",
+      "source": "linkedin_eng",
+      "title": "Senior Mechanical Engineer",
+      "company": "TransAlta",
+      "url": "https://ca.linkedin.com/jobs/view/senior-mechanical-engineer-at-transalta-4468246749",
+      "posted": "2 days ago",
+      "body_text": "Senior Mechanical Engineer",
+      "score": -8.341157913208008
+    },
+    {
+      "id": "a9207cf22b2e3169",
+      "source": "linkedin_eng",
+      "title": "Intermediate Electrical Engineer",
+      "company": "Spark Power \u26a1",
+      "url": "https://ca.linkedin.com/jobs/view/intermediate-electrical-engineer-at-spark-power-%E2%9A%A1-4428091526",
+      "posted": "1 week ago",
+      "body_text": "Intermediate Electrical Engineer",
+      "score": -8.678333282470703
+    },
+    {
+      "id": "6505894076f22758",
+      "source": "linkedin_eng",
+      "title": "Mechanical Engineer",
+      "company": "VulcanX",
+      "url": "https://ca.linkedin.com/jobs/view/mechanical-engineer-at-vulcanx-4462659195",
+      "posted": "1 week ago",
+      "body_text": "Mechanical Engineer",
+      "score": -8.368701934814453
+    },
+    {
+      "id": "5e8cb7e999eb821d",
+      "source": "linkedin_eng",
+      "title": "Entry Level Full Stack Engineer - Chat Platform (Remote - Canada)",
+      "company": "Yelp",
+      "url": "https://ca.linkedin.com/jobs/view/entry-level-full-stack-engineer-chat-platform-remote-canada-at-yelp-4459883601",
+      "posted": "10 hours ago",
+      "body_text": "Entry Level Full Stack Engineer - Chat Platform (Remote - Canada)",
+      "score": -8.756532669067383
+    },
+    {
+      "id": "d70c4fffb6fd43f9",
+      "source": "linkedin_eng",
+      "title": "Structural Engineer",
+      "company": "Millenia Engineering",
+      "url": "https://ca.linkedin.com/jobs/view/structural-engineer-at-millenia-engineering-4464123079",
+      "posted": "1 week ago",
+      "body_text": "Structural Engineer",
+      "score": -8.610578536987305
+    },
+    {
+      "id": "8aae5016af4c5ccd",
+      "source": "linkedin_eng",
+      "title": "Intermediate Structural Engineer in Calgary, Alberta",
+      "company": "Arcadis",
+      "url": "https://ca.linkedin.com/jobs/view/intermediate-structural-engineer-in-calgary-alberta-at-arcadis-4461497057",
+      "posted": "1 week ago",
+      "body_text": "Intermediate Structural Engineer in Calgary, Alberta",
+      "score": -8.965526580810547
+    },
+    {
+      "id": "a5f7356f5727dc96",
+      "source": "linkedin_eng",
+      "title": "Senior Cloud Engineer",
+      "company": "Ledcor",
+      "url": "https://ca.linkedin.com/jobs/view/senior-cloud-engineer-at-ledcor-4455982479",
+      "posted": "4 weeks ago",
+      "body_text": "Senior Cloud Engineer",
+      "score": -8.640291213989258
+    },
+    {
+      "id": "35112ae4bcbfc0f1",
+      "source": "linkedin_eng",
+      "title": "Structures Engineer III",
+      "company": "Avmax Group",
+      "url": "https://ca.linkedin.com/jobs/view/structures-engineer-iii-at-avmax-group-4343468071",
+      "posted": "9 months ago",
+      "body_text": "Structures Engineer III",
+      "score": -8.511314392089844
+    },
+    {
+      "id": "d8aa3e4d9346ccea",
+      "source": "linkedin_eng",
+      "title": "Fire Protection Engineer, P.Eng",
+      "company": "Tecnicas Reunidas",
+      "url": "https://ca.linkedin.com/jobs/view/fire-protection-engineer-p-eng-at-tecnicas-reunidas-4465938235",
+      "posted": "2 days ago",
+      "body_text": "Fire Protection Engineer, P.Eng",
+      "score": -7.767341136932373
+    },
+    {
+      "id": "faf3cd950adca062",
+      "source": "linkedin_eng",
+      "title": "Entry Level Machine Learning Engineer (Remote - Canada)",
+      "company": "Yelp",
+      "url": "https://ca.linkedin.com/jobs/view/entry-level-machine-learning-engineer-remote-canada-at-yelp-4458273895",
+      "posted": "3 days ago",
+      "body_text": "Entry Level Machine Learning Engineer (Remote - Canada)",
+      "score": -8.68842887878418
+    },
+    {
+      "id": "479440082d214005",
+      "source": "linkedin_eng",
+      "title": "Principal GNSS Engineer",
+      "company": "u-blox",
+      "url": "https://ca.linkedin.com/jobs/view/principal-gnss-engineer-at-u-blox-4467210298",
+      "posted": "4 days ago",
+      "body_text": "Principal GNSS Engineer",
+      "score": -8.533464431762695
+    },
+    {
+      "id": "09997e6bc98aa082",
+      "source": "linkedin_eng",
+      "title": "Senior Structural Engineer",
+      "company": "Klohn Crippen Berger",
+      "url": "https://ca.linkedin.com/jobs/view/senior-structural-engineer-at-klohn-crippen-berger-4456021284",
+      "posted": "4 weeks ago",
+      "body_text": "Senior Structural Engineer",
+      "score": -8.512091636657715
+    },
+    {
+      "id": "3e5bf582bfc52bea",
+      "source": "linkedin_eng",
+      "title": "Substation Protection & Control Engineer",
+      "company": "Qualus",
+      "url": "https://ca.linkedin.com/jobs/view/substation-protection-control-engineer-at-qualus-4463928438",
+      "posted": "1 week ago",
+      "body_text": "Substation Protection & Control Engineer",
+      "score": -8.546066284179688
+    },
+    {
+      "id": "97a21786606d0f5e",
+      "source": "linkedin_eng",
+      "title": "Electrical Engineer P&C",
+      "company": "CIMA+",
+      "url": "https://ca.linkedin.com/jobs/view/electrical-engineer-p-c-at-cima%2B-4457002212",
+      "posted": "4 weeks ago",
+      "body_text": "Electrical Engineer P&C",
+      "score": -8.4044828414917
+    },
+    {
+      "id": "b589c92c77da2ae3",
+      "source": "linkedin_eng",
+      "title": "Senior Facilities Engineer",
+      "company": "Harvest Operations Corp.",
+      "url": "https://ca.linkedin.com/jobs/view/senior-facilities-engineer-at-harvest-operations-corp-4467574119",
+      "posted": "1 day ago",
+      "body_text": "Senior Facilities Engineer",
+      "score": -8.60336685180664
+    },
+    {
+      "id": "810593b1c634711b",
+      "source": "linkedin_eng",
+      "title": "Mechanical Colo Regional Engineer, Colocation Regional Engineering- AMER",
+      "company": "Amazon Web Services (AWS)",
+      "url": "https://ca.linkedin.com/jobs/view/mechanical-colo-regional-engineer-colocation-regional-engineering-amer-at-amazon-web-services-aws-4455931534",
+      "posted": "1 week ago",
+      "body_text": "Mechanical Colo Regional Engineer, Colocation Regional Engineering- AMER",
+      "score": -8.384191513061523
+    },
+    {
+      "id": "81748881dcbe6002",
+      "source": "linkedin_eng",
+      "title": "Senior Structural Engineer",
+      "company": "BBA Consultants",
+      "url": "https://ca.linkedin.com/jobs/view/senior-structural-engineer-at-bba-consultants-4441654337",
+      "posted": "2 hours ago",
+      "body_text": "Senior Structural Engineer",
+      "score": -8.606498718261719
+    },
+    {
+      "id": "039fe163e08f94e2",
+      "source": "linkedin_eng",
+      "title": "Platform Software Developer (2026-015)",
+      "company": "Circle Cardiovascular Imaging",
+      "url": "https://ca.linkedin.com/jobs/view/platform-software-developer-2026-015-at-circle-cardiovascular-imaging-4463714097",
+      "posted": "1 day ago",
+      "body_text": "Platform Software Developer (2026-015)",
+      "score": -8.597214698791504
+    },
+    {
+      "id": "936f7e18ddd3e2e6",
+      "source": "linkedin_eng",
+      "title": "Civil Engineer (P.ENG.)",
+      "company": "Tecnicas Reunidas",
+      "url": "https://ca.linkedin.com/jobs/view/civil-engineer-p-eng-at-tecnicas-reunidas-4466283561",
+      "posted": "1 day ago",
+      "body_text": "Civil Engineer (P.ENG.)",
+      "score": -7.723954200744629
+    },
+    {
+      "id": "a0de0f3726294504",
+      "source": "linkedin_eng",
+      "title": "Senior Mechanical Engineer",
+      "company": "BEUMER Group",
+      "url": "https://ca.linkedin.com/jobs/view/senior-mechanical-engineer-at-beumer-group-4457104296",
+      "posted": "4 days ago",
+      "body_text": "Senior Mechanical Engineer",
+      "score": -8.294048309326172
+    },
+    {
+      "id": "b0cbe03a1d1bfd8d",
+      "source": "linkedin_eng",
+      "title": "Senior Control Systems (I&C) Engineer",
+      "company": "Bantrel Co.",
+      "url": "https://ca.linkedin.com/jobs/view/senior-control-systems-i-c-engineer-at-bantrel-co-4457072555",
+      "posted": "6 days ago",
+      "body_text": "Senior Control Systems (I&C) Engineer",
+      "score": -8.56109619140625
+    },
+    {
+      "id": "0528bb943f170e15",
+      "source": "linkedin_eng",
+      "title": "Senior Substation Protection & Control Engineer",
+      "company": "Qualus",
+      "url": "https://ca.linkedin.com/jobs/view/senior-substation-protection-control-engineer-at-qualus-4463934381",
+      "posted": "1 week ago",
+      "body_text": "Senior Substation Protection & Control Engineer",
+      "score": -8.553421020507812
+    },
+    {
+      "id": "bc439ac34bea5a6c",
+      "source": "linkedin_eng",
+      "title": "Staff Software Engineer",
+      "company": "Syndio",
+      "url": "https://ca.linkedin.com/jobs/view/staff-software-engineer-at-syndio-4468826834",
+      "posted": "21 hours ago",
+      "body_text": "Staff Software Engineer",
+      "score": -8.595826148986816
+    }
+  ],
   "cache": {}
 }
