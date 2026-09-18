@@ -69,15 +69,14 @@ def is_duplicate(job, memory):
 # ---------------------------------------------------------
 
 def fetch_page_content(page, url):
-    """Navigates to URL, waits for network idle, and returns HTML content."""
+    """Navigates to URL with strict 10s timeout to avoid hanging."""
     try:
-        page.goto(url, wait_until="networkidle", timeout=30000)
-        # Scroll down slightly to trigger dynamic lazy loading
-        page.evaluate("window.scrollBy(0, 800)")
-        time.sleep(2)
+        # Use domcontentloaded instead of networkidle
+        page.goto(url, wait_until="domcontentloaded", timeout=10000)
+        time.sleep(1) # Short wait for initial JS
         return page.content()
     except Exception as e:
-        print(f"[WARN] Failed to fetch {url}: {e}")
+        print(f"[SKIP] Timeout or error loading {url}")
         return ""
 
 def parse_linkedin(soup, source_name):
@@ -140,9 +139,14 @@ def parse_generic_ats(soup, url, source_name):
     return jobs
 
 def extract_detailed_job_text(page, url):
-    """Extracts job body text from specific posting URLs."""
-    html = fetch_page_content(page, url)
-    if not html:
+    """Fast extraction for individual job descriptions."""
+    try:
+        page.goto(url, wait_until="domcontentloaded", timeout=8000)
+        soup = BeautifulSoup(page.content(), "html.parser")
+        for tag in soup(["script", "style", "nav", "footer", "header"]):
+            tag.decompose()
+        return soup.get_text(separator=" ", strip=True)[:2500]
+    except Exception:
         return ""
     
     soup = BeautifulSoup(html, "html.parser")
