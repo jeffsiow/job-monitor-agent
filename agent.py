@@ -248,20 +248,78 @@ def write_html_report(scored_jobs):
 <meta charset="UTF-8">
 <title>Job Matching Report — {today}</title>
 <style>
-  body {{ font-family: system-ui, sans-serif; margin: 30px; background: #f8f9fa; color: #333; }}
-  h1 {{ color: #1a252f; }}
+  body {{ font-family: system-ui, -apple-system, sans-serif; margin: 30px; background: #f8f9fa; color: #333; }}
+  h1 {{ margin-bottom: 5px; color: #1a252f; }}
+  .sub {{ color: #6c757d; margin-bottom: 20px; }}
+  #searchBox {{ padding: 10px; width: 320px; font-size: 14px; margin-bottom: 20px; border: 1px solid #ced4da; border-radius: 4px; }}
   table {{ border-collapse: collapse; width: 100%; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
   th, td {{ padding: 12px 15px; text-align: left; border-bottom: 1px solid #e9ecef; }}
-  th {{ background-color: #0066cc; color: white; }}
+  th {{ background-color: #0066cc; color: white; cursor: pointer; user-select: none; position: relative; }}
+  th:hover {{ background-color: #0052a5; }}
+  th.asc::after {{ content: " ▲"; font-size: 10px; }}
+  th.desc::after {{ content: " ▼"; font-size: 10px; }}
+  tr:hover {{ background-color: #f1f5f9; }}
   .score-badge {{ font-weight: bold; padding: 4px 8px; border-radius: 4px; background: #e3f2fd; color: #0d47a1; }}
-  a.btn {{ text-decoration: none; background: #28a745; color: white; padding: 6px 12px; border-radius: 4px; font-size: 13px; }}
+  a.btn {{ text-decoration: none; background: #28a745; color: white; padding: 6px 12px; border-radius: 4px; font-size: 13px; display: inline-block; }}
+  a.btn:hover {{ background: #218838; }}
 </style>
+<script>
+function filterTable() {{
+  var input = document.getElementById("searchBox").value.toLowerCase();
+  var rows = document.getElementById("jobTable").rows;
+  for (var i = 1; i < rows.length; i++) {{
+    var rowText = rows[i].innerText.toLowerCase();
+    rows[i].style.display = rowText.includes(input) ? "" : "none";
+  }}
+}}
+
+function sortTable(columnIndex) {{
+  var table = document.getElementById("jobTable");
+  var rows = Array.from(table.rows).slice(1);
+  var headers = table.querySelectorAll("th");
+  var currentHeader = headers[columnIndex];
+  var isAscending = currentHeader.classList.contains("asc");
+
+  headers.forEach(h => h.classList.remove("asc", "desc"));
+
+  rows.sort(function(rowA, rowB) {{
+    var cellA = rowA.cells[columnIndex].innerText.trim();
+    var cellB = rowB.cells[columnIndex].innerText.trim();
+
+    var numA = parseFloat(cellA);
+    var numB = parseFloat(cellB);
+
+    if (!isNaN(numA) && !isNaN(numB)) {{
+      return isAscending ? numA - numB : numB - numA;
+    }}
+
+    return isAscending 
+      ? cellA.localeCompare(cellB, undefined, {{numeric: true, sensitivity: 'base'}})
+      : cellB.localeCompare(cellA, undefined, {{numeric: true, sensitivity: 'base'}});
+  }});
+
+  currentHeader.classList.add(isAscending ? "desc" : "asc");
+
+  var tbody = table.querySelector("tbody");
+  rows.forEach(row => tbody.appendChild(row));
+}}
+</script>
 </head>
 <body>
-<h1>🎯 Daily Job Match Recommendations ({today})</h1>
-<table>
+
+<h1>🎯 Daily Job Match Recommendations</h1>
+<p class="sub">Generated on {today} • Click column headers to sort</p>
+<input type="text" id="searchBox" onkeyup="filterTable()" placeholder="Filter by title, company, or source...">
+
+<table id="jobTable">
 <thead>
-<tr><th>Score</th><th>Job Title</th><th>Company</th><th>Source</th><th>Action</th></tr>
+<tr>
+  <th onclick="sortTable(0)" class="desc">Score</th>
+  <th onclick="sortTable(1)">Job Title</th>
+  <th onclick="sortTable(2)">Company</th>
+  <th onclick="sortTable(3)">Source</th>
+  <th onclick="sortTable(4)">Action</th>
+</tr>
 </thead>
 <tbody>
 """
@@ -275,7 +333,12 @@ def write_html_report(scored_jobs):
   <td><a href="{job['url']}" target="_blank" class="btn">View Posting</a></td>
 </tr>
 """
-    html += "</tbody></table></body></html>"
+    html += """
+</tbody>
+</table>
+</body>
+</html>
+"""
 
     with open(REPORTS_DIR / f"report-{today}.html", "w", encoding="utf-8") as f:
         f.write(html)
