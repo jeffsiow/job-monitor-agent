@@ -12,7 +12,6 @@ from sentence_transformers import CrossEncoder
 
 BASE_DIR = Path(__file__).parent
 EXPERIENCE_PATH = BASE_DIR / "experience_library.md"
-SOURCES_PATH = BASE_DIR / "sources.yaml"
 REPORTS_DIR = BASE_DIR / "reports"
 DOCS_DIR = BASE_DIR / "docs"
 
@@ -29,11 +28,11 @@ def make_job_id(source_name, title, url):
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 # ---------------------------------------------------------
-# Robust Fetchers
+# Updated Fetchers
 # ---------------------------------------------------------
 
-def fetch_google_jobs(query="Project Manager", location="Calgary, AB"):
-    """Fetches job listings via SerpAPI (aggregates Indeed, LinkedIn, Direct)."""
+def fetch_google_jobs(query="Project Engineer", location="Calgary, AB"):
+    """Fetches job listings via SerpAPI with increased timeout (45s)."""
     jobs = []
     api_key = os.getenv("SERPAPI_KEY")
     if not api_key:
@@ -47,7 +46,8 @@ def fetch_google_jobs(query="Project Manager", location="Calgary, AB"):
         "api_key": api_key
     }
     try:
-        resp = requests.get(url, params=params, timeout=15)
+        # Increased timeout to 45s as SerpAPI live job scraping can take 20s+
+        resp = requests.get(url, params=params, timeout=45)
         if resp.status_code == 200:
             results = resp.json().get("jobs_results", [])
             for item in results:
@@ -75,7 +75,7 @@ def fetch_bamboohr_eavor():
     jobs = []
     url = "https://eavortechnologies.bamboohr.com/careers/list"
     try:
-        resp = requests.get(url, headers={"Accept": "application/json"}, timeout=10)
+        resp = requests.get(url, headers={"Accept": "application/json"}, timeout=15)
         if resp.status_code == 200:
             for result in resp.json().get("result", []):
                 title = result.get("jobOpeningName", "")
@@ -99,7 +99,7 @@ def fetch_workable_seeq():
     jobs = []
     url = "https://apply.workable.com/api/v3/accounts/seeq/jobs"
     try:
-        resp = requests.post(url, json={"query": "", "location": [], "department": []}, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
+        resp = requests.post(url, json={"query": "", "location": [], "department": []}, headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
         if resp.status_code == 200:
             for item in resp.json().get("results", []):
                 title = item.get("title", "")
@@ -119,38 +119,44 @@ def fetch_workable_seeq():
         print(f"[WARN] Seeq API failed: {e}")
     return jobs
 
-def fetch_black_veatch():
+def fetch_black_veatch_playwright():
+    """Renders Black & Veatch career site using Playwright."""
     jobs = []
-    url = "https://careers.bv.com/api/apply/v2/jobs?domain=bv.com&start=0&num=50"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    url = "https://careers.bv.com/search/"
     try:
-        resp = requests.get(url, headers=headers, timeout=12)
-        if resp.status_code == 200:
-            positions = resp.json().get("positions", [])
-            for pos in positions:
-                title = pos.get("displayTitle") or pos.get("title", "")
-                job_id_num = pos.get("id", "")
-                link = f"https://careers.bv.com/job/{job_id_num}"
-                if title:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            time.sleep(4)
+            
+            soup = BeautifulSoup(page.content(), "html.parser")
+            # Black & Veatch links usually contain /job/
+            for a in soup.find_all("a", href=True):
+                title = a.get_text(strip=True)
+                href = a["href"]
+                if "/job/" in href.lower() and len(title) > 3 and "search" not in title.lower():
+                    full_url = href if href.startswith("http") else f"https://careers.bv.com{href}"
                     jobs.append({
-                        "id": make_job_id("black_veatch", title, link),
+                        "id": make_job_id("black_veatch", title, full_url),
                         "source": "black_veatch",
                         "title": title,
                         "company": "Black & Veatch",
-                        "url": link,
-                        "body_text": f"{title} - Black & Veatch Engineering",
+                        "url": full_url,
+                        "body_text": f"{title} - Black & Veatch",
                         "posted": "Recent"
                     })
-            print(f"[INFO] Black & Veatch: Found {len(jobs)} postings.")
+            browser.close()
+            print(f"[INFO] Black & Veatch (Playwright): Found {len(jobs)} postings.")
     except Exception as e:
-        print(f"[WARN] Black & Veatch API failed: {e}")
+        print(f"[WARN] Black & Veatch Playwright fetch failed: {e}")
     return jobs
 
 def fetch_kanin_energy():
     jobs = []
     url = "https://kaninenergy.com/wp-json/wp/v2/pages?slug=careers"
     try:
-        resp = requests.get(url, timeout=10)
+        resp = requests.get(url, timeout=15)
         if resp.status_code == 200 and len(resp.json()) > 0:
             content = resp.json()[0].get("content", {}).get("rendered", "")
             soup = BeautifulSoup(content, "html.parser")
@@ -174,30 +180,46 @@ def fetch_kanin_energy():
     return jobs
 
 def fetch_city_of_calgary_playwright():
-    """Renders Oracle Taleo portal with Playwright."""
+    """Renders new PeopleSoft portal (recruiting.calgary.ca)."""
     jobs = []
-    url = "https://calgary.taleo.net/careersection/2/jobsearch.ftl?lang=en"
+    url = "https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U"
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
-            page.goto(url, wait_until="networkidle", timeout=25000)
-            time.sleep(3)
+            page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+            page.goto(url, wait_until="domcontentloaded", timeout=35000)
+            time.sleep(5)
             
             soup = BeautifulSoup(page.content(), "html.parser")
-            for a in soup.find_all("a", href=True):
+            # Parse PeopleSoft job search grid rows or standard job title links
+            for a in soup.find_all(["a", "span"], id=lambda x: x and "POSTING_TITLE" in x):
                 title = a.get_text(strip=True)
-                if "jobdetail.ftl?job=" in a["href"].lower() and len(title) > 3:
-                    full_url = f"https://calgary.taleo.net/careersection/2/{a['href']}"
+                if len(title) > 3:
                     jobs.append({
-                        "id": make_job_id("city_of_calgary", title, full_url),
+                        "id": make_job_id("city_of_calgary", title, url),
                         "source": "city_of_calgary",
                         "title": title,
                         "company": "City of Calgary",
-                        "url": full_url,
-                        "body_text": f"{title} - City of Calgary",
+                        "url": url,
+                        "body_text": f"{title} - City of Calgary Careers",
                         "posted": "Recent"
                     })
+            
+            # Fallback link parser if ID selector varies
+            if not jobs:
+                for a in soup.find_all("a", href=True):
+                    title = a.get_text(strip=True)
+                    if "HRS_APP_JBPST_FL" in a["href"] or "JobDetail" in title:
+                        jobs.append({
+                            "id": make_job_id("city_of_calgary", title, url),
+                            "source": "city_of_calgary",
+                            "title": title,
+                            "company": "City of Calgary",
+                            "url": url,
+                            "body_text": f"{title} - City of Calgary Careers",
+                            "posted": "Recent"
+                        })
+
             browser.close()
             print(f"[INFO] City of Calgary (Playwright): Found {len(jobs)} postings.")
     except Exception as e:
@@ -205,22 +227,31 @@ def fetch_city_of_calgary_playwright():
     return jobs
 
 def fetch_cdr_jobs_playwright():
-    """Renders Wix Studio list cards on CDR Jobs."""
+    """Renders CDR Jobs and parses specific job posting links."""
     jobs = []
     url = "https://www.cdrjobs.earth/job-board"
+    ignored_titles = {"newsletter", "associations & investors", "terms of use", "privacy policy", "about", "contact", "home", "job board"}
+    
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page()
-            page.goto(url, wait_until="domcontentloaded", timeout=20000)
-            time.sleep(4)
+            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            time.sleep(5)
             
             soup = BeautifulSoup(page.content(), "html.parser")
             links = soup.find_all("a", href=True)
             for a in links:
                 title = a.get_text(strip=True)
                 href = a["href"]
-                if len(title) > 5 and ("/job" in href or "job-board" in href or href.startswith("http")):
+                clean_title_lower = title.lower()
+                
+                # Exclude standard navigation/footer links
+                if clean_title_lower in ignored_titles or len(title) < 4:
+                    continue
+                
+                # Check for job posting URL paths
+                if "/job" in href.lower() or "/post" in href.lower() or "job-board/" in href.lower():
                     full_url = href if href.startswith("http") else f"https://www.cdrjobs.earth{href}"
                     jobs.append({
                         "id": make_job_id("cdr_jobs", title, full_url),
@@ -362,7 +393,7 @@ def main():
     discovered_jobs.extend(fetch_google_jobs("Project Engineer", "Calgary, AB"))
     discovered_jobs.extend(fetch_google_jobs("Project Manager Engineering", "Calgary, AB"))
 
-    # 2. Corporate APIs
+    # 2. Corporate APIs & Direct Fetchers
     print("[INFO] Fetching Eavor...")
     discovered_jobs.extend(fetch_bamboohr_eavor())
 
@@ -370,7 +401,7 @@ def main():
     discovered_jobs.extend(fetch_workable_seeq())
 
     print("[INFO] Fetching Black & Veatch...")
-    discovered_jobs.extend(fetch_black_veatch())
+    discovered_jobs.extend(fetch_black_veatch_playwright())
 
     print("[INFO] Fetching Kanin Energy...")
     discovered_jobs.extend(fetch_kanin_energy())
@@ -382,7 +413,7 @@ def main():
     print("[INFO] Fetching CDR Jobs...")
     discovered_jobs.extend(fetch_cdr_jobs_playwright())
 
-    # Remove duplicates based on URL
+    # Remove duplicates based on ID
     unique_jobs = {}
     for j in discovered_jobs:
         unique_jobs[j["id"]] = j
