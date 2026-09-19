@@ -28,11 +28,11 @@ def make_job_id(source_name, title, url):
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 # ---------------------------------------------------------
-# Updated Fetchers
+# Data Fetchers
 # ---------------------------------------------------------
 
-def fetch_google_jobs(query="Project Engineer", location="Calgary, AB"):
-    """Fetches job listings via SerpAPI with increased timeout (45s)."""
+def fetch_google_jobs(query, location="Calgary, AB"):
+    """Fetches Google Jobs via SerpAPI with pagination and retry handling."""
     jobs = []
     api_key = os.getenv("SERPAPI_KEY")
     if not api_key:
@@ -40,35 +40,38 @@ def fetch_google_jobs(query="Project Engineer", location="Calgary, AB"):
         return jobs
 
     url = "https://serpapi.com/search.json"
-    params = {
-        "engine": "google_jobs",
-        "q": f"{query} {location}",
-        "api_key": api_key
-    }
-    try:
-        # Increased timeout to 45s as SerpAPI live job scraping can take 20s+
-        resp = requests.get(url, params=params, timeout=45)
-        if resp.status_code == 200:
-            results = resp.json().get("jobs_results", [])
-            for item in results:
-                title = item.get("title", "")
-                company = item.get("company_name", "")
-                link = item.get("share_link") or (item.get("related_links", [{}])[0].get("link", ""))
-                desc = item.get("description", "")
-                
-                if title and link:
-                    jobs.append({
-                        "id": make_job_id("google_jobs", title, link),
-                        "source": "google_jobs",
-                        "title": title,
-                        "company": company,
-                        "url": link,
-                        "body_text": f"{title} at {company}: {desc[:1500]}",
-                        "posted": item.get("detected_extensions", {}).get("posted_at", "Recent")
-                    })
-            print(f"[INFO] Google Jobs ({query}): Found {len(jobs)} postings.")
-    except Exception as e:
-        print(f"[WARN] Google Jobs fetch failed for '{query}': {e}")
+    # Fetch page 1 (0-10) and page 2 (10-20)
+    for start in [0, 10]:
+        params = {
+            "engine": "google_jobs",
+            "q": f"{query} {location}",
+            "start": start,
+            "api_key": api_key
+        }
+        try:
+            resp = requests.get(url, params=params, timeout=60)
+            if resp.status_code == 200:
+                results = resp.json().get("jobs_results", [])
+                for item in results:
+                    title = item.get("title", "")
+                    company = item.get("company_name", "")
+                    link = item.get("share_link") or (item.get("related_links", [{}])[0].get("link", ""))
+                    desc = item.get("description", "")
+                    
+                    if title and link:
+                        jobs.append({
+                            "id": make_job_id("google_jobs", title, link),
+                            "source": "google_jobs",
+                            "title": title,
+                            "company": company,
+                            "url": link,
+                            "body_text": f"{title} at {company}: {desc[:1500]}",
+                            "posted": item.get("detected_extensions", {}).get("posted_at", "Recent")
+                        })
+        except Exception as e:
+            print(f"[WARN] Google Jobs batch failed for '{query}' (start={start}): {e}")
+            
+    print(f"[INFO] Google Jobs ('{query}'): Found {len(jobs)} postings.")
     return jobs
 
 def fetch_bamboohr_eavor():
@@ -120,9 +123,9 @@ def fetch_workable_seeq():
     return jobs
 
 def fetch_black_veatch_playwright():
-    """Renders Black & Veatch career site using Playwright."""
+    """Renders Black & Veatch career site filtered for Canada postings."""
     jobs = []
-    url = "https://careers.bv.com/search/"
+    url = "https://careers.bv.com/search/?q=&locationsearch=Canada"
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -131,7 +134,6 @@ def fetch_black_veatch_playwright():
             time.sleep(4)
             
             soup = BeautifulSoup(page.content(), "html.parser")
-            # Black & Veatch links usually contain /job/
             for a in soup.find_all("a", href=True):
                 title = a.get_text(strip=True)
                 href = a["href"]
@@ -143,7 +145,7 @@ def fetch_black_veatch_playwright():
                         "title": title,
                         "company": "Black & Veatch",
                         "url": full_url,
-                        "body_text": f"{title} - Black & Veatch",
+                        "body_text": f"{title} - Black & Veatch Canada",
                         "posted": "Recent"
                     })
             browser.close()
@@ -180,45 +182,35 @@ def fetch_kanin_energy():
     return jobs
 
 def fetch_city_of_calgary_playwright():
-    """Renders new PeopleSoft portal (recruiting.calgary.ca)."""
+    """Extracts job titles directly from PeopleSoft iframe or root page."""
     jobs = []
     url = "https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U"
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
-            page.goto(url, wait_until="domcontentloaded", timeout=35000)
+            page.goto(url, wait_until="networkidle", timeout=40000)
             time.sleep(5)
             
-            soup = BeautifulSoup(page.content(), "html.parser")
-            # Parse PeopleSoft job search grid rows or standard job title links
-            for a in soup.find_all(["a", "span"], id=lambda x: x and "POSTING_TITLE" in x):
-                title = a.get_text(strip=True)
-                if len(title) > 3:
-                    jobs.append({
-                        "id": make_job_id("city_of_calgary", title, url),
-                        "source": "city_of_calgary",
-                        "title": title,
-                        "company": "City of Calgary",
-                        "url": url,
-                        "body_text": f"{title} - City of Calgary Careers",
-                        "posted": "Recent"
-                    })
-            
-            # Fallback link parser if ID selector varies
-            if not jobs:
-                for a in soup.find_all("a", href=True):
-                    title = a.get_text(strip=True)
-                    if "HRS_APP_JBPST_FL" in a["href"] or "JobDetail" in title:
-                        jobs.append({
-                            "id": make_job_id("city_of_calgary", title, url),
-                            "source": "city_of_calgary",
-                            "title": title,
-                            "company": "City of Calgary",
-                            "url": url,
-                            "body_text": f"{title} - City of Calgary Careers",
-                            "posted": "Recent"
-                        })
+            frames = page.frames
+            for frame in frames:
+                try:
+                    content = frame.content()
+                    soup = BeautifulSoup(content, "html.parser")
+                    for a in soup.find_all(["a", "span"]):
+                        title = a.get_text(strip=True)
+                        if any(k in title.lower() for k in ["engineer", "manager", "planner", "analyst", "lead", "coordinator", "officer", "specialist", "project"]):
+                            jobs.append({
+                                "id": make_job_id("city_of_calgary", title, url),
+                                "source": "city_of_calgary",
+                                "title": title,
+                                "company": "City of Calgary",
+                                "url": url,
+                                "body_text": f"{title} - City of Calgary Careers",
+                                "posted": "Recent"
+                            })
+                except Exception:
+                    continue
 
             browser.close()
             print(f"[INFO] City of Calgary (Playwright): Found {len(jobs)} postings.")
@@ -226,50 +218,35 @@ def fetch_city_of_calgary_playwright():
         print(f"[WARN] City of Calgary Playwright fetch failed: {e}")
     return jobs
 
-def fetch_cdr_jobs_playwright():
-    """Renders CDR Jobs and parses specific job posting links."""
+def fetch_climate_tech_list():
+    """Fetches Climate Tech List job postings for Calgary."""
     jobs = []
-    url = "https://www.cdrjobs.earth/job-board"
-    ignored_titles = {"newsletter", "associations & investors", "terms of use", "privacy policy", "about", "contact", "home", "job board"}
-    
+    url = "https://www.climatetechlist.com/jobs?location=calgary"
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
-            page.goto(url, wait_until="domcontentloaded", timeout=30000)
-            time.sleep(5)
-            
-            soup = BeautifulSoup(page.content(), "html.parser")
-            links = soup.find_all("a", href=True)
-            for a in links:
-                title = a.get_text(strip=True)
+        resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}, timeout=20)
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.content, "html.parser")
+            for a in soup.find_all("a", href=True):
                 href = a["href"]
-                clean_title_lower = title.lower()
-                
-                # Exclude standard navigation/footer links
-                if clean_title_lower in ignored_titles or len(title) < 4:
-                    continue
-                
-                # Check for job posting URL paths
-                if "/job" in href.lower() or "/post" in href.lower() or "job-board/" in href.lower():
-                    full_url = href if href.startswith("http") else f"https://www.cdrjobs.earth{href}"
+                title = a.get_text(strip=True)
+                if ("/job/" in href.lower() or "/posting" in href.lower()) and len(title) > 3:
+                    full_url = href if href.startswith("http") else f"https://www.climatetechlist.com{href}"
                     jobs.append({
-                        "id": make_job_id("cdr_jobs", title, full_url),
-                        "source": "cdr_jobs",
+                        "id": make_job_id("climate_tech_list", title, full_url),
+                        "source": "climate_tech_list",
                         "title": title,
-                        "company": "CDR Earth Board",
+                        "company": "Climate Tech List",
                         "url": full_url,
-                        "body_text": f"{title} - CDR Earth Posting",
+                        "body_text": f"{title} - Climate Tech List Calgary",
                         "posted": "Recent"
                     })
-            browser.close()
-            print(f"[INFO] CDR Jobs (Playwright): Found {len(jobs)} postings.")
+            print(f"[INFO] Climate Tech List: Found {len(jobs)} postings.")
     except Exception as e:
-        print(f"[WARN] CDR Jobs Playwright fetch failed: {e}")
+        print(f"[WARN] Climate Tech List fetch failed: {e}")
     return jobs
 
 # ---------------------------------------------------------
-# Report Generator
+# Report Writer
 # ---------------------------------------------------------
 
 def write_html_report(scored_jobs):
@@ -378,7 +355,7 @@ function sortTable(columnIndex) {{
         f.write(html)
 
 # ---------------------------------------------------------
-# Main Execution Pipeline
+# Pipeline Entry Point
 # ---------------------------------------------------------
 
 def main():
@@ -388,10 +365,16 @@ def main():
     
     discovered_jobs = []
 
-    # 1. SerpAPI (Google Jobs)
+    # 1. Google Jobs (Updated targets)
     print("[INFO] Fetching Google Jobs...")
-    discovered_jobs.extend(fetch_google_jobs("Project Engineer", "Calgary, AB"))
-    discovered_jobs.extend(fetch_google_jobs("Project Manager Engineering", "Calgary, AB"))
+    google_queries = [
+        "Project Engineer",
+        "Project Manager",
+        "Project Director",
+        "Operations Engineer"
+    ]
+    for q in google_queries:
+        discovered_jobs.extend(fetch_google_jobs(q, "Calgary, AB"))
 
     # 2. Corporate APIs & Direct Fetchers
     print("[INFO] Fetching Eavor...")
@@ -406,14 +389,14 @@ def main():
     print("[INFO] Fetching Kanin Energy...")
     discovered_jobs.extend(fetch_kanin_energy())
 
+    print("[INFO] Fetching Climate Tech List...")
+    discovered_jobs.extend(fetch_climate_tech_list())
+
     # 3. Playwright Fetchers
     print("[INFO] Fetching City of Calgary...")
     discovered_jobs.extend(fetch_city_of_calgary_playwright())
 
-    print("[INFO] Fetching CDR Jobs...")
-    discovered_jobs.extend(fetch_cdr_jobs_playwright())
-
-    # Remove duplicates based on ID
+    # Remove duplicates based on unique hash ID
     unique_jobs = {}
     for j in discovered_jobs:
         unique_jobs[j["id"]] = j
@@ -428,7 +411,7 @@ def main():
         for job, score in zip(discovered_jobs, scores):
             job["score"] = float(score)
 
-        # Higher scores = better match
+        # Sort descending by match score
         discovered_jobs.sort(key=lambda x: x["score"], reverse=True)
 
     write_html_report(discovered_jobs)
