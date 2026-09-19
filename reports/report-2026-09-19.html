@@ -4,16 +4,20 @@
 <meta charset="UTF-8">
 <title>Job Matching Report — 2026-09-19</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 30px; background: #f8f9fa; color: #333; }
+  body { font-family: system-ui, -apple-system, sans-serif; margin: 30px; background: #f8f9fa; color: #333; }
   h1 { margin-bottom: 5px; color: #1a252f; }
   .sub { color: #6c757d; margin-bottom: 20px; }
   #searchBox { padding: 10px; width: 320px; font-size: 14px; margin-bottom: 20px; border: 1px solid #ced4da; border-radius: 4px; }
-  table { border-collapse: collapse; width: 100%; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden; }
+  table { border-collapse: collapse; width: 100%; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
   th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e9ecef; }
-  th { background-color: #0066cc; color: white; cursor: pointer; }
+  th { background-color: #0066cc; color: white; cursor: pointer; user-select: none; position: relative; }
+  th:hover { background-color: #0052a5; }
+  th.asc::after { content: " ▲"; font-size: 10px; }
+  th.desc::after { content: " ▼"; font-size: 10px; }
   tr:hover { background-color: #f1f5f9; }
   .score-badge { font-weight: bold; padding: 4px 8px; border-radius: 4px; background: #e3f2fd; color: #0d47a1; }
-  a.btn { text-decoration: none; background: #28a745; color: white; padding: 6px 12px; border-radius: 4px; font-size: 13px; }
+  a.btn { text-decoration: none; background: #28a745; color: white; padding: 6px 12px; border-radius: 4px; font-size: 13px; display: inline-block; }
+  a.btn:hover { background: #218838; }
 </style>
 <script>
 function filterTable() {
@@ -24,988 +28,103 @@ function filterTable() {
     rows[i].style.display = rowText.includes(input) ? "" : "none";
   }
 }
+
+function sortTable(columnIndex) {
+  var table = document.getElementById("jobTable");
+  var rows = Array.from(table.rows).slice(1);
+  var headers = table.querySelectorAll("th");
+  var currentHeader = headers[columnIndex];
+  var isAscending = currentHeader.classList.contains("asc");
+
+  headers.forEach(h => h.classList.remove("asc", "desc"));
+
+  rows.sort(function(rowA, rowB) {
+    var cellA = rowA.cells[columnIndex].innerText.trim();
+    var cellB = rowB.cells[columnIndex].innerText.trim();
+
+    var numA = parseFloat(cellA);
+    var numB = parseFloat(cellB);
+
+    if (!isNaN(numA) && !isNaN(numB)) {
+      return isAscending ? numA - numB : numB - numA;
+    }
+
+    return isAscending 
+      ? cellA.localeCompare(cellB, undefined, {numeric: true, sensitivity: 'base'})
+      : cellB.localeCompare(cellA, undefined, {numeric: true, sensitivity: 'base'});
+  });
+
+  currentHeader.classList.add(isAscending ? "desc" : "asc");
+
+  var tbody = table.querySelector("tbody");
+  rows.forEach(row => tbody.appendChild(row));
+}
 </script>
 </head>
 <body>
 
-<h1>🎯 Job Agent Daily Recommendations</h1>
-<p class="sub">Generated on 2026-09-19 using Cross-Encoder AI Semantic Matching</p>
-<input type="text" id="searchBox" onkeyup="filterTable()" placeholder="Search title, company, or source...">
+<h1>🎯 Daily Job Match Recommendations</h1>
+<p class="sub">Generated on 2026-09-19 • Click column headers to sort</p>
+<input type="text" id="searchBox" onkeyup="filterTable()" placeholder="Filter by title, company, or source...">
 
 <table id="jobTable">
 <thead>
 <tr>
-  <th>Score</th>
-  <th>Job Title</th>
-  <th>Company</th>
-  <th>Source</th>
-  <th>Posted</th>
-  <th>Action</th>
+  <th onclick="sortTable(0)" class="desc">Score</th>
+  <th onclick="sortTable(1)">Job Title</th>
+  <th onclick="sortTable(2)">Company</th>
+  <th onclick="sortTable(3)">Source</th>
+  <th onclick="sortTable(4)">Action</th>
 </tr>
 </thead>
 <tbody>
 
 <tr>
-  <td><span class="score-badge">-7.06</span></td>
-  <td><strong>Facility Operations Coordinator</strong></td>
-  <td>Calgary</td>
+  <td><span class="score-badge">-8.52</span></td>
+  <td><strong>Project Manager, Technology Projects</strong></td>
+  <td>Eavor Technologies</td>
   <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315319&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
+  <td><a href="https://eavortechnologies.bamboohr.com/careers/133" target="_blank" class="btn">View Posting</a></td>
 </tr>
 
 <tr>
-  <td><span class="score-badge">-7.09</span></td>
-  <td><strong>Training Officer - Light Rail Transit (LRT) - AMENDMENT</strong></td>
-  <td>Calgary</td>
+  <td><span class="score-badge">-8.54</span></td>
+  <td><strong>Engineer-In-Training (EIT) </strong></td>
+  <td>Eavor Technologies</td>
   <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315177&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
+  <td><a href="https://eavortechnologies.bamboohr.com/careers/137" target="_blank" class="btn">View Posting</a></td>
 </tr>
 
 <tr>
-  <td><span class="score-badge">-7.13</span></td>
-  <td><strong>Facilities Inspection Engineer</strong></td>
-  <td>Calgary</td>
+  <td><span class="score-badge">-8.55</span></td>
+  <td><strong>Senior Simulation Engineer</strong></td>
+  <td>Eavor Technologies</td>
   <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315278&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
+  <td><a href="https://eavortechnologies.bamboohr.com/careers/134" target="_blank" class="btn">View Posting</a></td>
 </tr>
 
 <tr>
-  <td><span class="score-badge">-7.13</span></td>
-  <td><strong>Buyer</strong></td>
-  <td>Calgary</td>
+  <td><span class="score-badge">-8.57</span></td>
+  <td><strong>Senior Geologist (Limited Term – 12 months)</strong></td>
+  <td>Eavor Technologies</td>
   <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315158&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
+  <td><a href="https://eavortechnologies.bamboohr.com/careers/135" target="_blank" class="btn">View Posting</a></td>
 </tr>
 
 <tr>
-  <td><span class="score-badge">-7.14</span></td>
-  <td><strong>Visual Arts Instructor</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315251&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.15</span></td>
-  <td><strong>Executive Support Coordinator</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315361&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.16</span></td>
-  <td><strong>Crisis Intervention Specialist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315345&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.16</span></td>
-  <td><strong>Building Maintenance Worker</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315259&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.17</span></td>
-  <td><strong>Employee Development Coordinator</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315271&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.19</span></td>
-  <td><strong>Martial Arts Instructor</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=314859&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.19</span></td>
-  <td><strong>Senior Project Architect</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315024&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.19</span></td>
-  <td><strong>Environmental Compliance Specialist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315064&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.19</span></td>
-  <td><strong>Transit Technology Engineer</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315370&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.20</span></td>
-  <td><strong>HR Application Analyst</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315309&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.24</span></td>
-  <td><strong>Senior Sales Agent</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315206&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.24</span></td>
-  <td><strong>Senior Project Engineer</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315023&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.25</span></td>
-  <td><strong>Supervisor, Mobility and Partnership</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315312&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.27</span></td>
-  <td><strong>Technical Writer, Water Treatment</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315237&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.27</span></td>
-  <td><strong>Engineering Business Strategist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315273&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.28</span></td>
-  <td><strong>Project Architect</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315323&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.29</span></td>
-  <td><strong>Business Strategist - Waste & Recycling Services</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315181&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.29</span></td>
-  <td><strong>Business Performance Strategist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315241&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.29</span></td>
-  <td><strong>Sergeant, Transit Public Safety</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315303&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.29</span></td>
-  <td><strong>Operational Systems Technologist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315248&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.29</span></td>
-  <td><strong>Cyber Security Advisor-Architecture</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315213&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.29</span></td>
-  <td><strong>Grant Coordinator</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315300&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.30</span></td>
-  <td><strong>Senior Buyer</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315320&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.30</span></td>
-  <td><strong>Journeyperson 1 Parts Technician</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315315&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.30</span></td>
-  <td><strong>Information Technology Investment and Vendor Strategist - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315277&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.31</span></td>
-  <td><strong>Journeyperson 2 Parts Technician</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315274&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.31</span></td>
-  <td><strong>Recreation Programmer - Fall Programs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=314852&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.31</span></td>
-  <td><strong>Power Systems Journeyperson</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315305&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.32</span></td>
-  <td><strong>Fitness Instructor - Aquatics</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=314806&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.33</span></td>
+  <td><span class="score-badge">-8.77</span></td>
   <td><strong>Project Engineer</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315324&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.33</span></td>
-  <td><strong>Mechanical Commissioning Project Specialist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315318&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.33</span></td>
-  <td><strong>Supervisor, Commercial Services</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315258&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.34</span></td>
-  <td><strong>Senior Leader, Fleet Maintenance</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315109&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.35</span></td>
-  <td><strong>Funding Strategist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315252&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.35</span></td>
-  <td><strong>Community and Business Relations Strategist - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315188&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.35</span></td>
-  <td><strong>Recreation Leader - Calgary AfterSchool, Fall Programs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=314850&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.35</span></td>
-  <td><strong>Business Strategist</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315276&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.36</span></td>
-  <td><strong>Senior Project Engineer, Systems</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315335&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.36</span></td>
-  <td><strong>Lead, Asset Management</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315254&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.38</span></td>
-  <td><strong>Training & Qualifications Supervisor - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315189&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.39</span></td>
-  <td><strong>(Referral Eligible) Maintenance Planner/Scheduler</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315207&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.39</span></td>
-  <td><strong>Team Lead, Power Systems Field Operations and Maintenance</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315306&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.40</span></td>
-  <td><strong>Traffic Engineer - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315146&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.40</span></td>
-  <td><strong>Human Resources Leader, Pay & Client Services</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315262&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.45</span></td>
-  <td><strong>Frontline Operations Equipment and Tool Coordinator</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315332&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.50</span></td>
-  <td><strong>Portfolio Strategist, Space Planning</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315290&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.52</span></td>
-  <td><strong>Business Strategist - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315279&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.52</span></td>
-  <td><strong>Business Strategist - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315054&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.53</span></td>
-  <td><strong>Child Development Instructor, On-Call</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315292&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.53</span></td>
-  <td><strong>Commissioning Project Operator, Water Treatment</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315329&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.54</span></td>
-  <td><strong>Cyber Security Advisor-Risk Management - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315217&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.54</span></td>
-  <td><strong>Analyst, Access to Information and Investigations</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315285&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.55</span></td>
-  <td><strong>Heavy Equipment Technician Journeyperson 2 - AMENDMENT</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315202&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.55</span></td>
-  <td><strong>Recreation Leader - Indigenous Programs - Fall Programs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=314851&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.58</span></td>
-  <td><strong>Cyber Security Advisor - Exposure Management</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315212&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.61</span></td>
-  <td><strong>Calgary Police Service - HR Analyst</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315353&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.64</span></td>
-  <td><strong>Calgary Police Service - Curriculum Designer</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315314&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.65</span></td>
-  <td><strong>Finance Lead, Banking & Treasury Operations</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315238&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.67</span></td>
-  <td><strong>Calgary Police Service - Evidence Technician</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_JBPST_FL&JobOpeningId=315250&PostingSeq=1&SiteId=1" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-7.97</span></td>
-  <td><strong>Calgary 9-1-1 jobs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/911-recruitment.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.39</span></td>
-  <td><strong>Student and entry-level jobs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/entry-level.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.65</span></td>
-  <td><strong>Why work for The City?</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/benefits.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.66</span></td>
-  <td><strong>Join Our Team</strong></td>
-  <td>Kaninenergy</td>
+  <td>Kanin Energy</td>
   <td>kanin_energy</td>
-  <td>Recent</td>
   <td><a href="https://kaninenergy.com/careers/" target="_blank" class="btn">View Posting</a></td>
 </tr>
 
 <tr>
-  <td><span class="score-badge">-8.69</span></td>
-  <td><strong>Learn more</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/benefits.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.74</span></td>
-  <td><strong>Fleet maintenance jobs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/fleet-Inventory-maintenance-recruitment.html?UTM_Source=HR" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.76</span></td>
-  <td><strong>International applications</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/hiring/international-applicants.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.79</span></td>
-  <td><strong>Workable</strong></td>
-  <td>Apply</td>
-  <td>seeq</td>
-  <td>Recent</td>
-  <td><a href="https://jobs.workable.com/?utm_campaign=careers_page&utm_content=careers_page&utm_medium=feature&utm_source=careers_page" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.85</span></td>
-  <td><strong>Calgary firefighter jobs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/fire.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.95</span></td>
-  <td><strong>Careers</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/content/www/en/home/careers.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.95</span></td>
-  <td><strong>Careers</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/content/www/en/home/careers.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.95</span></td>
-  <td><strong>Careers</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-8.95</span></td>
-  <td><strong>Careers</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.07</span></td>
-  <td><strong>Temporary Employment Services Agency (TESA)</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/temporary-employment-services-agency.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.28</span></td>
-  <td><strong>Recreation jobs and careers</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/recreation-team.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.29</span></td>
-  <td><strong>Major projects and initiatives Ongoing City-directed efforts with large impacts for our city</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/major-projects.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.30</span></td>
-  <td><strong>customized cover letter and resume</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/hiring.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.33</span></td>
-  <td><strong>Explore career pathways</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/career-pathways.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.33</span></td>
-  <td><strong>Explore career pathways</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/career-pathways.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.34</span></td>
-  <td><strong>explore career paths</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/career-pathways.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.38</span></td>
-  <td><strong>Help and job resources</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/hiring.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.38</span></td>
-  <td><strong>Help and job resources</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/hiring.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.51</span></td>
-  <td><strong>Calgary Transit jobs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgarytransit.com/careers.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.51</span></td>
-  <td><strong>Our leadership The senior administration of City staff</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/our-leadership.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.65</span></td>
-  <td><strong>Help SVGs not supported by this browser.</strong></td>
-  <td>Apply</td>
-  <td>seeq</td>
-  <td>Recent</td>
-  <td><a href="https://jobseekers.workable.com/hc/en" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.81</span></td>
-  <td><strong>EIT Process Engineer</strong></td>
-  <td>Equinox Engineering Ltd.</td>
-  <td>linkedin_eng</td>
-  <td>13 hours ago</td>
-  <td><a href="https://ca.linkedin.com/jobs/view/eit-process-engineer-at-equinox-engineering-ltd-4468027540" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.86</span></td>
-  <td><strong>Seasonal jobs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/careers/seasonal.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.96</span></td>
-  <td><strong>Mewbourn Power Project</strong></td>
-  <td>Kaninenergy</td>
+  <td><span class="score-badge">-8.81</span></td>
+  <td><strong>Project Manager</strong></td>
+  <td>Kanin Energy</td>
   <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/mewbourn-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.96</span></td>
-  <td><strong>Mewbourn Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/mewbourn-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-9.96</span></td>
-  <td><strong>Kanin Energy secures Credit Facility from PaceZero Capital Partners to advance Waste Heat to Power Projects across North America</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/energy-insights/kanin-energy-secures-credit-facility-from-pacezero-capital-partners-to-advance-waste-heat-to-power-projects-across-north-america/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.01</span></td>
-  <td><strong>Infrastructure & Security Engineer</strong></td>
-  <td>Purelend Technologies Inc.</td>
-  <td>linkedin_eng</td>
-  <td>2 months ago</td>
-  <td><a href="https://ca.linkedin.com/jobs/view/infrastructure-security-engineer-at-purelend-technologies-inc-4439717582" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.01</span></td>
-  <td><strong>Senior Signaling and Communications Engineer</strong></td>
-  <td>AtkinsRéalis</td>
-  <td>linkedin_eng</td>
-  <td>3 months ago</td>
-  <td><a href="https://ca.linkedin.com/jobs/view/senior-signaling-and-communications-engineer-at-atkinsr%C3%A9alis-4409918623" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.03</span></td>
-  <td><strong>Muskingum Community Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/muskingum-community-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.03</span></td>
-  <td><strong>Muskingum Community Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/muskingum-community-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.04</span></td>
-  <td><strong>Calgary Police officer jobs</strong></td>
-  <td>Calgary</td>
-  <td>eavor</td>
-  <td>Recent</td>
-  <td><a href="https://www.calgary.ca/cps/working-for-calgary-police/careers-with-calgary-police.html" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.10</span></td>
-  <td><strong>Projects</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.10</span></td>
-  <td><strong>Projects</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.12</span></td>
-  <td><strong>Hoosier Community Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/hoosier-community-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.12</span></td>
-  <td><strong>Hoosier Community Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/hoosier-community-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.23</span></td>
-  <td><strong>Columbus Community Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/columbus-community-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.23</span></td>
-  <td><strong>Columbus Community Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/columbus-community-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.25</span></td>
-  <td><strong>Washington Courthouse Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/washington-courthouse-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.25</span></td>
-  <td><strong>Washington Courthouse Power Project</strong></td>
-  <td>Kaninenergy</td>
-  <td>kanin_energy</td>
-  <td>Recent</td>
-  <td><a href="https://kaninenergy.com/project/washington-courthouse-power-project/" target="_blank" class="btn">View Posting</a></td>
-</tr>
-
-<tr>
-  <td><span class="score-badge">-10.32</span></td>
-  <td><strong>Senior Electrical Engineer - Power Systems</strong></td>
-  <td>Schneider Electric</td>
-  <td>linkedin_eng</td>
-  <td>2 weeks ago</td>
-  <td><a href="https://ca.linkedin.com/jobs/view/senior-electrical-engineer-power-systems-at-schneider-electric-4461931359" target="_blank" class="btn">View Posting</a></td>
+  <td><a href="https://kaninenergy.com/careers/" target="_blank" class="btn">View Posting</a></td>
 </tr>
 
 </tbody>
