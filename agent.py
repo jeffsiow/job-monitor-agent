@@ -123,14 +123,15 @@ def fetch_workable_seeq():
     return jobs
 
 def fetch_black_veatch_playwright():
-    """Renders Black & Veatch career site filtered for Canada postings."""
+    """Renders Black & Veatch career site filtered for PM roles in Canada/US."""
     jobs = []
-    url = "https://careers.bv.com/search/?q=&locationsearch=Canada"
+    # Updated targeted search URL
+    url = "https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada+OR+united+states&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5=Project+Management"
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            page.goto(url, wait_until="domcontentloaded", timeout=35000)
             time.sleep(4)
             
             soup = BeautifulSoup(page.content(), "html.parser")
@@ -145,7 +146,7 @@ def fetch_black_veatch_playwright():
                         "title": title,
                         "company": "Black & Veatch",
                         "url": full_url,
-                        "body_text": f"{title} - Black & Veatch Canada",
+                        "body_text": f"{title} - Black & Veatch Project Management",
                         "posted": "Recent"
                     })
             browser.close()
