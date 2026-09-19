@@ -43,6 +43,8 @@ jobs:
         python -m playwright install chromium --with-deps
 
     - name: Run Job Matcher
+      env:
+        SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
       run: python agent.py
 
     - name: Commit and Push Report & Memory
