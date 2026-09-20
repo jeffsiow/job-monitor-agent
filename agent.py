@@ -14,6 +14,7 @@ BASE_DIR = Path(__file__).parent
 EXPERIENCE_PATH = BASE_DIR / "experience_library.md"
 REPORTS_DIR = BASE_DIR / "reports"
 DOCS_DIR = BASE_DIR / "docs"
+CACHE_PATH = BASE_DIR / "jobs_cache.json"
 
 REPORTS_DIR.mkdir(exist_ok=True)
 DOCS_DIR.mkdir(exist_ok=True)
@@ -27,12 +28,28 @@ def make_job_id(source_name, title, url):
     raw = f"{source_name}|{title}|{url}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
+def load_cache():
+    if CACHE_PATH.exists():
+        try:
+            with open(CACHE_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"[WARN] Failed to read jobs_cache.json: {e}")
+    return {}
+
+def save_cache(cache_data):
+    try:
+        with open(CACHE_PATH, "w", encoding="utf-8") as f:
+            json.dump(cache_data, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"[WARN] Failed to write jobs_cache.json: {e}")
+
 # ---------------------------------------------------------
 # Data Fetchers
 # ---------------------------------------------------------
 
 def fetch_google_jobs(query, location="Calgary, AB"):
-    """Fetches Google Jobs via SerpAPI with pagination and retry handling."""
+    """Fetches Google Jobs via SerpAPI filtered for jobs posted in the past week."""
     jobs = []
     api_key = os.getenv("SERPAPI_KEY")
     if not api_key:
@@ -40,11 +57,11 @@ def fetch_google_jobs(query, location="Calgary, AB"):
         return jobs
 
     url = "https://serpapi.com/search.json"
-    # Fetch page 1 (0-10) and page 2 (10-20)
     for start in [0, 10]:
         params = {
             "engine": "google_jobs",
             "q": f"{query} {location}",
+            "chips": "date_posted:week",  # Filter for postings in the last week
             "start": start,
             "api_key": api_key
         }
@@ -66,7 +83,7 @@ def fetch_google_jobs(query, location="Calgary, AB"):
                             "company": company,
                             "url": link,
                             "body_text": f"{title} at {company}: {desc[:1500]}",
-                            "posted": item.get("detected_extensions", {}).get("posted_at", "Recent")
+                            "posted": item.get("detected_extensions", {}).get("posted_at", "Past week")
                         })
         except Exception as e:
             print(f"[WARN] Google Jobs batch failed for '{query}' (start={start}): {e}")
@@ -123,34 +140,38 @@ def fetch_workable_seeq():
     return jobs
 
 def fetch_black_veatch_playwright():
-    """Renders Black & Veatch career site filtered for PM roles in Canada/US."""
+    """Renders Black & Veatch career site querying both targeted search URLs."""
     jobs = []
-    # Updated targeted search URL
-    url = "https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada+OR+united+states&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5=Project+Management"
+    urls = [
+        "https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada+OR+united+states&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5=Project+Management",
+        "https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5="
+    ]
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-            page.goto(url, wait_until="domcontentloaded", timeout=35000)
-            time.sleep(4)
             
-            soup = BeautifulSoup(page.content(), "html.parser")
-            for a in soup.find_all("a", href=True):
-                title = a.get_text(strip=True)
-                href = a["href"]
-                if "/job/" in href.lower() and len(title) > 3 and "search" not in title.lower():
-                    full_url = href if href.startswith("http") else f"https://careers.bv.com{href}"
-                    jobs.append({
-                        "id": make_job_id("black_veatch", title, full_url),
-                        "source": "black_veatch",
-                        "title": title,
-                        "company": "Black & Veatch",
-                        "url": full_url,
-                        "body_text": f"{title} - Black & Veatch Project Management",
-                        "posted": "Recent"
-                    })
+            for url in urls:
+                page.goto(url, wait_until="domcontentloaded", timeout=35000)
+                time.sleep(4)
+                
+                soup = BeautifulSoup(page.content(), "html.parser")
+                for a in soup.find_all("a", href=True):
+                    title = a.get_text(strip=True)
+                    href = a["href"]
+                    if "/job/" in href.lower() and len(title) > 3 and "search" not in title.lower():
+                        full_url = href if href.startswith("http") else f"https://careers.bv.com{href}"
+                        jobs.append({
+                            "id": make_job_id("black_veatch", title, full_url),
+                            "source": "black_veatch",
+                            "title": title,
+                            "company": "Black & Veatch",
+                            "url": full_url,
+                            "body_text": f"{title} - Black & Veatch Project Management",
+                            "posted": "Recent"
+                        })
             browser.close()
-            print(f"[INFO] Black & Veatch (Playwright): Found {len(jobs)} postings.")
+            print(f"[INFO] Black & Veatch (Playwright): Found {len(jobs)} total postings across both URLs.")
     except Exception as e:
         print(f"[WARN] Black & Veatch Playwright fetch failed: {e}")
     return jobs
@@ -219,31 +240,42 @@ def fetch_city_of_calgary_playwright():
         print(f"[WARN] City of Calgary Playwright fetch failed: {e}")
     return jobs
 
-def fetch_climate_tech_list():
-    """Fetches Climate Tech List job postings for Calgary."""
+def fetch_climate_tech_list_playwright():
+    """Renders Climate Tech List using Playwright to extract dynamically rendered / Airtable job cards."""
     jobs = []
     url = "https://www.climatetechlist.com/jobs?location=calgary"
     try:
-        resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}, timeout=20)
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.content, "html.parser")
-            for a in soup.find_all("a", href=True):
-                href = a["href"]
-                title = a.get_text(strip=True)
-                if ("/job/" in href.lower() or "/posting" in href.lower()) and len(title) > 3:
-                    full_url = href if href.startswith("http") else f"https://www.climatetechlist.com{href}"
-                    jobs.append({
-                        "id": make_job_id("climate_tech_list", title, full_url),
-                        "source": "climate_tech_list",
-                        "title": title,
-                        "company": "Climate Tech List",
-                        "url": full_url,
-                        "body_text": f"{title} - Climate Tech List Calgary",
-                        "posted": "Recent"
-                    })
-            print(f"[INFO] Climate Tech List: Found {len(jobs)} postings.")
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+            page.goto(url, wait_until="networkidle", timeout=40000)
+            time.sleep(6)  # Allow Airtable/JS widgets to populate
+
+            sources_to_check = [page] + page.frames
+            for src in sources_to_check:
+                try:
+                    soup = BeautifulSoup(src.content(), "html.parser")
+                    for a in soup.find_all("a", href=True):
+                        href = a["href"]
+                        title = a.get_text(strip=True)
+                        if ("/job/" in href.lower() or "/posting" in href.lower() or "airtable.com" in href.lower()) and len(title) > 3:
+                            full_url = href if href.startswith("http") else f"https://www.climatetechlist.com{href}"
+                            jobs.append({
+                                "id": make_job_id("climate_tech_list", title, full_url),
+                                "source": "climate_tech_list",
+                                "title": title,
+                                "company": "Climate Tech List",
+                                "url": full_url,
+                                "body_text": f"{title} - Climate Tech List Calgary",
+                                "posted": "Recent"
+                            })
+                except Exception:
+                    continue
+
+            browser.close()
+            print(f"[INFO] Climate Tech List (Playwright): Found {len(jobs)} postings.")
     except Exception as e:
-        print(f"[WARN] Climate Tech List fetch failed: {e}")
+        print(f"[WARN] Climate Tech List Playwright fetch failed: {e}")
     return jobs
 
 # ---------------------------------------------------------
@@ -336,7 +368,7 @@ function sortTable(columnIndex) {{
     for job in scored_jobs:
         html += f"""
 <tr>
-  <td><span class="score-badge">{job['score']:.2f}</span></td>
+  <td><span class="score-badge">{job.get('score', 0.0):.2f}</span></td>
   <td><strong>{job['title']}</strong></td>
   <td>{job['company']}</td>
   <td>{job['source']}</td>
@@ -360,13 +392,16 @@ function sortTable(columnIndex) {{
 # ---------------------------------------------------------
 
 def main():
+    print("[INFO] Loading local cache...")
+    cache = load_cache()
+
     print("[INFO] Initializing Cross-Encoder Model...")
     model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
     experience_text = load_experience_library()[:1500]
     
     discovered_jobs = []
 
-    # 1. Google Jobs (Updated targets)
+    # 1. Google Jobs (Weekly filter)
     print("[INFO] Fetching Google Jobs...")
     google_queries = [
         "Project Engineer",
@@ -390,33 +425,40 @@ def main():
     print("[INFO] Fetching Kanin Energy...")
     discovered_jobs.extend(fetch_kanin_energy())
 
-    print("[INFO] Fetching Climate Tech List...")
-    discovered_jobs.extend(fetch_climate_tech_list())
-
     # 3. Playwright Fetchers
+    print("[INFO] Fetching Climate Tech List...")
+    discovered_jobs.extend(fetch_climate_tech_list_playwright())
+
     print("[INFO] Fetching City of Calgary...")
     discovered_jobs.extend(fetch_city_of_calgary_playwright())
 
-    # Remove duplicates based on unique hash ID
-    unique_jobs = {}
+    # Update cache with newly discovered items
+    new_jobs_count = 0
     for j in discovered_jobs:
-        unique_jobs[j["id"]] = j
-    discovered_jobs = list(unique_jobs.values())
+        job_id = j["id"]
+        if job_id not in cache:
+            j["first_seen"] = datetime.utcnow().strftime("%Y-%m-%d")
+            cache[job_id] = j
+            new_jobs_count += 1
+        else:
+            cache[job_id].update(j)
 
-    print(f"[INFO] Total unique candidate jobs collected: {len(discovered_jobs)}")
+    print(f"[INFO] Added {new_jobs_count} new postings to local cache. Total cached jobs: {len(cache)}")
+    save_cache(cache)
 
-    if discovered_jobs:
-        pairs = [[experience_text, f"{j['title']} at {j['company']}: {j['body_text']}"] for j in discovered_jobs]
+    all_jobs = list(cache.values())
+
+    if all_jobs:
+        pairs = [[experience_text, f"{j['title']} at {j['company']}: {j['body_text']}"] for j in all_jobs]
         scores = model.predict(pairs)
 
-        for job, score in zip(discovered_jobs, scores):
+        for job, score in zip(all_jobs, scores):
             job["score"] = float(score)
 
-        # Sort descending by match score
-        discovered_jobs.sort(key=lambda x: x["score"], reverse=True)
+        all_jobs.sort(key=lambda x: x["score"], reverse=True)
 
-    write_html_report(discovered_jobs)
-    print(f"[INFO] Complete! Output saved to docs/current.html with {len(discovered_jobs)} active listings.")
+    write_html_report(all_jobs)
+    print(f"[INFO] Complete! Output saved to docs/current.html with {len(all_jobs)} total listings.")
 
 if __name__ == "__main__":
     main()
