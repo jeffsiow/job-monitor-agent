@@ -249,7 +249,7 @@ def fetch_climate_tech_list_playwright():
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             page.goto(url, wait_until="networkidle", timeout=40000)
-            time.sleep(6)  # Allow Airtable/JS widgets to populate
+            time.sleep(6)
 
             sources_to_check = [page] + page.frames
             for src in sources_to_check:
@@ -359,18 +359,21 @@ function sortTable(columnIndex) {{
   <th onclick="sortTable(0)" class="desc">Score</th>
   <th onclick="sortTable(1)">Job Title</th>
   <th onclick="sortTable(2)">Company</th>
-  <th onclick="sortTable(3)">Source</th>
-  <th onclick="sortTable(4)">Action</th>
+  <th onclick="sortTable(3)">Date Posted</th>
+  <th onclick="sortTable(4)">Source</th>
+  <th onclick="sortTable(5)">Action</th>
 </tr>
 </thead>
 <tbody>
 """
     for job in scored_jobs:
+        posted_date = job.get('posted') or job.get('first_seen', 'Recent')
         html += f"""
 <tr>
   <td><span class="score-badge">{job.get('score', 0.0):.2f}</span></td>
   <td><strong>{job['title']}</strong></td>
   <td>{job['company']}</td>
+  <td>{posted_date}</td>
   <td>{job['source']}</td>
   <td><a href="{job['url']}" target="_blank" class="btn">View Posting</a></td>
 </tr>
