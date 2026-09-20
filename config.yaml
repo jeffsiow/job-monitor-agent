@@ -1,0 +1,22 @@
+serpapi:
+  engine: "google_jobs"
+  location: "Calgary, Alberta, Canada"
+  gl: "ca"
+  hl: "en"
+  # Restrict results to jobs posted within the past week
+  chips: "date_posted:week"
+  # Cache options
+  cache_enabled: true
+  cache_file: "search_cache.json"
+  cache_ttl_hours: 24
+
+settings:
+  max_results_per_query: 20
+  output_file: "tailored_jobs_report.csv"
+
+job_roles:
+  - "Project Manager"
+  - "Project Engineer"
+  - "Program Manager"
+  - "Development Manager"
+  - "Engineering Lead"
