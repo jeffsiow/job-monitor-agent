@@ -5,6 +5,9 @@ on:
     - cron: '0 13 * * *' # Runs daily at 7 AM MDT
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   run-agent:
     runs-on: ubuntu-latest
