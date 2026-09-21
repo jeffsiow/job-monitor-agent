@@ -363,4 +363,9 @@ def fetch_climate_tech_list_playwright():
 def write_html_report(scored_jobs):
     today = datetime.utcnow().strftime("%Y-%m-%d")
     
-    html_header = """
+    # Using raw string (r""") prevents Python from parsing JavaScript backslashes
+    html_header = r"""
+
+
+
+Job Matching Dashboard — """ + today + r"""
