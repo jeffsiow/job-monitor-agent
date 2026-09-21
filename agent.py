@@ -44,12 +44,27 @@ def save_cache(cache_data):
     except Exception as e:
         print(f"[WARN] Failed to write jobs_cache.json: {e}")
 
+def compute_posting_age(first_seen_str):
+    """Calculates age in days based on when the job was first saved in the cache."""
+    if not first_seen_str:
+        return "New"
+    try:
+        first_seen_dt = datetime.strptime(first_seen_str, "%Y-%m-%d")
+        delta = (datetime.utcnow() - first_seen_dt).days
+        if delta == 0:
+            return "Today"
+        elif delta == 1:
+            return "1 day ago"
+        else:
+            return f"{delta} days ago"
+    except Exception:
+        return first_seen_str
+
 # ---------------------------------------------------------
 # Data Fetchers
 # ---------------------------------------------------------
 
 def fetch_google_jobs(query, location="Calgary, AB"):
-    """Fetches Google Jobs via SerpAPI filtered for jobs posted in the past week."""
     jobs = []
     api_key = os.getenv("SERPAPI_KEY")
     if not api_key:
@@ -61,7 +76,7 @@ def fetch_google_jobs(query, location="Calgary, AB"):
         params = {
             "engine": "google_jobs",
             "q": f"{query} {location}",
-            "chips": "date_posted:week",  # Filter for postings in the last week
+            "chips": "date_posted:week",
             "start": start,
             "api_key": api_key
         }
@@ -107,8 +122,7 @@ def fetch_bamboohr_eavor():
                     "title": title,
                     "company": "Eavor Technologies",
                     "url": link,
-                    "body_text": f"{title} - Eavor Technologies Calgary",
-                    "posted": "Recent"
+                    "body_text": f"{title} - Eavor Technologies Calgary"
                 })
             print(f"[INFO] Eavor: Found {len(jobs)} postings.")
     except Exception as e:
@@ -131,8 +145,7 @@ def fetch_workable_seeq():
                     "title": title,
                     "company": "Seeq",
                     "url": link,
-                    "body_text": f"{title} - Seeq Careers",
-                    "posted": "Recent"
+                    "body_text": f"{title} - Seeq Careers"
                 })
             print(f"[INFO] Seeq: Found {len(jobs)} postings.")
     except Exception as e:
@@ -140,7 +153,6 @@ def fetch_workable_seeq():
     return jobs
 
 def fetch_black_veatch_playwright():
-    """Renders Black & Veatch career site querying both targeted search URLs."""
     jobs = []
     urls = [
         "https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada+OR+united+states&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5=Project+Management",
@@ -167,8 +179,7 @@ def fetch_black_veatch_playwright():
                             "title": title,
                             "company": "Black & Veatch",
                             "url": full_url,
-                            "body_text": f"{title} - Black & Veatch Project Management",
-                            "posted": "Recent"
+                            "body_text": f"{title} - Black & Veatch Project Management"
                         })
             browser.close()
             print(f"[INFO] Black & Veatch (Playwright): Found {len(jobs)} total postings across both URLs.")
@@ -195,8 +206,7 @@ def fetch_kanin_energy():
                         "title": text,
                         "company": "Kanin Energy",
                         "url": link,
-                        "body_text": f"{text} at Kanin Energy",
-                        "posted": "Recent"
+                        "body_text": f"{text} at Kanin Energy"
                     })
             print(f"[INFO] Kanin Energy: Found {len(jobs)} postings.")
     except Exception as e:
@@ -204,7 +214,6 @@ def fetch_kanin_energy():
     return jobs
 
 def fetch_city_of_calgary_playwright():
-    """Extracts job titles directly from PeopleSoft iframe or root page."""
     jobs = []
     url = "https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U"
     try:
@@ -228,8 +237,7 @@ def fetch_city_of_calgary_playwright():
                                 "title": title,
                                 "company": "City of Calgary",
                                 "url": url,
-                                "body_text": f"{title} - City of Calgary Careers",
-                                "posted": "Recent"
+                                "body_text": f"{title} - City of Calgary Careers"
                             })
                 except Exception:
                     continue
@@ -241,7 +249,6 @@ def fetch_city_of_calgary_playwright():
     return jobs
 
 def fetch_climate_tech_list_playwright():
-    """Renders Climate Tech List using Playwright to extract dynamically rendered / Airtable job cards."""
     jobs = []
     url = "https://www.climatetechlist.com/jobs?location=calgary"
     try:
@@ -266,8 +273,7 @@ def fetch_climate_tech_list_playwright():
                                 "title": title,
                                 "company": "Climate Tech List",
                                 "url": full_url,
-                                "body_text": f"{title} - Climate Tech List Calgary",
-                                "posted": "Recent"
+                                "body_text": f"{title} - Climate Tech List Calgary"
                             })
                 except Exception:
                     continue
@@ -279,7 +285,7 @@ def fetch_climate_tech_list_playwright():
     return jobs
 
 # ---------------------------------------------------------
-# Report Writer
+# Phase 2 Interactive Report Writer
 # ---------------------------------------------------------
 
 def write_html_report(scored_jobs):
@@ -288,12 +294,23 @@ def write_html_report(scored_jobs):
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Job Matching Report — {today}</title>
+<title>Job Matching Dashboard — {today}</title>
 <style>
   body {{ font-family: system-ui, -apple-system, sans-serif; margin: 30px; background: #f8f9fa; color: #333; }}
   h1 {{ margin-bottom: 5px; color: #1a252f; }}
   .sub {{ color: #6c757d; margin-bottom: 20px; }}
-  #searchBox {{ padding: 10px; width: 320px; font-size: 14px; margin-bottom: 20px; border: 1px solid #ced4da; border-radius: 4px; }}
+  
+  .token-bar {{ background: #fff3cd; border: 1px solid #ffeeba; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }}
+  .token-bar input {{ flex: 1; padding: 6px 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 13px; }}
+  .token-bar button {{ padding: 6px 12px; background: #856404; color: white; border: none; border-radius: 4px; cursor: pointer; }}
+
+  .tabs {{ display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 2px solid #e9ecef; padding-bottom: 8px; }}
+  .tab {{ padding: 8px 16px; border: none; background: #e9ecef; border-radius: 4px; cursor: pointer; font-weight: 600; color: #495057; }}
+  .tab.active {{ background: #0066cc; color: white; }}
+  
+  .controls {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }}
+  #searchBox {{ padding: 9px 12px; width: 320px; font-size: 14px; border: 1px solid #ced4da; border-radius: 4px; }}
+
   table {{ border-collapse: collapse; width: 100%; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
   th, td {{ padding: 12px 15px; text-align: left; border-bottom: 1px solid #e9ecef; }}
   th {{ background-color: #0066cc; color: white; cursor: pointer; user-select: none; }}
@@ -301,23 +318,152 @@ def write_html_report(scored_jobs):
   th.asc::after {{ content: " ▲"; font-size: 10px; }}
   th.desc::after {{ content: " ▼"; font-size: 10px; }}
   tr:hover {{ background-color: #f1f5f9; }}
+
   .score-badge {{ font-weight: bold; padding: 4px 8px; border-radius: 4px; background: #e3f2fd; color: #0d47a1; }}
-  a.btn {{ text-decoration: none; background: #28a745; color: white; padding: 6px 12px; border-radius: 4px; font-size: 13px; display: inline-block; }}
-  a.btn:hover {{ background: #218838; }}
+  
+  /* Status Buttons */
+  .btn-group {{ display: flex; gap: 4px; }}
+  .btn-action {{ border: 1px solid #ced4da; background: white; padding: 5px 8px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: all 0.2s; }}
+  .btn-action:hover {{ background: #e2e8f0; }}
+  .btn-action.active-new {{ background: #e2e8f0; font-weight: bold; }}
+  .btn-action.active-interested {{ background: #fff3cd; border-color: #ffeeba; color: #856404; font-weight: bold; }}
+  .btn-action.active-applied {{ background: #d4edda; border-color: #c3e6cb; color: #155724; font-weight: bold; }}
+  .btn-action.active-dismissed {{ background: #f8d7da; border-color: #f5c6cb; color: #721c24; font-weight: bold; }}
+
+  a.btn-link {{ text-decoration: none; background: #0066cc; color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; display: inline-block; }}
+  a.btn-link:hover {{ background: #0052a5; }}
+  
+  .status-tag {{ font-size: 11px; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; font-weight: bold; display: inline-block; margin-bottom: 4px; }}
+  .status-new {{ background: #e2e8f0; color: #475569; }}
+  .status-interested {{ background: #fef08a; color: #854d0e; }}
+  .status-applied {{ background: #bbf7d0; color: #166534; }}
+  .status-dismissed {{ background: #fecdd3; color: #9f1239; }}
 </style>
 <script>
-function filterTable() {{
-  var input = document.getElementById("searchBox").value.toLowerCase();
-  var rows = document.getElementById("jobTable").rows;
-  for (var i = 1; i < rows.length; i++) {{
-    var rowText = rows[i].innerText.toLowerCase();
-    rows[i].style.display = rowText.includes(input) ? "" : "none";
+let currentTab = 'new';
+
+function setGithubToken() {{
+  const token = document.getElementById('ghTokenInput').value.trim();
+  if (token) {{
+    localStorage.setItem('gh_pat', token);
+    alert('GitHub Token saved locally in browser!');
+  }} else {{
+    localStorage.removeItem('gh_pat');
+    alert('Token cleared.');
+  }}
+}}
+
+window.onload = function() {{
+  const savedToken = localStorage.getItem('gh_pat');
+  if (savedToken) {{
+    document.getElementById('ghTokenInput').value = savedToken;
+  }}
+  filterTab('new');
+}};
+
+function filterTab(tabName) {{
+  currentTab = tabName;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tabName).classList.add('active');
+  applyFilters();
+}}
+
+function applyFilters() {{
+  const searchInput = document.getElementById("searchBox").value.toLowerCase();
+  const rows = document.querySelectorAll("#jobTable tbody tr");
+
+  rows.forEach(row => {{
+    const rowStatus = row.getAttribute("data-status") || "new";
+    const rowText = row.innerText.toLowerCase();
+
+    const matchesTab = (currentTab === 'all') || (rowStatus === currentTab);
+    const matchesSearch = rowText.includes(searchInput);
+
+    row.style.display = (matchesTab && matchesSearch) ? "" : "none";
+  }});
+}}
+
+async function updateJobStatus(jobId, newStatus) {{
+  const token = localStorage.getItem('gh_pat');
+  if (!token) {{
+    alert("Please enter a GitHub Personal Access Token (with repo write permissions) above to enable 1-click status updating.");
+    return;
+  }}
+
+  // Identify repo dynamically from location or prompt user once
+  let repoPath = localStorage.getItem('gh_repo');
+  if (!repoPath) {{
+    repoPath = prompt("Enter your GitHub repository path (e.g. username/job-matcher):");
+    if (!repoPath) return;
+    localStorage.setItem('gh_repo', repoPath);
+  }}
+
+  const tr = document.getElementById('job-row-' + jobId);
+  const oldStatus = tr.getAttribute('data-status');
+  
+  // Optimistic UI update
+  tr.setAttribute('data-status', newStatus);
+  const tag = tr.querySelector('.status-tag');
+  if (tag) {{
+    tag.className = 'status-tag status-' + newStatus;
+    tag.innerText = newStatus;
+  }}
+  applyFilters();
+
+  try {{
+    // 1. Get current cache file from GitHub API
+    const getUrl = `https://api.github.com/repos/${{repoPath}}/contents/jobs_cache.json`;
+    const getResp = await fetch(getUrl, {{
+      headers: {{ "Authorization": "Bearer " + token, "Accept": "application/vnd.github.v3+json" }}
+    }});
+    
+    if (!getResp.ok) throw new Error("Failed to fetch jobs_cache.json from GitHub API: " + getResp.statusText);
+    const fileData = await getResp.json();
+    
+    // Decode base64 content correctly supporting utf-8
+    const rawJson = decodeURIComponent(escape(atob(fileData.content)));
+    const cacheObj = JSON.parse(rawJson);
+
+    if (cacheObj[jobId]) {{
+      cacheObj[jobId].status = newStatus;
+      cacheObj[jobId].updated_at = new Date().toISOString();
+    }} else {{
+      throw new Error("Job ID not found in cache JSON.");
+    }}
+
+    // Encode utf-8 to base64
+    const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(cacheObj, null, 2))));
+
+    // 2. Commit update back to main
+    const putResp = await fetch(getUrl, {{
+      method: "PUT",
+      headers: {{
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github.v3+json"
+      }},
+      body: JSON.stringify({{
+        message: `Update job ${{jobId}} status to ${{newStatus}}`,
+        content: updatedContent,
+        sha: fileData.sha,
+        branch: "main"
+      }})
+    }});
+
+    if (!putResp.ok) throw new Error("Failed to commit change to GitHub.");
+    console.log(`Successfully saved status '${{newStatus}}' for job ${{jobId}}`);
+
+  }} catch (err) {{
+    alert("Error updating status: " + err.message);
+    // Revert UI on error
+    tr.setAttribute('data-status', oldStatus);
+    applyFilters();
   }}
 }}
 
 function sortTable(columnIndex) {{
   var table = document.getElementById("jobTable");
-  var rows = Array.from(table.rows).slice(1);
+  var rows = Array.from(table.querySelectorAll("tbody tr"));
   var headers = table.querySelectorAll("th");
   var currentHeader = headers[columnIndex];
   var isAscending = currentHeader.classList.contains("asc");
@@ -341,7 +487,6 @@ function sortTable(columnIndex) {{
   }});
 
   currentHeader.classList.add(isAscending ? "desc" : "asc");
-
   var tbody = table.querySelector("tbody");
   rows.forEach(row => tbody.appendChild(row));
 }}
@@ -349,33 +494,64 @@ function sortTable(columnIndex) {{
 </head>
 <body>
 
-<h1>🎯 Daily Job Match Recommendations</h1>
-<p class="sub">Generated on {today} • Click column headers to sort</p>
-<input type="text" id="searchBox" onkeyup="filterTable()" placeholder="Filter by title, company, or source...">
+<h1>🎯 Job Matching & Application Tracker</h1>
+<p class="sub">Generated on {today} • Phase 2 Interactive Dashboard</p>
+
+<div class="token-bar">
+  <span>🔑 <strong>GitHub Token:</strong></span>
+  <input type="password" id="ghTokenInput" placeholder="ghp_xxxxxxxxxxxx (Requires repo contents write scope)">
+  <button onclick="setGithubToken()">Save Token</button>
+</div>
+
+<div class="tabs">
+  <button class="tab active" id="tab-new" onclick="filterTab('new')">📥 Inbox (New)</button>
+  <button class="tab" id="tab-interested" onclick="filterTab('interested')">⭐ Interested</button>
+  <button class="tab" id="tab-applied" onclick="filterTab('applied')">🚀 Applied</button>
+  <button class="tab" id="tab-dismissed" onclick="filterTab('dismissed')">❌ Dismissed</button>
+  <button class="tab" id="tab-all" onclick="filterTab('all')">📋 All Postings</button>
+</div>
+
+<div class="controls">
+  <input type="text" id="searchBox" onkeyup="applyFilters()" placeholder="Filter current view by title or company...">
+</div>
 
 <table id="jobTable">
 <thead>
 <tr>
   <th onclick="sortTable(0)" class="desc">Score</th>
-  <th onclick="sortTable(1)">Job Title</th>
+  <th onclick="sortTable(1)">Job Title & Details</th>
   <th onclick="sortTable(2)">Company</th>
-  <th onclick="sortTable(3)">Date Posted</th>
+  <th onclick="sortTable(3)">First Seen / Age</th>
   <th onclick="sortTable(4)">Source</th>
-  <th onclick="sortTable(5)">Action</th>
+  <th>Triage Action</th>
 </tr>
 </thead>
 <tbody>
 """
     for job in scored_jobs:
-        posted_date = job.get('posted') or job.get('first_seen', 'Recent')
+        job_id = job["id"]
+        status = job.get("status", "new")
+        age_display = job.get('posted') if job.get('posted') else compute_posting_age(job.get('first_seen'))
+        
         html += f"""
-<tr>
+<tr id="job-row-{job_id}" data-status="{status}">
   <td><span class="score-badge">{job.get('score', 0.0):.2f}</span></td>
-  <td><strong>{job['title']}</strong></td>
+  <td>
+    <div><span class="status-tag status-{status}">{status}</span></div>
+    <strong>{job['title']}</strong><br>
+    <a href="{job['url']}" target="_blank" class="btn-link" style="margin-top: 4px;">View Posting ↗</a>
+  </td>
   <td>{job['company']}</td>
-  <td>{posted_date}</td>
+  <td>{age_display}</td>
   <td>{job['source']}</td>
-  <td><a href="{job['url']}" target="_blank" class="btn">View Posting</a></td>
+  <td>
+    <div class="btn-group">
+      <button title="Mark Interested" class="btn-action {'active-interested' if status=='interested' else ''}" onclick="updateJobStatus('{job_id}', 'interested')">⭐</button>
+      <button title="Mark Applied" class="btn-action {'active-applied' if status=='applied' else ''}" onclick="updateJobStatus('{job_id}', 'applied')">🚀</button>
+      <button title="Dismiss Posting" class="btn-action {'active-dismissed' if status=='dismissed' else ''}" onclick="updateJobStatus('{job_id}', 'dismissed')">❌</button>
+      <button title="Reset to Inbox" class="btn-action {'active-new' if status=='new' else ''}" onclick="updateJobStatus('{job_id}', 'new')">📥</button>
+    </div>
+  </td>
 </tr>
 """
     html += """
@@ -435,16 +611,23 @@ def main():
     print("[INFO] Fetching City of Calgary...")
     discovered_jobs.extend(fetch_city_of_calgary_playwright())
 
-    # Update cache with newly discovered items
+    # Update cache with newly discovered items, maintaining user status if already present
     new_jobs_count = 0
+    today_str = datetime.utcnow().strftime("%Y-%m-%d")
     for j in discovered_jobs:
         job_id = j["id"]
         if job_id not in cache:
-            j["first_seen"] = datetime.utcnow().strftime("%Y-%m-%d")
+            j["first_seen"] = today_str
+            j["status"] = "new"  # Phase 2 default status
             cache[job_id] = j
             new_jobs_count += 1
         else:
+            # Preserve user status and first_seen date while updating title/url/body_text
+            existing_status = cache[job_id].get("status", "new")
+            existing_first_seen = cache[job_id].get("first_seen", today_str)
             cache[job_id].update(j)
+            cache[job_id]["status"] = existing_status
+            cache[job_id]["first_seen"] = existing_first_seen
 
     print(f"[INFO] Added {new_jobs_count} new postings to local cache. Total cached jobs: {len(cache)}")
     save_cache(cache)
@@ -461,7 +644,7 @@ def main():
         all_jobs.sort(key=lambda x: x["score"], reverse=True)
 
     write_html_report(all_jobs)
-    print(f"[INFO] Complete! Output saved to docs/current.html with {len(all_jobs)} total listings.")
+    print(f"[INFO] Complete! Dashboard updated at docs/current.html with {len(all_jobs)} total listings.")
 
 if __name__ == "__main__":
     main()
