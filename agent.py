@@ -360,12 +360,21 @@ def fetch_climate_tech_list_playwright():
 # Report Writer (Standard string to avoid f-string curly-brace syntax issues)
 # ---------------------------------------------------------
 
+TEMPLATE_PATH = BASE_DIR / "dashboard_template.html"
+
 def write_html_report(scored_jobs):
     today = datetime.utcnow().strftime("%Y-%m-%d")
     
-    # Using raw string (r""") prevents Python from parsing JavaScript backslashes
-    html_header = r"""
+    rows_html = ""
+    for job in scored_jobs:
+        job_id = job["id"]
+        status = job.get("status", "new")
+        age_display = job.get('posted') if job.get('posted') else compute_posting_age(job.get('first_seen'))
+        score_val = f"{job.get('score', 0.0):.2f}"
+        
+        active_interested = 'active-interested' if status == 'interested' else ''
+        active_applied = 'active-applied' if status == 'applied' else ''
+        active_dismissed = 'active-dismissed' if status == 'dismissed' else ''
+        active_new = 'active-new' if status == 'new' else ''
 
-
-
-Job Matching Dashboard — """ + today + r"""
+        rows_html += f"""
