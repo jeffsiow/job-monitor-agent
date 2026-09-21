@@ -122,7 +122,7 @@ def compute_composite_scores(jobs, cache_data, model):
         if any(kw in title_clean for kw in target_role_keywords):
             s_role += 0.5
             
-        # Semantic/exact match with roles you've previously marked interested
+        # Semantic/exact match with roles marked interested
         if any(ref_title in title_clean or title_clean in ref_title for ref_title in interested_role_titles):
             s_role += 0.5
 
@@ -357,9 +357,10 @@ def fetch_climate_tech_list_playwright():
     return jobs
 
 # ---------------------------------------------------------
-# Report Writer
+# Report Writer (Standard string to avoid f-string curly-brace syntax issues)
 # ---------------------------------------------------------
 
 def write_html_report(scored_jobs):
     today = datetime.utcnow().strftime("%Y-%m-%d")
-    html = f"""
+    
+    html_header = """
