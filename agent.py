@@ -3,7 +3,6 @@ import json
 import hashlib
 import time
 import requests
-import yaml
 import re
 from pathlib import Path
 from datetime import datetime
@@ -26,26 +25,21 @@ def load_experience_library():
     return "Mechanical Engineer, P.Eng., PMP, Project Manager, CleanTech, Energy."
 
 def clean_string(text):
-    """Normalizes whitespace and removes special characters for clean matching."""
     if not text:
         return ""
     text = re.sub(r'\s+', ' ', text)
     return text.strip().lower()
 
 def normalize_url(url):
-    """Strips common tracking query parameters and trailing slashes to prevent duplicates."""
     if not url:
         return ""
     url = url.split("?")[0].split("#")[0]
     return url.rstrip("/").lower()
 
 def make_job_id(source_name, title, url, company=""):
-    """Generates a stable hash based on normalized title, company/source, and clean URL path."""
     norm_title = clean_string(title)
     norm_company = clean_string(company)
     norm_url = normalize_url(url)
-    
-    # Fall back to title + company/source if the URL is generic or missing
     raw = f"{clean_string(source_name)}|{norm_company}|{norm_title}|{norm_url}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
@@ -66,7 +60,6 @@ def save_cache(cache_data):
         print(f"[WARN] Failed to write jobs_cache.json: {e}")
 
 def compute_posting_age(first_seen_str):
-    """Calculates age in days based on when the job was first saved in the cache."""
     if not first_seen_str:
         return "New"
     try:
@@ -80,6 +73,64 @@ def compute_posting_age(first_seen_str):
             return f"{delta} days ago"
     except Exception:
         return first_seen_str
+
+# ---------------------------------------------------------
+# Multi-Factor Match Function
+# match = f(experience_library, company, role_title_desc)
+# ---------------------------------------------------------
+
+def compute_composite_scores(jobs, cache_data, model):
+    """
+    Computes match score = w1*S_exp + w2*S_company + w3*S_role
+    """
+    base_experience = load_experience_library()[:1500]
+
+    # Extract target companies & starred roles from historical user feedback
+    target_companies = set()
+    interested_role_titles = []
+    
+    for job_id, job in cache_data.items():
+        if job.get("status") in ["interested", "applied"]:
+            if job.get("company"):
+                target_companies.add(clean_string(job["company"]))
+            if job.get("title"):
+                interested_role_titles.append(clean_string(job["title"]))
+
+    # Core high-value title keywords
+    target_role_keywords = ["project manager", "project engineer", "operations", "lead", "director"]
+
+    # Step 1: Batch Cross-Encoder Scoring against Base Experience (S_exp)
+    exp_pairs = [[base_experience, f"{j['title']} at {j['company']}: {j['body_text']}"] for j in jobs]
+    raw_exp_scores = model.predict(exp_pairs)
+
+    for idx, job in enumerate(jobs):
+        s_exp = float(raw_exp_scores[idx])
+
+        # Step 2: Calculate Company Fit Score (S_company)
+        company_clean = clean_string(job.get("company", ""))
+        s_company = 0.0
+        if company_clean in target_companies:
+            s_company = 1.0  # Explicitly starred company from dashboard
+        elif any(k in company_clean for k in ["eavor", "kanin", "seeq", "black & veatch", "city of calgary"]):
+            s_company = 0.5  # Core direct target sources
+
+        # Step 3: Calculate Role Title & Description Score (S_role)
+        title_clean = clean_string(job.get("title", ""))
+        s_role = 0.0
+        
+        # Keyword alignment
+        if any(kw in title_clean for kw in target_role_keywords):
+            s_role += 0.5
+            
+        # Semantic/exact match with roles you've previously marked interested
+        if any(ref_title in title_clean or title_clean in ref_title for ref_title in interested_role_titles):
+            s_role += 0.5
+
+        # Weighted composite score: 60% Experience, 20% Company, 20% Role Title
+        w_exp, w_company, w_role = 0.60, 0.20, 0.20
+        final_score = (w_exp * s_exp) + (w_company * s_company) + (w_role * s_role)
+
+        job["score"] = round(final_score, 3)
 
 # ---------------------------------------------------------
 # Data Fetchers
@@ -306,7 +357,7 @@ def fetch_climate_tech_list_playwright():
     return jobs
 
 # ---------------------------------------------------------
-# Phase 2 Interactive Report Writer
+# Report Writer
 # ---------------------------------------------------------
 
 def write_html_report(scored_jobs):
