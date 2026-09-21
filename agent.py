@@ -15,6 +15,7 @@ EXPERIENCE_PATH = BASE_DIR / "experience_library.md"
 REPORTS_DIR = BASE_DIR / "reports"
 DOCS_DIR = BASE_DIR / "docs"
 CACHE_PATH = BASE_DIR / "jobs_cache.json"
+TEMPLATE_PATH = BASE_DIR / "dashboard_template.html"
 
 REPORTS_DIR.mkdir(exist_ok=True)
 DOCS_DIR.mkdir(exist_ok=True)
@@ -40,7 +41,7 @@ def make_job_id(source_name, title, url, company=""):
     norm_title = clean_string(title)
     norm_company = clean_string(company)
     norm_url = normalize_url(url)
-    raw = f"{clean_string(source_name)}|{norm_company}|{norm_title}|{norm_url}"
+    raw = clean_string(source_name) + "|" + norm_company + "|" + norm_title + "|" + norm_url
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 def load_cache():
@@ -49,7 +50,7 @@ def load_cache():
             with open(CACHE_PATH, "r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
-            print(f"[WARN] Failed to read jobs_cache.json: {e}")
+            print("[WARN] Failed to read jobs_cache.json: " + str(e))
     return {}
 
 def save_cache(cache_data):
@@ -57,7 +58,7 @@ def save_cache(cache_data):
         with open(CACHE_PATH, "w", encoding="utf-8") as f:
             json.dump(cache_data, f, indent=2, ensure_ascii=False)
     except Exception as e:
-        print(f"[WARN] Failed to write jobs_cache.json: {e}")
+        print("[WARN] Failed to write jobs_cache.json: " + str(e))
 
 def compute_posting_age(first_seen_str):
     if not first_seen_str:
@@ -70,22 +71,17 @@ def compute_posting_age(first_seen_str):
         elif delta == 1:
             return "1 day ago"
         else:
-            return f"{delta} days ago"
+            return str(delta) + " days ago"
     except Exception:
         return first_seen_str
 
 # ---------------------------------------------------------
 # Multi-Factor Match Function
-# match = f(experience_library, company, role_title_desc)
 # ---------------------------------------------------------
 
 def compute_composite_scores(jobs, cache_data, model):
-    """
-    Computes match score = w1*S_exp + w2*S_company + w3*S_role
-    """
     base_experience = load_experience_library()[:1500]
 
-    # Extract target companies & starred roles from historical user feedback
     target_companies = set()
     interested_role_titles = []
     
@@ -96,37 +92,30 @@ def compute_composite_scores(jobs, cache_data, model):
             if job.get("title"):
                 interested_role_titles.append(clean_string(job["title"]))
 
-    # Core high-value title keywords
     target_role_keywords = ["project manager", "project engineer", "operations", "lead", "director"]
 
-    # Step 1: Batch Cross-Encoder Scoring against Base Experience (S_exp)
-    exp_pairs = [[base_experience, f"{j['title']} at {j['company']}: {j['body_text']}"] for j in jobs]
+    exp_pairs = [[base_experience, job['title'] + " at " + job['company'] + ": " + job['body_text']] for job in jobs]
     raw_exp_scores = model.predict(exp_pairs)
 
     for idx, job in enumerate(jobs):
         s_exp = float(raw_exp_scores[idx])
 
-        # Step 2: Calculate Company Fit Score (S_company)
         company_clean = clean_string(job.get("company", ""))
         s_company = 0.0
         if company_clean in target_companies:
-            s_company = 1.0  # Explicitly starred company from dashboard
+            s_company = 1.0
         elif any(k in company_clean for k in ["eavor", "kanin", "seeq", "black & veatch", "city of calgary"]):
-            s_company = 0.5  # Core direct target sources
+            s_company = 0.5
 
-        # Step 3: Calculate Role Title & Description Score (S_role)
         title_clean = clean_string(job.get("title", ""))
         s_role = 0.0
         
-        # Keyword alignment
         if any(kw in title_clean for kw in target_role_keywords):
             s_role += 0.5
             
-        # Semantic/exact match with roles marked interested
         if any(ref_title in title_clean or title_clean in ref_title for ref_title in interested_role_titles):
             s_role += 0.5
 
-        # Weighted composite score: 60% Experience, 20% Company, 20% Role Title
         w_exp, w_company, w_role = 0.60, 0.20, 0.20
         final_score = (w_exp * s_exp) + (w_company * s_company) + (w_role * s_role)
 
@@ -147,7 +136,7 @@ def fetch_google_jobs(query, location="Calgary, AB"):
     for start in [0, 10]:
         params = {
             "engine": "google_jobs",
-            "q": f"{query} {location}",
+            "q": query + " " + location,
             "chips": "date_posted:week",
             "start": start,
             "api_key": api_key
@@ -169,13 +158,13 @@ def fetch_google_jobs(query, location="Calgary, AB"):
                             "title": title.strip(),
                             "company": company.strip(),
                             "url": link,
-                            "body_text": f"{title} at {company}: {desc[:1500]}",
+                            "body_text": title + " at " + company + ": " + desc[:1500],
                             "posted": item.get("detected_extensions", {}).get("posted_at", "Past week")
                         })
         except Exception as e:
-            print(f"[WARN] Google Jobs batch failed for '{query}' (start={start}): {e}")
+            print("[WARN] Google Jobs batch failed for '" + query + "' (start=" + str(start) + "): " + str(e))
             
-    print(f"[INFO] Google Jobs ('{query}'): Found {len(jobs)} postings.")
+    print("[INFO] Google Jobs ('" + query + "'): Found " + str(len(jobs)) + " postings.")
     return jobs
 
 def fetch_bamboohr_eavor():
@@ -187,18 +176,18 @@ def fetch_bamboohr_eavor():
             for result in resp.json().get("result", []):
                 title = result.get("jobOpeningName", "").strip()
                 job_id_num = result.get("id", "")
-                link = f"https://eavortechnologies.bamboohr.com/careers/{job_id_num}"
+                link = "https://eavortechnologies.bamboohr.com/careers/" + str(job_id_num)
                 jobs.append({
                     "id": make_job_id("eavor", title, link, "Eavor Technologies"),
                     "source": "eavor",
                     "title": title,
                     "company": "Eavor Technologies",
                     "url": link,
-                    "body_text": f"{title} - Eavor Technologies Calgary"
+                    "body_text": title + " - Eavor Technologies Calgary"
                 })
-            print(f"[INFO] Eavor: Found {len(jobs)} postings.")
+            print("[INFO] Eavor: Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] Eavor API failed: {e}")
+        print("[WARN] Eavor API failed: " + str(e))
     return jobs
 
 def fetch_workable_seeq():
@@ -210,18 +199,18 @@ def fetch_workable_seeq():
             for item in resp.json().get("results", []):
                 title = item.get("title", "").strip()
                 shortcode = item.get("shortcode", "")
-                link = f"https://apply.workable.com/seeq/j/{shortcode}/"
+                link = "https://apply.workable.com/seeq/j/" + shortcode + "/"
                 jobs.append({
                     "id": make_job_id("seeq", title, link, "Seeq"),
                     "source": "seeq",
                     "title": title,
                     "company": "Seeq",
                     "url": link,
-                    "body_text": f"{title} - Seeq Careers"
+                    "body_text": title + " - Seeq Careers"
                 })
-            print(f"[INFO] Seeq: Found {len(jobs)} postings.")
+            print("[INFO] Seeq: Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] Seeq API failed: {e}")
+        print("[WARN] Seeq API failed: " + str(e))
     return jobs
 
 def fetch_black_veatch_playwright():
@@ -244,19 +233,19 @@ def fetch_black_veatch_playwright():
                     title = a.get_text(strip=True)
                     href = a["href"]
                     if "/job/" in href.lower() and len(title) > 3 and "search" not in title.lower():
-                        full_url = href if href.startswith("http") else f"https://careers.bv.com{href}"
+                        full_url = href if href.startswith("http") else "https://careers.bv.com" + href
                         jobs.append({
                             "id": make_job_id("black_veatch", title, full_url, "Black & Veatch"),
                             "source": "black_veatch",
                             "title": title,
                             "company": "Black & Veatch",
                             "url": full_url,
-                            "body_text": f"{title} - Black & Veatch Project Management"
+                            "body_text": title + " - Black & Veatch Project Management"
                         })
             browser.close()
-            print(f"[INFO] Black & Veatch (Playwright): Found {len(jobs)} total postings across both URLs.")
+            print("[INFO] Black & Veatch (Playwright): Found " + str(len(jobs)) + " total postings across both URLs.")
     except Exception as e:
-        print(f"[WARN] Black & Veatch Playwright fetch failed: {e}")
+        print("[WARN] Black & Veatch Playwright fetch failed: " + str(e))
     return jobs
 
 def fetch_kanin_energy():
@@ -278,11 +267,11 @@ def fetch_kanin_energy():
                         "title": text,
                         "company": "Kanin Energy",
                         "url": link,
-                        "body_text": f"{text} at Kanin Energy"
+                        "body_text": text + " at Kanin Energy"
                     })
-            print(f"[INFO] Kanin Energy: Found {len(jobs)} postings.")
+            print("[INFO] Kanin Energy: Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] Kanin Energy fetch failed: {e}")
+        print("[WARN] Kanin Energy fetch failed: " + str(e))
     return jobs
 
 def fetch_city_of_calgary_playwright():
@@ -309,15 +298,15 @@ def fetch_city_of_calgary_playwright():
                                 "title": title,
                                 "company": "City of Calgary",
                                 "url": url,
-                                "body_text": f"{title} - City of Calgary Careers"
+                                "body_text": title + " - City of Calgary Careers"
                             })
                 except Exception:
                     continue
 
             browser.close()
-            print(f"[INFO] City of Calgary (Playwright): Found {len(jobs)} postings.")
+            print("[INFO] City of Calgary (Playwright): Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] City of Calgary Playwright fetch failed: {e}")
+        print("[WARN] City of Calgary Playwright fetch failed: " + str(e))
     return jobs
 
 def fetch_climate_tech_list_playwright():
@@ -338,43 +327,27 @@ def fetch_climate_tech_list_playwright():
                         href = a["href"]
                         title = a.get_text(strip=True)
                         if ("/job/" in href.lower() or "/posting" in href.lower() or "airtable.com" in href.lower()) and len(title) > 3:
-                            full_url = href if href.startswith("http") else f"https://www.climatetechlist.com{href}"
+                            full_url = href if href.startswith("http") else "https://www.climatetechlist.com" + href
                             jobs.append({
                                 "id": make_job_id("climate_tech_list", title, full_url, "Climate Tech List"),
                                 "source": "climate_tech_list",
                                 "title": title,
                                 "company": "Climate Tech List",
                                 "url": full_url,
-                                "body_text": f"{title} - Climate Tech List Calgary"
+                                "body_text": title + " - Climate Tech List Calgary"
                             })
                 except Exception:
                     continue
 
             browser.close()
-            print(f"[INFO] Climate Tech List (Playwright): Found {len(jobs)} postings.")
+            print("[INFO] Climate Tech List (Playwright): Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] Climate Tech List Playwright fetch failed: {e}")
+        print("[WARN] Climate Tech List Playwright fetch failed: " + str(e))
     return jobs
 
 # ---------------------------------------------------------
-# Report Writer (Standard string to avoid f-string curly-brace syntax issues)
+# Report Writer
 # ---------------------------------------------------------
 
-TEMPLATE_PATH = BASE_DIR / "dashboard_template.html"
-
-def write_html_report(scored_jobs):
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    
-    rows_html = ""
-    for job in scored_jobs:
-        job_id = job["id"]
-        status = job.get("status", "new")
-        age_display = job.get('posted') if job.get('posted') else compute_posting_age(job.get('first_seen'))
-        score_val = f"{job.get('score', 0.0):.2f}"
-        
-        active_interested = 'active-interested' if status == 'interested' else ''
-        active_applied = 'active-applied' if status == 'applied' else ''
-        active_dismissed = 'active-dismissed' if status == 'dismissed' else ''
-        active_new = 'active-new' if status == 'new' else ''
-
-        rows_html += f"""
+ROW_TEMPLATE = (
+    '
