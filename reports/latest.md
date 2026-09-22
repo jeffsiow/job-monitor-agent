@@ -1,0 +1,42 @@
+# Job matches — 2026-09-22
+
+- **20** [Senior Project Manager, Rig Manufacturing](https://www.google.com/search?ibp=htl;jobs&q=project+manager+energy+Calgary,+AB&htidocid=0gLe1QiLDMx1vQPjAAAAAA%3D%3D&hl=es-419&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWOMQrCMBRAce0RnP5cSiOCS51URBdB1L38pt80Jc2PSSr1OJ7BzbUX0y4P3vJ4yWeWHK9kNXs4e25JRjihRUU-g4tWk_R3lLH32qoCqvEbHj3VCDUBdc4QA1k4MCtD83UTowuFECGYXIWIUctccifYUsWDaLkKE8rQoCdnMFK5XC2G3FmVpnt8_i9uJBvLhpWmMKV3aBT6VwabbfYXi_X4_gFJScPotgAAAA&shmds=v1_ARwrE236aPxjiIykBAubqvW1l64fhGR1EMVPF3R9QlSG1wXnwg&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=project+manager+energy+Calgary,+AB&htidocid=0gLe1QiLDMx1vQPjAAAAAA%3D%3D) — Eavor Technologies (google_jobs) new
+- **20** [Project Manager, Technology Projects](https://eavortechnologies.bamboohr.com/careers/133) — Eavor Technologies (eavor) new
+- **20** [Customer Support Operations Intelligence Engineer](https://apply.workable.com/seeq/j/41E65B3CDE/) — Seeq (seeq) new
+- **20** [Director, Product Marketing & Program Management](https://apply.workable.com/seeq/j/519AE21AD3/) — Seeq (seeq) new
+- **20** [Project Manager](https://kaninenergy.com/careers/) — Kanin Energy (kanin_energy) new
+- **20** [Project Engineer](https://kaninenergy.com/careers/) — Kanin Energy (kanin_energy) new
+- **20** [Project Manager - Water/Wastewater](https://careers.bv.com/job/Markham-Project-Manager-WaterWastewater-ON/1255666401/) — Black & Veatch (black_veatch) new
+- **20** [AI Program Manager - Power Delivery & Grid](https://careers.bv.com/job/Overland-Park-AI-Program-Manager-Power-Delivery-&-Grid-KS-66062/1400049433/) — Black & Veatch (black_veatch) new
+- **20** [Project Manager Nuclear Services](https://careers.bv.com/job/Project-Manager-Nuclear-Services-WA/1373317733/) — Black & Veatch (black_veatch) new
+- **20** [Project Engineering Manager - Water/Wastewater](https://careers.bv.com/job/Fayetteville-Project-Engineering-Manager-WaterWastewater-AR-72701/1426337733/) — Black & Veatch (black_veatch) new
+- **20** [Project Director - Water/Wastewater](https://careers.bv.com/job/Nashville-Project-Director-WaterWastewater-TN-37201/1429862933/) — Black & Veatch (black_veatch) new
+- **20** [Project Manager - Water/Wastewater - Orlando](https://careers.bv.com/job/Orlando-Project-Manager-WaterWastewater-Orlando-FL-32801/1405256533/) — Black & Veatch (black_veatch) new
+- **20** [Project Manager - Substation and Transmission](https://careers.bv.com/job/Chicago-Project-Manager-Substation-and-Transmission-IL-60290/1395194333/) — Black & Veatch (black_veatch) new
+- **20** [Design Build Project Director](https://careers.bv.com/job/Overland-Park-Design-Build-Project-Director-KS-66062/1270888601/) — Black & Veatch (black_veatch) new
+- **20** [Project Engineering Manager - Water/Wastewater Las Vegas](https://careers.bv.com/job/Las-Vegas-Project-Engineering-Manager-WaterWastewater-Las-Vegas-NV-89044/1428018933/) — Black & Veatch (black_veatch) new
+- **20** [Program Management Portfolio Leader](https://careers.bv.com/job/Greenwood-Village-Program-Management-Portfolio-Leader-CO-80110/1440148833/) — Black & Veatch (black_veatch) new
+- **20** [Sr. Project Manager - Water/Wastewater](https://careers.bv.com/job/Phoenix-Sr_-Project-Manager-WaterWastewater-AZ-85001/1438088333/) — Black & Veatch (black_veatch) new
+- **20** [Construction Manager Practice Lead](https://careers.bv.com/job/San-Francisco-Construction-Manager-Practice-Lead-CA-94101/1440114633/) — Black & Veatch (black_veatch) new
+- **20** [Project Manager, Industrial Water](https://careers.bv.com/job/Greenwood-Village-Project-Manager%2C-Industrial-Water-CO-80110/1402035033/) — Black & Veatch (black_veatch) new
+- **20** [Project Director - Industrial Water](https://careers.bv.com/job/Greenwood-Village-Project-Director-Industrial-Water-CO-80110/1402039033/) — Black & Veatch (black_veatch) new
+- **20** [Associate Project Manager - LNG](https://careers.bv.com/job/Overland-Park-Associate-Project-Manager-LNG-KS-66062/1426266333/) — Black & Veatch (black_veatch) new
+- **20** [Project Engineering Manager (REG) - Industrial Water](https://careers.bv.com/job/Markham-Project-Engineering-Manager-%28REG%29-Industrial-Water-ON/1367033033/) — Black & Veatch (black_veatch) new
+- **20** [Sr. Project Engineering Manager - Power Generation](https://careers.bv.com/job/Markham-Sr_-Project-Engineering-Manager-Power-Generation-ON/1383835433/) — Black & Veatch (black_veatch) new
+- **20** [Electrical Project Engineer - Substation - Calgary](https://careers.bv.com/job/Calgary-Electrical-Project-Engineer-Substation-Calgary-AB/1435919733/) — Black & Veatch (black_veatch) new
+- **20** [Electrical Project Engineer - Substation](https://careers.bv.com/job/Markham-Electrical-Project-Engineer-Substation-ON/1403584833/) — Black & Veatch (black_veatch) new
+- **20** [Wastewater Infrastructure Planning Business Leader - Toronto](https://careers.bv.com/job/Markham-Wastewater-Infrastructure-Planning-Business-Leader-Toronto-ON/1281151101/) — Black & Veatch (black_veatch) new
+- **10** [Agile Project Manager - Energy Safety](https://www.google.com/search?ibp=htl;jobs&q=project+manager+energy+Calgary,+AB&htidocid=q-S3ofgpQKpA9yTAAAAAAA%3D%3D&hl=es-419&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_1WOMQ6CQBBFY8sRrKY2yBoTG6wUjZWJiQcgA4wLZNlZd9YEjuMRbG25mBgrm1-84r0fvWbRYacbQ3Dx3FIZ4IwWNXlYwtGS1wNc8UZhSKEY33J_UIVQEVDnDDGQhROzNjTf1iE4SZUSMYmWgKEpk5I7xZYK7lXLhXwnlxo9OYOB8vVm1SfO6kX8l4JsujBlJnmGRqMfYtjt4x8enx95fGPptAAAAA&shmds=v1_ARwrE23hG-exV-_djR1kB4S71stmDZ7S6M5CFR-fFxW8K1KmCA&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=project+manager+energy+Calgary,+AB&htidocid=q-S3ofgpQKpA9yTAAAAAAA%3D%3D) — Energy Safety Canada (google_jobs) new
+- **10** [Project Coordinator / Project Manager – Energy & Engineering Construction](https://www.google.com/search?ibp=htl;jobs&q=project+manager+energy+Calgary,+AB&htidocid=grMpJjxCMQcG7BlBAAAAAA%3D%3D&hl=es-419&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_zWMMQ4BURCGo3UE1WgUIvtEoqFCRCWROIDM7k6et56ZNW8kdO7gBK6h1TqFk1iF5s___cn3t9-tdrVRqagwWIhoGRhNFBz81zUyelL43O6wZFJ_hV5TfGAiDewbjZPpubAgPIH89UynM5UIJQEd60gCxLAS8ZE6071ZnSbOpRQznwwtFFkhRydMuVxcJXn6xS7tUamOaLQbjYeXrGbf785j4AMst9vf4wKjR70OYDYfNMBYvh5fB-yoK88AAAA&shmds=v1_ARwrE22PThndTzFz2mrpJbaZi8x4kTTILcc7z7MyqSEbZcQMBQ&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=project+manager+energy+Calgary,+AB&htidocid=grMpJjxCMQcG7BlBAAAAAA%3D%3D) — Blink ESS (google_jobs) new
+- **10** [Director, Major Projects - Power Canada](https://www.google.com/search?ibp=htl;jobs&q=project+manager+energy+Calgary,+AB&htidocid=ufMgqJB7msFSr-u7AAAAAA%3D%3D&hl=es-419&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_y2NMQ6CQBAAY8sTrLaxMQjGxAYrxWhlQmJhSRbYHJDj9rw9Iz7H3hfY8jEl2kwxxUzwmgSHfeOo9OxCOGHLDjLH7VcILCDjOzlI0WCFCRTDW643qhAqAuqsJgYycGRWmqab2nsrSRyL6EiJR9-UUcldzIYK7uOWCxmRS42OrEZP-Wq97CNr1Hx2OWfQmP9qrKaoFbpHCNtd-NPD8wPUcauWrwAAAA&shmds=v1_ARwrE223K9ibmIu2D7QY4RLZ3f3iXJ0ESpHb9fhkr-EjF0tYKQ&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=project+manager+energy+Calgary,+AB&htidocid=ufMgqJB7msFSr-u7AAAAAA%3D%3D) — WSP in Canada (google_jobs) new
+- **10** [Senior Simulation Engineer](https://eavortechnologies.bamboohr.com/careers/134) — Eavor Technologies (eavor) new
+- **10** [Senior Geologist (Limited Term – 12 months)](https://eavortechnologies.bamboohr.com/careers/135) — Eavor Technologies (eavor) new
+- **10** [Engineer-In-Training (EIT)](https://eavortechnologies.bamboohr.com/careers/137) — Eavor Technologies (eavor) new
+- **10** [Senior Analytics Engineer](https://apply.workable.com/seeq/j/0C3EC72FFD/) — Seeq (seeq) new
+- **10** [AI Software Engineer - Staff/Principal](https://apply.workable.com/seeq/j/1B6E0A1710/) — Seeq (seeq) new
+- **10** [Senior Customer Success Manager](https://apply.workable.com/seeq/j/B25D5469EC/) — Seeq (seeq) new
+- **10** [Backend Software Engineer - Staff/Principal](https://apply.workable.com/seeq/j/CD7BA6EE7B/) — Seeq (seeq) new
+- **10** [Analytics Engineer](https://apply.workable.com/seeq/j/0BEAE8BEA3/) — Seeq (seeq) new
+- **10** [Technical Account Manager](https://apply.workable.com/seeq/j/CA86062D7B/) — Seeq (seeq) new
+- **10** [Industry Events Manager](https://apply.workable.com/seeq/j/9D9A9F5C5B/) — Seeq (seeq) new
+- **10** [Partner Marketing Specialist - (Contractor)](https://apply.workable.com/seeq/j/5897B0A025/) — Seeq (seeq) new
