@@ -2,7 +2,7 @@ name: Daily Job Matcher
 
 on:
   schedule:
-    - cron: '0 13 * * *' # Runs daily at 7 AM MDT
+    - cron: "0 13 * * *" # 7 AM MDT
   workflow_dispatch:
 
 permissions:
@@ -12,35 +12,41 @@ jobs:
   run-agent:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.11"
+          cache: pip
 
-      - name: Install Python Dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Playwright Browsers
-        run: |
-          playwright install chromium --with-deps
+      - name: Cache Hugging Face models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-msmarco-minilm-${{ runner.os }}
 
-      - name: Run Job Matcher
+      - name: Install Playwright browser
+        run: playwright install chromium --with-deps
+
+      - name: Run job matcher
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
         run: python agent.py
 
-      - name: Commit and Push Updated Reports & Cache
+      - name: Commit reports and cache
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/ reports/ jobs_cache.json
           git diff --quiet && git diff --staged --quiet || (
-            git commit -m "Auto-update job recommendations and cache" && \
-            git pull --rebase origin main && \
+            git commit -m "Auto-update job recommendations and cache" &&
+            git pull --rebase origin main &&
             git push
           )
