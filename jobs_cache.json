@@ -3206,5 +3206,863 @@
       "role": 0.0
     },
     "stale": false
+  },
+  "02169b969529135c": {
+    "title": "Senior Project Manager - EIC Engineering",
+    "company": "Englobe",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b551f5f55811a204": {
+    "title": "Calgary Project Manager - Jet Fuel Program",
+    "company": "Trans Mountain Corporation",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ff9ca0806b4c4241": {
+    "title": "Cybersecurity Program Manager at NTT DATA",
+    "company": "Creative Solutions Services, LLC",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "a4adf5f110cc8df3": {
+    "title": "Manager, Center Operations; B2B",
+    "company": "Socket.dev",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "058304f5cbb915ca": {
+    "title": "Head of Programme Management",
+    "company": "Ballad Consulting Group",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ad0834e53f489e78": {
+    "title": "People Operations Program Manager",
+    "company": "Jobgether",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "0d0f7d3f6be187fb": {
+    "title": "Business Operations Manager - Office",
+    "company": "Aplin",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "655ba9c6ff431670": {
+    "title": "Farm Operations Manager",
+    "company": "Placements24",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ffedf7516aa445ec": {
+    "title": "Applications & AI Engineering Manager",
+    "company": "Bennett Jones",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "82dd25af0c21fe14": {
+    "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
+    "company": "ASCENT",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "200ff8d63ebaabd4": {
+    "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
+    "company": "ASCENT",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f914fcf32e021019": {
+    "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
+    "company": "ASCENT",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "82b30264f410c49d": {
+    "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
+    "company": "ASCENT",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "571557a5a8017181": {
+    "title": "Manager, Workday - Project Manager",
+    "company": "KPMG Canada",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "1a84d0ee47ac75fd": {
+    "title": "Product Manager - Software Development (f/m/d)",
+    "company": "Attabotics",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "784bfe781b864ced": {
+    "title": "Operations Manager Trainee",
+    "company": "Junk King",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f85f922a30b003f1": {
+    "title": "Municipal Infrastructure Project Engineer",
+    "company": "WSP in Canada",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "8dbc9674a252b44c": {
+    "title": "Clinical Program Manager at Providence Care",
+    "company": "Providence Care",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "a8411d1cb5358705": {
+    "title": "Leader, Project Management",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "9b1c28bae5db2896": {
+    "title": "Facilities Operations Manager at Inn",
+    "company": "Socket.dev",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "1d5166ff7469ebc0": {
+    "title": "Operations Manager",
+    "company": "MatchBox Consulting Group",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "bd088d0805af0e52": {
+    "title": "Bridge Project Manager - Lead Large-Scale Civil Builds",
+    "company": "Moving2Canada.com",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "06ee350ef12d9cd1": {
+    "title": "Product Operations Manager",
+    "company": "Indigo",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "a9c6d9d4ca8b81b2": {
+    "title": "Infra Project Engineer & Coordinator (Design-Build)",
+    "company": "Moving2Canada.com",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "df7f6c96258df81a": {
+    "title": "M&A Operations- Senior Manager",
+    "company": "PwC",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b365016111d466fd": {
+    "title": "Managing Consultant, Project Manager (Environmental)",
+    "company": "ERM",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4c4a4fe965072ce2": {
+    "title": "Sr. Project Engineering Manager - Power Generation",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "007274820c206640": {
+    "title": "Kanin Energy is seeking an experienced Project Manager to lead the development and execution of industrial decarbonization and power generation projects across North America.\nThe successful candidate will be responsible for leading multidisciplinary project teams ..",
+    "company": "Kanin Energy",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "75ed6f08cd133284": {
+    "title": "Engineering Manager, Fullscript Patient Care",
+    "company": "Fullscript",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "e9145446cd29fb41": {
+    "title": "Principal Systems Engineer (IPT Lead)",
+    "company": "RTX",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "39b51e61080a8dae": {
+    "title": "Senior IT Project Manager - HYBRID",
+    "company": "Randstad",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ae279bed52010802": {
+    "title": "Mechanical Commissioning Project Specialist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "811bc567931aa91a": {
+    "title": "Program Management Portfolio Leader",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "2ea7ce2c1349a50a": {
+    "title": "Design Build Project Director",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ac9aef890d278a9f": {
+    "title": "BESS Services Project Manager",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b91e6e9b774bb248": {
+    "title": "Project Manager, Industrial Water",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "2641960d5d9e10eb": {
+    "title": "Associate Project Manager - LNG",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ec84717e56062ab1": {
+    "title": "Sr Structural Engineer",
+    "company": "Klohn Crippen Berger",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4b3e830b298606d5": {
+    "title": "Director, Product Marketing & Program Management",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "bc322e64121f6993": {
+    "title": "Project Engineering Manager (REG) - Industrial Water",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "fecfe77f8535bb6b": {
+    "title": "Manager, Optimization & Operations Projects",
+    "company": "SECURE",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "3763ec2d6ffb6ec4": {
+    "title": "Project Director - Industrial Water",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f1fa927878b0f616": {
+    "title": "Electrical Project Engineer - Substation",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "5af5b725951afeba": {
+    "title": "Project Manager, Transportation",
+    "company": "Chandos",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "1f3da5c03952fac8": {
+    "title": "Project Manager - Substation and Transmission",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "6cf1685d1c9b6c58": {
+    "title": "Construction Manager Practice Lead",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f873f70c25880986": {
+    "title": "Project Manager, Technology Projects",
+    "company": "Eavor Technologies",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "41cf5ed9ef4ba3f1": {
+    "title": "Mechanical Engineer - Nuclear Power",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "789e327f072b5101": {
+    "title": "Sr. Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "9dfaa37808d076e7": {
+    "title": "Customer Support Operations Intelligence Engineer",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "1df5d0b78077963c": {
+    "title": "Electrical Project Engineer - Substation - Calgary",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "d324232b7b02a2e3": {
+    "title": "Wastewater Infrastructure Planning Business Leader - Toronto",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "babfa24fbd0b95f3": {
+    "title": "Senior Project Engineer, Systems",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "c394026a1b537cf7": {
+    "title": "Project Engineering Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f8e287a338bd8d8d": {
+    "title": "Transactions Manager",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b998cf08b812ce5a": {
+    "title": "Backend Software Engineer - Staff/Principal",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "75aca05fcbcc330b": {
+    "title": "PD-Project Delivery 1",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "509b9a1f7f0b3392": {
+    "title": "Engineering Business Strategist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "5dee838c6794d675": {
+    "title": "Senior Project Engineer",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "d65762ab54613707": {
+    "title": "Project Director - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "44377e9a8e00598f": {
+    "title": "Project Director - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "3c289000fd1b1a34": {
+    "title": "Project Director - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "70c88b396390f608": {
+    "title": "PD-Project Delivery 2",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "6cb38fd716d7d9af": {
+    "title": "Structural Engineer Intern - Water",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "489eee870bf4b1e4": {
+    "title": "Project Manager Nuclear Services",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "2c205cdb44322115": {
+    "title": "Senior Customer Success Manager",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "c5d515e71cf7877d": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "8b175c7beecf8bae": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "523817899ed32351": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "04c6e478298db1e0": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "2056f3c7777e5cad": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "dbc157cb623cd3db": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "a71df3f7e011c455": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "dc2c4d93f91a59de": {
+    "title": "Project Manager - Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "620ba2ea1135e1b8": {
+    "title": "Industry Events Manager",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f2a4a53e77925a87": {
+    "title": "AI Software Engineer - Staff/Principal",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ef7ea9fed4420260": {
+    "title": "Substation Automation Engineer - Grid Modernization (IEC 61850)",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b50a4fa492a4fc15": {
+    "title": "Frontline Operations Equipment and Tool Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "8fc8cf98dc3931bb": {
+    "title": "AI Program Manager - Power Delivery & Grid",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "5da43a1889cb6416": {
+    "title": "Technical Account Manager",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "793b3a2448767478": {
+    "title": "Senior Project Engineer in Infrastructure Sector",
+    "company": "CIMA",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4592e4b270721939": {
+    "title": "Project Engineering Manager - Water/Wastewater Las Vegas",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "56d76cef7f8d2028": {
+    "title": "NPI Project Manager Team Lead",
+    "company": "Ecolab Inc.",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "18407b502d668466": {
+    "title": "Senior Analytics Engineer",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4d5ef067bfe0aac0": {
+    "title": "Analytics Engineer",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "291d90cc0004336a": {
+    "title": "Project Engineer",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "de60209f30b461b0": {
+    "title": "Civil Engineer - Water",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "57172b241a988405": {
+    "title": "Project Engineer",
+    "company": "Kanin Energy",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "bf52689daf2d3426": {
+    "title": "Associate Electrical Engineer - Substation",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "384987680210f7c6": {
+    "title": "Software Engineering Manager at AltaML",
+    "company": "AltaML",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4353e6ab1ac7a883": {
+    "title": "Finance Lead, Banking & Treasury Operations",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ea48141d148e082f": {
+    "title": "Partner Marketing Specialist - (Contractor)",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b9b24e6938140887": {
+    "title": "CL-River Engineering",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "8b082ba18a1c9629": {
+    "title": "Facility Operations Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b798d9c380e2f54c": {
+    "title": "Senior Structural Engineer - Industrial Water",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "1dc31c5b8578217d": {
+    "title": "Crisis Intervention Specialist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "0812cb837568af9d": {
+    "title": "WestJet Group Program Manager",
+    "company": "Socket.dev",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4c56dd1f3ff9ca80": {
+    "title": "Senior Simulation Engineer",
+    "company": "Eavor Technologies",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "8a027da824015bc3": {
+    "title": "Project Manager",
+    "company": "Kanin Energy",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4a74d9724758bfa0": {
+    "title": "Engineer-In-Training (EIT)",
+    "company": "Eavor Technologies",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "65e49628b45ec441": {
+    "title": "Project Manager - Water/Wastewater - Orlando",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4724a5ed93296bac": {
+    "title": "Senior Geologist (Limited Term – 12 months)",
+    "company": "Eavor Technologies",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f5bb27d74524d0b4": {
+    "title": "I&C Engineer - Water/Wastewater Treatment",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "6dad1b2f9a3fb866": {
+    "title": "Planning Engineer, River Engineering",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "556401486aafdc23": {
+    "title": "Project Coordinator / Project Manager – Energy & Engineering Construction",
+    "company": "Blink ESS",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "e8160f3f6dac2811": {
+    "title": "Business & Data Analyst",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b8ee8a6b6092d622": {
+    "title": "Executive Support Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "903a2d3e56c1cfed": {
+    "title": "Analyst, Access to Information and Investigations",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "c0e48ddc15ebbc25": {
+    "title": "HR Application Analyst",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "d670f3c31b7e9a0e": {
+    "title": "Kanin Energy is seeking a motivated Project Engineer to support the development and execution of industrial decarbonization and power generation projects across North America.\n\nThe successful candidate will work closely with project managers, engineering partners, ...",
+    "company": "Kanin Energy",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "593bc2070b7658eb": {
+    "title": "Senior Project Architect",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4d9021b0dad77d5c": {
+    "title": "Senior Project Controls Scheduler",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "bb510ffb3bb08fcd": {
+    "title": "Senior Construction Manager - Tunnels - Toronto",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "c24da9792ad0b17f": {
+    "title": "Commissioning Project Operator, Water Treatment",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "3e037de639abc984": {
+    "title": "Crown Holdings Operations Manager Role",
+    "company": "Crown Holdings, Inc.",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "18b639b1d3eb5741": {
+    "title": "Solar Production Estimate Subject Matter Expert",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "82a35285359f5267": {
+    "title": "Departmental Business Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "333202f1ce6701be": {
+    "title": "Team Lead, Power Systems Field Operations and Maintenance",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "fdb2000672e53452": {
+    "title": "Project Architect",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ccdbd926f0d1c926": {
+    "title": "Program Manager - Operational Audit",
+    "company": "WestJet",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "a442f259a8710e7f": {
+    "title": "Grant Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "9b5f187017b10a3b": {
+    "title": "Program Manager, Creative Studio",
+    "company": "WestJet",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "72757ffdee29b06e": {
+    "title": "(Referral Eligible) Maintenance Planner/Scheduler",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "17dac4083db054df": {
+    "title": "Senior Electrical Engineer - Nuclear Power",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "87b58b27b65d2caa": {
+    "title": "Transit Technology Engineer",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "b4faf761fb3e4ede": {
+    "title": "Employee Development Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ad85eeb3d9ec49ea": {
+    "title": "Project Manager",
+    "company": "Government of Alberta",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "6a504ea76d13af5b": {
+    "title": "Contract Administrator - Tunnel Construction - Toronto",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "8c6fc878bd908a2d": {
+    "title": "Intermediate / Senior Project Engineer (Hydro)",
+    "company": "Tetra Tech",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "9268905c1e6d4437": {
+    "title": "Environmental Compliance Specialist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f7739f175d1ba6e1": {
+    "title": "Staff Electrical Engineer - Nuclear Power - Toronto",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "f1bed3be292a64a6": {
+    "title": "Portfolio Project Engineer: Energy Projects Lead",
+    "company": "Exxon Mobil",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "ada6706e2f0dff4b": {
+    "title": "Process & Project Engineer - Warehouse & Distribution (Western Canada)",
+    "company": "ML6",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "8e0ff14edbe4b53d": {
+    "title": "Project Engineer - Substation",
+    "company": "Qualus",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "1decc16ec1668779": {
+    "title": "Senior Project Engineer; Bridges",
+    "company": "Snc-Lavalin",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "e6909c0751720c1f": {
+    "title": "Calgary Police Service - Court Processing Specialist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "86bf4e9ede4d4eda": {
+    "title": "Program Manager , AB",
+    "company": "Association of Independent Schools and Colleges in Alberta",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "20187846f0c40694": {
+    "title": "Calgary Police Service - HR Analyst",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4370ef416f268c6f": {
+    "title": "Training Officer - Light Rail Transit (LRT) - AMENDMENT",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "1e21c08e50e18a7d": {
+    "title": "Stormwater Pollution Prevention Specialist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "6fa7a014cd33915c": {
+    "title": "Civil Project Engineer, Land Development",
+    "company": "Urban Systems",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "21c7f5e87cd0c411": {
+    "title": "Project Coordinator – Construction & Tenant Improvements",
+    "company": "RYCO Properties Ltd.",
+    "status": "new",
+    "first_seen": "2026-09-22"
+  },
+  "4d67b0a3575fe4c5": {
+    "title": "Engineering Manager",
+    "company": "Vista Projects Limited",
+    "status": "new",
+    "first_seen": "2026-09-22"
   }
 }
