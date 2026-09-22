@@ -1982,8 +1982,8 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
-      "company": 0.0,
+      "experience": 0,
+      "company": 0,
       "role": 0.5
     },
     "stale": false
@@ -2006,7 +2006,7 @@
     "score": 0.103,
     "score_parts": {
       "experience": 0.006,
-      "company": 0.0,
+      "company": 0,
       "role": 0.5
     },
     "stale": false
@@ -2028,7 +2028,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2051,8 +2051,8 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
-      "company": 0.0,
+      "experience": 0,
+      "company": 0,
       "role": 0.5
     },
     "stale": false
@@ -2074,7 +2074,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2097,9 +2097,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2120,9 +2120,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2143,9 +2143,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2166,9 +2166,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2189,7 +2189,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2212,9 +2212,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2235,9 +2235,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2258,9 +2258,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2281,9 +2281,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2304,7 +2304,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2327,9 +2327,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2350,9 +2350,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2373,9 +2373,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2396,7 +2396,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2419,7 +2419,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2442,7 +2442,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2465,7 +2465,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2488,7 +2488,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2511,7 +2511,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2534,7 +2534,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2557,7 +2557,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2580,7 +2580,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2603,7 +2603,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2626,7 +2626,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2649,7 +2649,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2672,7 +2672,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2695,7 +2695,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2718,7 +2718,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2741,7 +2741,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2764,7 +2764,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2787,7 +2787,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2810,7 +2810,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2833,7 +2833,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2856,9 +2856,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2879,9 +2879,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2902,9 +2902,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2925,7 +2925,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -2948,9 +2948,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2971,9 +2971,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -2994,7 +2994,7 @@
     "status": "new",
     "score": 0.2,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
       "role": 0.5
     },
@@ -3017,9 +3017,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3040,9 +3040,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3063,9 +3063,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3086,9 +3086,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3109,9 +3109,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3132,9 +3132,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3155,9 +3155,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3178,9 +3178,9 @@
     "status": "new",
     "score": 0.1,
     "score_parts": {
-      "experience": 0.0,
+      "experience": 0,
       "company": 0.5,
-      "role": 0.0
+      "role": 0
     },
     "stale": false
   },
@@ -3199,343 +3199,398 @@
     "first_seen": "2026-09-22",
     "last_seen": "2026-09-22",
     "status": "new",
-    "score": 0.0,
+    "score": 0,
     "score_parts": {
-      "experience": 0.0,
-      "company": 0.0,
-      "role": 0.0
+      "experience": 0,
+      "company": 0,
+      "role": 0
     },
     "stale": false
   },
   "02169b969529135c": {
     "title": "Senior Project Manager - EIC Engineering",
     "company": "Englobe",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:04.572Z"
   },
   "b551f5f55811a204": {
     "title": "Calgary Project Manager - Jet Fuel Program",
     "company": "Trans Mountain Corporation",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:05.292Z"
   },
   "ff9ca0806b4c4241": {
     "title": "Cybersecurity Program Manager at NTT DATA",
     "company": "Creative Solutions Services, LLC",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:05.674Z"
   },
   "a4adf5f110cc8df3": {
     "title": "Manager, Center Operations; B2B",
     "company": "Socket.dev",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:06.522Z"
   },
   "058304f5cbb915ca": {
     "title": "Head of Programme Management",
     "company": "Ballad Consulting Group",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:09.244Z"
   },
   "ad0834e53f489e78": {
     "title": "People Operations Program Manager",
     "company": "Jobgether",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:09.642Z"
   },
   "0d0f7d3f6be187fb": {
     "title": "Business Operations Manager - Office",
     "company": "Aplin",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:10.557Z"
   },
   "655ba9c6ff431670": {
     "title": "Farm Operations Manager",
     "company": "Placements24",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:11.007Z"
   },
   "ffedf7516aa445ec": {
     "title": "Applications & AI Engineering Manager",
     "company": "Bennett Jones",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:12.184Z"
   },
   "82dd25af0c21fe14": {
     "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
     "company": "ASCENT",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "applied",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:16.467Z"
   },
   "200ff8d63ebaabd4": {
     "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
     "company": "ASCENT",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "applied",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:19.467Z"
   },
   "f914fcf32e021019": {
     "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
     "company": "ASCENT",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "applied",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:20.104Z"
   },
   "82b30264f410c49d": {
     "title": "SENIOR PROJECT MANAGER – ENGINEERING LEADERSHIP",
     "company": "ASCENT",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "applied",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:20.487Z"
   },
   "571557a5a8017181": {
     "title": "Manager, Workday - Project Manager",
     "company": "KPMG Canada",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:22.542Z"
   },
   "1a84d0ee47ac75fd": {
     "title": "Product Manager - Software Development (f/m/d)",
     "company": "Attabotics",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:23.299Z"
   },
   "784bfe781b864ced": {
     "title": "Operations Manager Trainee",
     "company": "Junk King",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:23.749Z"
   },
   "f85f922a30b003f1": {
     "title": "Municipal Infrastructure Project Engineer",
     "company": "WSP in Canada",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:26.628Z"
   },
   "8dbc9674a252b44c": {
     "title": "Clinical Program Manager at Providence Care",
     "company": "Providence Care",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:27.589Z"
   },
   "a8411d1cb5358705": {
     "title": "Leader, Project Management",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:32.434Z"
   },
   "9b1c28bae5db2896": {
     "title": "Facilities Operations Manager at Inn",
     "company": "Socket.dev",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:34.872Z"
   },
   "1d5166ff7469ebc0": {
     "title": "Operations Manager",
     "company": "MatchBox Consulting Group",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:36.297Z"
   },
   "bd088d0805af0e52": {
     "title": "Bridge Project Manager - Lead Large-Scale Civil Builds",
     "company": "Moving2Canada.com",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:37.137Z"
   },
   "06ee350ef12d9cd1": {
     "title": "Product Operations Manager",
     "company": "Indigo",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:38.569Z"
   },
   "a9c6d9d4ca8b81b2": {
     "title": "Infra Project Engineer & Coordinator (Design-Build)",
     "company": "Moving2Canada.com",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:39.828Z"
   },
   "df7f6c96258df81a": {
     "title": "M&A Operations- Senior Manager",
     "company": "PwC",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:43.032Z"
   },
   "b365016111d466fd": {
     "title": "Managing Consultant, Project Manager (Environmental)",
     "company": "ERM",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:43.376Z"
   },
   "4c4a4fe965072ce2": {
     "title": "Sr. Project Engineering Manager - Power Generation",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "applied",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:46.287Z"
   },
   "007274820c206640": {
     "title": "Kanin Energy is seeking an experienced Project Manager to lead the development and execution of industrial decarbonization and power generation projects across North America.\nThe successful candidate will be responsible for leading multidisciplinary project teams ..",
     "company": "Kanin Energy",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "applied",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:48.596Z"
   },
   "75ed6f08cd133284": {
     "title": "Engineering Manager, Fullscript Patient Care",
     "company": "Fullscript",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:50.300Z"
   },
   "e9145446cd29fb41": {
     "title": "Principal Systems Engineer (IPT Lead)",
     "company": "RTX",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:50.885Z"
   },
   "39b51e61080a8dae": {
     "title": "Senior IT Project Manager - HYBRID",
     "company": "Randstad",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:52.970Z"
   },
   "ae279bed52010802": {
     "title": "Mechanical Commissioning Project Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:53.622Z"
   },
   "811bc567931aa91a": {
     "title": "Program Management Portfolio Leader",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:40:58.595Z"
   },
   "2ea7ce2c1349a50a": {
     "title": "Design Build Project Director",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:41:01.084Z"
   },
   "ac9aef890d278a9f": {
     "title": "BESS Services Project Manager",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:41:01.429Z"
   },
   "b91e6e9b774bb248": {
     "title": "Project Manager, Industrial Water",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:41:02.471Z"
   },
   "2641960d5d9e10eb": {
     "title": "Associate Project Manager - LNG",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:41:06.334Z"
   },
   "ec84717e56062ab1": {
     "title": "Sr Structural Engineer",
     "company": "Klohn Crippen Berger",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:41:07.685Z"
   },
   "4b3e830b298606d5": {
     "title": "Director, Product Marketing & Program Management",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:41:30.979Z"
   },
   "bc322e64121f6993": {
     "title": "Project Engineering Manager (REG) - Industrial Water",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:41:33.185Z"
   },
   "fecfe77f8535bb6b": {
     "title": "Manager, Optimization & Operations Projects",
     "company": "SECURE",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:11.383Z"
   },
   "3763ec2d6ffb6ec4": {
     "title": "Project Director - Industrial Water",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:13.558Z"
   },
   "f1fa927878b0f616": {
     "title": "Electrical Project Engineer - Substation",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:14.691Z"
   },
   "5af5b725951afeba": {
     "title": "Project Manager, Transportation",
     "company": "Chandos",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:15.306Z"
   },
   "1f3da5c03952fac8": {
     "title": "Project Manager - Substation and Transmission",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:16.544Z"
   },
   "6cf1685d1c9b6c58": {
     "title": "Construction Manager Practice Lead",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:18.388Z"
   },
   "f873f70c25880986": {
     "title": "Project Manager, Technology Projects",
     "company": "Eavor Technologies",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "applied",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:20.931Z"
   },
   "41cf5ed9ef4ba3f1": {
     "title": "Mechanical Engineer - Nuclear Power",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:22.251Z"
   },
   "789e327f072b5101": {
     "title": "Sr. Project Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:25.176Z"
   },
   "9dfaa37808d076e7": {
     "title": "Customer Support Operations Intelligence Engineer",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:27.486Z"
   },
   "1df5d0b78077963c": {
     "title": "Electrical Project Engineer - Substation - Calgary",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:29.189Z"
   },
   "d324232b7b02a2e3": {
     "title": "Wastewater Infrastructure Planning Business Leader - Toronto",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:30.637Z"
   },
   "babfa24fbd0b95f3": {
     "title": "Senior Project Engineer, Systems",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:56.114Z"
   },
   "c394026a1b537cf7": {
     "title": "Project Engineering Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "interested",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:57.494Z"
   },
   "f8e287a338bd8d8d": {
     "title": "Transactions Manager",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-22"
+    "status": "dismissed",
+    "first_seen": "2026-09-22",
+    "updated_at": "2026-09-22T22:42:59.024Z"
   },
   "b998cf08b812ce5a": {
     "title": "Backend Software Engineer - Staff/Principal",
