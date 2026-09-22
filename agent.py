@@ -346,8 +346,22 @@ def fetch_climate_tech_list_playwright():
     return jobs
 
 # ---------------------------------------------------------
-# Report Writer
+# Report Writer & HTML Dashboard Generator
 # ---------------------------------------------------------
 
-ROW_TEMPLATE = (
-    '
+def render_html_dashboard(ranked_jobs, cache_data, today_str):
+    rows_html = []
+    for job in ranked_jobs:
+        job_id = job["id"]
+        status = cache_data.get(job_id, {}).get("status", "new")
+        first_seen = cache_data.get(job_id, {}).get("first_seen", today_str)
+        age_str = compute_posting_age(first_seen)
+
+        # Build status dropdown options
+        opt_new = 'selected' if status == 'new' else ''
+        opt_int = 'selected' if status == 'interested' else ''
+        opt_app = 'selected' if status == 'applied' else ''
+        opt_ign = 'selected' if status == 'ignored' else ''
+
+        row = (
+            f'
