@@ -235,7 +235,8 @@ NAV_TEXT_BLACKLIST = {
     "company", "capabilities", "solutions", "solutions overview", "documentation",
     "glossary", "transportation", "manufacturing", "utilities", "federal", "experience",
     "delivery", "our leadership", "find a partner", "partners", "generative ai",
-    "ai overview", "search", "apply", "home", "sign in", "sign up", "log in", "login",
+    "ai overview", "search", "apply", "apply now", "apply here", "apply today",
+    "home", "sign in", "sign up", "log in", "login",
     "privacy policy", "terms", "cookie policy", "cookie settings", "manage cookies",
     "français", "english", "deutsch", "português", "nederlands", "italiano", "español",
     "our story", "our mission", "press", "news", "blog", "events", "resources",
@@ -266,16 +267,62 @@ def _looks_like_job_link(href, text):
 
 
 def _extract_title_text(anchor_tag):
-    """Prefer a heading/strong element inside the link over the anchor's full
-    text -- on card-style listings the anchor often wraps the title PLUS the
-    location, work mode and posted date with no separator, which otherwise
-    all get glued into one string."""
+    """Prefer a heading/title-ish element inside the link over the anchor's
+    full text -- on card-style listings the anchor often wraps the title
+    PLUS the location, work mode, req id, department and a duplicated
+    'Apply Now' label with no separators, which otherwise all get glued
+    into one string."""
     heading = anchor_tag.find(["h1", "h2", "h3", "h4", "h5", "strong"])
     if heading:
         txt = heading.get_text(strip=True)
         if txt:
             return txt
+    title_el = anchor_tag.find(attrs={"class": re.compile(r"title", re.IGNORECASE)})
+    if title_el:
+        txt = title_el.get_text(strip=True)
+        if txt:
+            return txt
     return anchor_tag.get_text(strip=True)
+
+
+# Card text on some ATS boards (seen on iCIMS-hosted pages) comes through as
+# one duplicated blob, e.g.:
+#   "Apply Now Forward Deployment Engineer Req ID: 3078 Location US home
+#    Remote Department Professional Services Apply Now"
+# This pulls the real title and location back out of that pattern.
+CARD_TEXT_PATTERN = re.compile(
+    r'^(?:Apply Now\s*)?(?P<title>.+?)\s*Req\.?\s*ID:?\s*\S+\s*Location:?\s*'
+    r'(?P<location>.+?)\s*(?:Department|Apply Now|$)',
+    re.IGNORECASE
+)
+
+
+def _clean_card_text(raw_text, fallback_location=""):
+    """Returns (title, location_text). Falls back to the raw text as the
+    title (stripped of a leading/trailing 'Apply Now') if the structured
+    pattern above doesn't match."""
+    m = CARD_TEXT_PATTERN.match(raw_text.strip())
+    if m:
+        title = m.group("title").strip(" -")
+        location = m.group("location").strip(" -")
+        if title:
+            return title, (location or fallback_location)
+
+    cleaned = re.sub(r'^(Apply Now)\s*', '', raw_text.strip(), flags=re.IGNORECASE)
+    cleaned = re.sub(r'\s*(Apply Now)$', '', cleaned, flags=re.IGNORECASE)
+    return cleaned.strip(), fallback_location
+
+
+# Some ATS "Apply Now" links (seen on iCIMS) end in /login (an application
+# flow) rather than the public job posting page. Best-effort swap to the
+# page people can actually open without an account.
+ICIMS_LOGIN_SUFFIX_RE = re.compile(r'/(login|apply)/?(\?.*)?$', re.IGNORECASE)
+
+
+def _normalize_job_url(url):
+    if "icims.com" in url.lower() and ICIMS_LOGIN_SUFFIX_RE.search(url):
+        return ICIMS_LOGIN_SUFFIX_RE.sub('/job', url)
+    return url
 
 
 def _nearby_text(anchor_tag, max_len=300):
@@ -293,6 +340,7 @@ def _nearby_text(anchor_tag, max_len=300):
         if len(" ".join(collected)) > max_len:
             break
     return " ".join(collected)[:max_len]
+
 
 
 def _extract_jobposting_jsonld(html, base_url):
@@ -394,12 +442,13 @@ def fetch_playwright_generic(cfg):
                     jsonld_jobs = _extract_jobposting_jsonld(html, url)
                     if jsonld_jobs:
                         for jd in jsonld_jobs:
+                            jd_url = _normalize_job_url(jd["url"])
                             jobs.append({
-                                "id": make_job_id(cfg["name"], jd["title"], jd["url"], company),
+                                "id": make_job_id(cfg["name"], jd["title"], jd_url, company),
                                 "source": cfg["name"],
                                 "title": jd["title"],
                                 "company": company,
-                                "url": jd["url"],
+                                "url": jd_url,
                                 "location_text": jd["location_text"],
                                 "body_text": jd["title"] + " at " + company + " (" + jd["location_text"] + ")"
                             })
@@ -412,11 +461,13 @@ def fetch_playwright_generic(cfg):
                         raw_text = a.get_text(strip=True)
                         if not _looks_like_job_link(href, raw_text):
                             continue
-                        title = _extract_title_text(a)
-                        if title.lower() in NAV_TEXT_BLACKLIST or len(title.split()) < 2:
+                        raw_title = _extract_title_text(a)
+                        nearby = _nearby_text(a)
+                        title, location_text = _clean_card_text(raw_title, fallback_location=nearby)
+                        if not title or title.lower() in NAV_TEXT_BLACKLIST or len(title.split()) < 2:
                             continue
                         full_url = href if href.startswith("http") else requests.compat.urljoin(url, href)
-                        location_text = _nearby_text(a)
+                        full_url = _normalize_job_url(full_url)
                         jobs.append({
                             "id": make_job_id(cfg["name"], title, full_url, company),
                             "source": cfg["name"],
