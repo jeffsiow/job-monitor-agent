@@ -519,18 +519,125 @@ def fetch_city_of_calgary(source):
         print(f"[WARN] {company} failed: {e}")
     return jobs
 
+def fetch_airtable_climatetech(source):
+    """
+    Fetches records from Airtable's public view endpoint and applies custom location/remote filters:
+    ("Job Location" Contains "Calgary") OR ("Country" Contains "United States of America" AND "Remote" Does Not Contain "Onsite Only")
+    """
+    jobs = []
+    url = source["urls"][0]
+    
+    # Extract shared View ID and Table ID from the URL
+    m = re.search(r"/(shr[A-Za-z0-9]+)/(tbl[A-Za-z0-9]+)", url)
+    if not m:
+        print(f"[WARN] Could not parse Airtable view/table IDs from URL: {url}")
+        return jobs
+
+    share_id, table_id = m.group(1), m.group(2)
+    api_url = f"https://airtable.com/v0.3/table/{table_id}/read"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "x-airtable-inter-service-client": "webClient",
+        "x-requested-with": "XMLHttpRequest"
+    }
+
+    offset = None
+    total_fetched = 0
+
+    try:
+        while True:
+            params = {
+                "requestId": "reqFetcher",
+                "shareLinkId": share_id
+            }
+            if offset:
+                params["offset"] = offset
+
+            resp = requests.get(api_url, headers=headers, params=params, timeout=25)
+            if resp.status_code != 200:
+                print(f"[WARN] Airtable read failed with status: {resp.status_code}")
+                break
+
+            data = resp.json().get("data", {})
+            rows = data.get("rows", [])
+            if not rows:
+                break
+
+            for row in rows:
+                cell_values = row.get("cellValuesByColumnId", {})
+                
+                # Stringify all row cell values for filter checks
+                row_str_map = {}
+                for k, v in cell_values.items():
+                    if isinstance(v, list):
+                        row_str_map[k] = " ".join([str(x) for x in v])
+                    else:
+                        row_str_map[k] = str(v) if v is not None else ""
+
+                full_row_text = " ".join(row_str_map.values())
+
+                # Extract title & URL heuristics
+                job_url = ""
+                job_title = ""
+                company_name = source.get("company", "Climate Tech List")
+
+                for k, v in cell_values.items():
+                    if isinstance(v, str) and v.startswith("http"):
+                        job_url = v
+                    elif isinstance(v, dict) and "url" in v:
+                        job_url = v["url"]
+
+                title_candidates = [v for v in cell_values.values() if isinstance(v, str) and not v.startswith("http") and len(v) > 2]
+                if title_candidates:
+                    job_title = title_candidates[0]
+
+                # Applied Filters:
+                # ("Job Location" Contains "Calgary") OR ("Country" Contains "United States of America" AND "Remote" Does Not Contain "Onsite Only")
+                has_calgary = "calgary" in full_row_text.lower()
+                has_usa = "united states" in full_row_text.lower() or "usa" in full_row_text.lower()
+                is_onsite_only = "onsite only" in full_row_text.lower() or "on-site only" in full_row_text.lower()
+
+                condition_1 = has_calgary
+                condition_2 = has_usa and not is_onsite_only
+
+                if condition_1 or condition_2:
+                    if job_title:
+                        link = job_url if job_url else url
+                        jobs.append(_make_job(
+                            source["id"],
+                            company_name,
+                            job_title,
+                            link,
+                            body_text=full_row_text,
+                            location="Calgary / US Remote",
+                            location_hint=source.get("location_hint", "")
+                        ))
+
+            total_fetched += len(rows)
+            offset = data.get("offset")
+            if not offset:
+                break
+            time.sleep(0.3)
+
+        print(f"[INFO] Climate Tech List (Airtable): Processed {total_fetched} rows, matched {len(jobs)} postings.")
+    except Exception as e:
+        print(f"[WARN] Climate Tech List Airtable fetch failed: {e}")
+
+    return jobs
 
 # ---------------------------------------------------------
 # Dispatcher
 # ---------------------------------------------------------
 
 FETCHERS = {
+    "airtable": fetch_airtable_climatetech,  # <--- ADD THIS LINE
     "bamboohr": fetch_bamboohr,
     "workable": fetch_workable,
     "workday": fetch_workday,
-    "requests_json": fetch_kanin,          # currently only Kanin uses this
+    "requests_json": fetch_kanin,
     "playwright": fetch_playwright_generic,
-    "custom": fetch_playwright_generic,    # fallback
+    "custom": fetch_playwright_generic,
 }
 
 
