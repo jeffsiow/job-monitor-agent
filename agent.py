@@ -248,7 +248,8 @@ NAV_TEXT_BLACKLIST = {
 # hubspot/marketo/linkedin tracking pixels) don't match this.
 JOB_URL_PATTERN = re.compile(
     r'(/job/|/jobs/[\w\-]{3,}|/job-|/position/|/posting/|/vacanc\w*/|/opening/'
-    r'|req(uisition)?[_\-]?id?=|jobid=|jr[_\-]?\d|gh_jid=|/jobs\?.*\bid=|icims\.com.*/jobs/\d)',
+    r'|req(uisition)?[_\-]?id?=|jobid=|jr[_\-]?\d|gh_jid=|/jobs\?.*\bid=|icims\.com.*/jobs/\d'
+    r'|[?&]pid=\d|/careers/job/\d)',
     re.IGNORECASE
 )
 
@@ -277,7 +278,7 @@ def _extract_title_text(anchor_tag):
         txt = heading.get_text(strip=True)
         if txt:
             return txt
-    title_el = anchor_tag.find(attrs={"class": re.compile(r"title", re.IGNORECASE)})
+    title_el = anchor_tag.find(attrs={"class": re.compile(r"(job|position|posting|vacan\w*|role)[-_ ]?title", re.IGNORECASE)})
     if title_el:
         txt = title_el.get_text(strip=True)
         if txt:
@@ -406,17 +407,79 @@ def _extract_jobposting_jsonld(html, base_url):
     return results
 
 
+def _scan_html_for_jobs(html, base_url, cfg, company, debug_samples):
+    """Shared JSON-LD-first / anchor-fallback scan used per page or per frame.
+    Appends (title, href) samples of fallback-matched entries into
+    debug_samples (capped by the caller) so the Action log shows exactly
+    what was matched -- much faster to debug than parsing the dashboard."""
+    found = []
+
+    jsonld_jobs = _extract_jobposting_jsonld(html, base_url)
+    if jsonld_jobs:
+        for jd in jsonld_jobs:
+            jd_url = _normalize_job_url(jd["url"])
+            found.append({
+                "id": make_job_id(cfg["name"], jd["title"], jd_url, company),
+                "source": cfg["name"],
+                "title": jd["title"],
+                "company": company,
+                "url": jd_url,
+                "location_text": jd["location_text"],
+                "body_text": jd["title"] + " at " + company + " (" + jd["location_text"] + ")"
+            })
+        print("[INFO] " + cfg["name"] + ": used JobPosting structured data (" + str(len(jsonld_jobs)) + " postings) for " + base_url)
+        return found
+
+    soup = BeautifulSoup(html, "html.parser")
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        raw_text = a.get_text(strip=True)
+        if not _looks_like_job_link(href, raw_text):
+            continue
+        raw_title = _extract_title_text(a)
+        nearby = _nearby_text(a)
+        title, location_text = _clean_card_text(raw_title, fallback_location=nearby)
+        if not title or title.lower() in NAV_TEXT_BLACKLIST or len(title.split()) < 2:
+            continue
+        full_url = href if href.startswith("http") else requests.compat.urljoin(base_url, href)
+        full_url = _normalize_job_url(full_url)
+        if len(debug_samples) < 5:
+            debug_samples.append((title[:60], href[:100]))
+        found.append({
+            "id": make_job_id(cfg["name"], title, full_url, company),
+            "source": cfg["name"],
+            "title": title,
+            "company": company,
+            "url": full_url,
+            "location_text": location_text,
+            "body_text": title + " at " + company + " (" + location_text + ")"
+        })
+    return found
+
+
 def fetch_playwright_generic(cfg):
     """Generic scraper for a careers page: loads the url (optionally clicking a
     'view all'-style button first), then tries schema.org JobPosting structured
     data first (most reliable), falling back to anchors that look like job
     postings by URL pattern. Best-effort by nature -- sites that render
-    results via unusual JS or hide them behind auth/captchas may return few
-    or zero results and will need a follow-up look at the Action logs."""
+    results via unusual JS, hide them in an iframe, or gate them behind
+    auth/captchas may return few or zero results and will need a follow-up
+    look at the Action logs (each fallback-matched entry now logs its
+    title/href so mismatches are easy to spot).
+
+    Optional cfg overrides for stubborn SPA-heavy sites:
+      wait_until: "domcontentloaded" (default) or "networkidle"
+      extra_wait_seconds: seconds to sleep after load (default 4)
+      scan_frames: also scan embedded iframes, not just the top document (default False)
+    """
     jobs = []
     company = cfg.get("company", cfg["name"])
     urls = cfg.get("urls") or [cfg.get("url")]
     click_text = cfg.get("click_button_text")
+    wait_until = cfg.get("wait_until", "domcontentloaded")
+    extra_wait = cfg.get("extra_wait_seconds", 4)
+    scan_frames = cfg.get("scan_frames", False)
+    debug_samples = []
 
     try:
         with sync_playwright() as p:
@@ -427,8 +490,8 @@ def fetch_playwright_generic(cfg):
                 if not url:
                     continue
                 try:
-                    page.goto(url, wait_until="domcontentloaded", timeout=40000)
-                    time.sleep(4)
+                    page.goto(url, wait_until=wait_until, timeout=45000)
+                    time.sleep(extra_wait)
 
                     if click_text:
                         try:
@@ -437,46 +500,13 @@ def fetch_playwright_generic(cfg):
                         except Exception:
                             print("[INFO] " + cfg["name"] + ": click_button_text '" + click_text + "' not found/clickable, continuing without it.")
 
-                    html = page.content()
-
-                    jsonld_jobs = _extract_jobposting_jsonld(html, url)
-                    if jsonld_jobs:
-                        for jd in jsonld_jobs:
-                            jd_url = _normalize_job_url(jd["url"])
-                            jobs.append({
-                                "id": make_job_id(cfg["name"], jd["title"], jd_url, company),
-                                "source": cfg["name"],
-                                "title": jd["title"],
-                                "company": company,
-                                "url": jd_url,
-                                "location_text": jd["location_text"],
-                                "body_text": jd["title"] + " at " + company + " (" + jd["location_text"] + ")"
-                            })
-                        print("[INFO] " + cfg["name"] + ": used JobPosting structured data (" + str(len(jsonld_jobs)) + " postings) for " + url)
-                        continue
-
-                    soup = BeautifulSoup(html, "html.parser")
-                    for a in soup.find_all("a", href=True):
-                        href = a["href"]
-                        raw_text = a.get_text(strip=True)
-                        if not _looks_like_job_link(href, raw_text):
+                    targets = page.frames if scan_frames else [page]
+                    for target in targets:
+                        try:
+                            html = target.content()
+                        except Exception:
                             continue
-                        raw_title = _extract_title_text(a)
-                        nearby = _nearby_text(a)
-                        title, location_text = _clean_card_text(raw_title, fallback_location=nearby)
-                        if not title or title.lower() in NAV_TEXT_BLACKLIST or len(title.split()) < 2:
-                            continue
-                        full_url = href if href.startswith("http") else requests.compat.urljoin(url, href)
-                        full_url = _normalize_job_url(full_url)
-                        jobs.append({
-                            "id": make_job_id(cfg["name"], title, full_url, company),
-                            "source": cfg["name"],
-                            "title": title,
-                            "company": company,
-                            "url": full_url,
-                            "location_text": location_text,
-                            "body_text": title + " at " + company + " (" + location_text + ")"
-                        })
+                        jobs.extend(_scan_html_for_jobs(html, url, cfg, company, debug_samples))
                 except Exception as e:
                     print("[WARN] " + cfg["name"] + " failed on " + url + ": " + str(e))
 
@@ -485,6 +515,10 @@ def fetch_playwright_generic(cfg):
         print("[WARN] " + cfg["name"] + " Playwright session failed: " + str(e))
 
     print("[INFO] " + cfg["name"] + " (Playwright, generic): Found " + str(len(jobs)) + " postings.")
+    if debug_samples:
+        print("[DEBUG] " + cfg["name"] + " fallback matches (title | href):")
+        for t, h in debug_samples:
+            print("        " + t + " | " + h)
     return jobs
 
 
