@@ -7,7 +7,6 @@ import re
 import yaml
 from pathlib import Path
 from datetime import datetime
-from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 from sentence_transformers import CrossEncoder
@@ -17,46 +16,43 @@ EXPERIENCE_PATH = BASE_DIR / "experience_library.md"
 REPORTS_DIR = BASE_DIR / "reports"
 DOCS_DIR = BASE_DIR / "docs"
 CACHE_PATH = BASE_DIR / "jobs_cache.json"
-SOURCES_PATH = BASE_DIR / "sources.yaml"
 TEMPLATE_PATH = BASE_DIR / "dashboard_template.html"
+SOURCES_PATH = BASE_DIR / "sources.yaml"
 
 REPORTS_DIR.mkdir(exist_ok=True)
 DOCS_DIR.mkdir(exist_ok=True)
 
-# Preferred locations for scoring (Calgary-centric + remote-ok)
-PREFERRED_LOCATIONS = [
-    "calgary", "alberta", "ab", "canada", "remote", "hybrid",
-    "work from home", "wfh", "anywhere", "distributed"
+# Role/title keywords used both to (a) decide whether a scraped link looks
+# like a real job posting at all, and (b) as part of the role-match score.
+ROLE_KEYWORDS = [
+    "engineer", "engineering", "manager", "developer", "architect", "scientist",
+    "lead", "director", "specialist", "technician", "consultant", "analyst",
+    "coordinator", "officer", "programmer", "administrator"
 ]
-NEGATIVE_LOCATIONS = [
-    "united states only", "us only", "usa only", "on-site only",
-    "must be located in", "relocation required"
-]
+
+# Substrings that mark a posting as Calgary/remote-friendly vs. clearly elsewhere.
+LOCATION_OK_KEYWORDS = ["calgary", "alberta", "remote", "distributed", "anywhere", "hybrid", "canada"]
+
+
+def load_sources():
+    if not SOURCES_PATH.exists():
+        print("[WARN] sources.yaml not found.")
+        return []
+    with open(SOURCES_PATH, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    return data.get("sources", [])
 
 
 def load_experience_library():
     if EXPERIENCE_PATH.exists():
         return EXPERIENCE_PATH.read_text(encoding="utf-8")
-    return (
-        "Mechanical Engineer, P.Eng., PMP, Project Manager, Program Manager, "
-        "Engineering Manager, Operations Manager, CleanTech, Energy, "
-        "Industrial Software, Digital Twin, SCADA, IIoT, Process Engineering."
-    )
-
-
-def load_sources():
-    if not SOURCES_PATH.exists():
-        print("[WARN] sources.yaml not found – no sources will be fetched.")
-        return []
-    with open(SOURCES_PATH, "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f) or {}
-    return [s for s in data.get("sources", []) if s.get("enabled", True)]
+    return "Mechanical Engineer, P.Eng., PMP, Project Manager, CleanTech, Energy."
 
 
 def clean_string(text):
     if not text:
         return ""
-    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r'\s+', ' ', text)
     return text.strip().lower()
 
 
@@ -109,43 +105,26 @@ def compute_posting_age(first_seen_str):
         return first_seen_str
 
 
-# ---------------------------------------------------------
-# Location scoring helper
-# ---------------------------------------------------------
-
-def score_location(text, location_hint=""):
-    """Return a score in [-1.0, 1.0] based on location signals."""
-    blob = clean_string((text or "") + " " + (location_hint or ""))
-    if not blob:
+def score_location(location_text):
+    """+1 for Calgary/Alberta/remote-ish text, -1 for some other named location,
+    0 (neutral) when we couldn't tell -- most curated sources are already
+    filtered to Calgary/remote via their URL, so 'unknown' is not penalized."""
+    if not location_text:
         return 0.0
-
-    score = 0.0
-    for kw in PREFERRED_LOCATIONS:
-        if kw in blob:
-            score += 0.35
-    for kw in NEGATIVE_LOCATIONS:
-        if kw in blob:
-            score -= 0.5
-
-    # Strong boosts
-    if "calgary" in blob:
-        score += 0.4
-    if "remote" in blob or "work from home" in blob or "wfh" in blob:
-        score += 0.3
-    if "canada" in blob or "alberta" in blob:
-        score += 0.2
-
-    return max(-1.0, min(1.0, score))
+    text = location_text.lower()
+    if any(k in text for k in LOCATION_OK_KEYWORDS):
+        return 1.0
+    return -1.0
 
 
 # ---------------------------------------------------------
-# Multi-Factor Match Function (now includes location)
+# Multi-Factor Match Function
 # ---------------------------------------------------------
 
-def compute_composite_scores(jobs, cache_data, model):
-    base_experience = load_experience_library()[:1800]
+def compute_composite_scores(jobs, cache_data, model, known_target_companies):
+    base_experience = load_experience_library()[:1500]
 
-    target_companies = set()
+    target_companies = set(known_target_companies)
     dismissed_companies = set()
     interested_role_titles = []
     dismissed_role_titles = []
@@ -163,339 +142,393 @@ def compute_composite_scores(jobs, cache_data, model):
             if job.get("title"):
                 dismissed_role_titles.append(clean_string(job["title"]))
 
-    target_role_keywords = [
-        "project manager", "program manager", "operations manager",
-        "project engineer", "engineering manager", "lead", "director",
-        "principal", "senior engineer", "solutions architect", "product manager"
-    ]
+    target_role_keywords = ["project manager", "project engineer", "operations", "lead", "director"]
 
-    exp_pairs = [
-        [base_experience, job["title"] + " at " + job["company"] + ": " + job.get("body_text", "")]
-        for job in jobs
-    ]
-    raw_exp_scores = model.predict(exp_pairs) if exp_pairs else []
+    exp_pairs = [[base_experience, job['title'] + " at " + job['company'] + ": " + job['body_text']] for job in jobs]
+    raw_exp_scores = model.predict(exp_pairs)
 
     for idx, job in enumerate(jobs):
-        s_exp = float(raw_exp_scores[idx]) if idx < len(raw_exp_scores) else 0.0
+        s_exp = float(raw_exp_scores[idx])
 
         company_clean = clean_string(job.get("company", ""))
         s_company = 0.0
-        if company_clean in target_companies:
-            s_company = 1.0
-        elif company_clean in dismissed_companies:
+        if company_clean in dismissed_companies:
             s_company = -1.0
-        # soft preference for known good companies (even before user marks them)
-        elif any(k in company_clean for k in [
-            "eavor", "kanin", "seeq", "black & veatch", "city of calgary",
-            "aveva", "cognite", "c3.ai", "symphony", "sight machine",
-            "flowmingo", "apex", "siemens", "autodesk", "hexagon"
-        ]):
-            s_company = 0.4
+        elif company_clean in target_companies:
+            s_company = 1.0
 
         title_clean = clean_string(job.get("title", ""))
         s_role = 0.0
+
         if any(kw in title_clean for kw in target_role_keywords):
             s_role += 0.5
-        if any(ref in title_clean or title_clean in ref for ref in interested_role_titles):
+
+        if any(ref_title in title_clean or title_clean in ref_title for ref_title in interested_role_titles):
             s_role += 0.5
-        if any(ref in title_clean or title_clean in ref for ref in dismissed_role_titles):
+
+        if any(ref_title in title_clean or title_clean in ref_title for ref_title in dismissed_role_titles):
             s_role -= 0.5
 
-        # NEW: location factor
-        loc_text = " ".join([
-            job.get("location", ""),
-            job.get("body_text", ""),
-            job.get("title", ""),
-            job.get("company", "")
-        ])
-        s_loc = score_location(loc_text, job.get("location_hint", ""))
+        s_location = score_location(job.get("location_text", ""))
 
-        # Weights (sum ≈ 1.0)
-        w_exp, w_company, w_role, w_loc = 0.50, 0.15, 0.15, 0.20
-        final_score = (
-            w_exp * s_exp +
-            w_company * s_company +
-            w_role * s_role +
-            w_loc * s_loc
-        )
+        w_exp, w_company, w_role, w_location = 0.45, 0.15, 0.15, 0.25
+        final_score = (w_exp * s_exp) + (w_company * s_company) + (w_role * s_role) + (w_location * s_location)
+
         job["score"] = round(final_score, 3)
-        job["loc_score"] = round(s_loc, 3)  # optional debug
 
 
 # ---------------------------------------------------------
-# Generic helpers used by multiple fetchers
+# Data Fetchers
 # ---------------------------------------------------------
 
-def _make_job(source_id, company, title, url, body_text="", location="", location_hint=""):
-    return {
-        "id": make_job_id(source_id, title, url, company),
-        "source": source_id,
-        "title": title.strip(),
-        "company": company,
-        "url": url,
-        "location": location or "",
-        "location_hint": location_hint or "",
-        "body_text": (title + " at " + company + ": " + (body_text or location or ""))[:2000],
-        "posted": "Recent"
-    }
-
-
-# ---------------------------------------------------------
-# Source-specific fetchers
-# ---------------------------------------------------------
-
-def fetch_bamboohr(source):
+def fetch_workday_jobs(cfg):
+    """Workday's public CXS search API. No browser needed -- this is the same
+    endpoint the site's own search box calls. location_ids (if given) are
+    passed as an applied facet so the API itself returns pre-filtered results."""
     jobs = []
-    url = source["urls"][0]
-    company = source["company"]
+    company = cfg.get("company", cfg["name"])
+    tenant = cfg["tenant"]
+    wd_host = cfg["wd_host"]
+    site = cfg["site"]
+    locale = cfg.get("locale", "en-US")
+    location_ids = cfg.get("location_ids", [])
+
+    api_url = "https://" + tenant + "." + wd_host + ".myworkdayjobs.com/wday/cxs/" + tenant + "/" + site + "/jobs"
+    job_base_url = "https://" + tenant + "." + wd_host + ".myworkdayjobs.com/" + locale + "/" + site
+
+    payload = {"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""}
+    if location_ids:
+        payload["appliedFacets"]["locations"] = location_ids
+
     try:
-        resp = requests.get(url, headers={"Accept": "application/json"}, timeout=20)
+        resp = requests.post(api_url, json=payload, headers={"Content-Type": "application/json"}, timeout=20)
+        if resp.status_code == 200:
+            postings = resp.json().get("jobPostings", [])
+            for item in postings:
+                title = item.get("title", "").strip()
+                path = item.get("externalPath", "")
+                link = job_base_url + path
+                location_text = item.get("locationsText", "") or item.get("bulletFields", [""])[0] if item.get("bulletFields") else item.get("locationsText", "")
+                jobs.append({
+                    "id": make_job_id(cfg["name"], title, link, company),
+                    "source": cfg["name"],
+                    "title": title,
+                    "company": company,
+                    "url": link,
+                    "location_text": location_text or "",
+                    "body_text": title + " at " + company + " (" + (location_text or "") + ")"
+                })
+        else:
+            print("[WARN] Workday (" + cfg["name"] + ") returned status " + str(resp.status_code))
+    except Exception as e:
+        print("[WARN] Workday fetch failed for " + cfg["name"] + ": " + str(e))
+
+    print("[INFO] " + cfg["name"] + " (Workday): Found " + str(len(jobs)) + " postings.")
+    return jobs
+
+
+# Text labels that keep showing up as false positives from nav bars, cookie
+# banners, and language switchers on marketing-heavy corporate career pages --
+# excluded even if their href happens to match a job-like pattern.
+NAV_TEXT_BLACKLIST = {
+    "leadership", "about", "about us", "contact", "contact us", "careers", "career",
+    "company", "capabilities", "solutions", "solutions overview", "documentation",
+    "glossary", "transportation", "manufacturing", "utilities", "federal", "experience",
+    "delivery", "our leadership", "find a partner", "partners", "generative ai",
+    "ai overview", "search", "apply", "home", "sign in", "sign up", "log in", "login",
+    "privacy policy", "terms", "cookie policy", "cookie settings", "manage cookies",
+    "français", "english", "deutsch", "português", "nederlands", "italiano", "español",
+    "our story", "our mission", "press", "news", "blog", "events", "resources",
+}
+
+# A job posting URL almost always encodes a specific listing: a numeric/GUID-ish
+# job id, or a path segment naming the ATS's job route. Plain nav/marketing
+# links (About, Leadership, /careers/manufacturing-overview, language switches,
+# hubspot/marketo/linkedin tracking pixels) don't match this.
+JOB_URL_PATTERN = re.compile(
+    r'(/job/|/jobs/[\w\-]{3,}|/job-|/position/|/posting/|/vacanc\w*/|/opening/'
+    r'|req(uisition)?[_\-]?id?=|jobid=|jr[_\-]?\d|gh_jid=|/jobs\?.*\bid=|icims\.com.*/jobs/\d)',
+    re.IGNORECASE
+)
+
+
+def _looks_like_job_link(href, text):
+    if not text:
+        return False
+    t = text.strip()
+    if len(t) < 6 or len(t) > 140:
+        return False
+    if t.lower() in NAV_TEXT_BLACKLIST:
+        return False
+    if len(t.split()) < 2:
+        return False
+    return bool(JOB_URL_PATTERN.search((href or "").lower()))
+
+
+def _extract_title_text(anchor_tag):
+    """Prefer a heading/strong element inside the link over the anchor's full
+    text -- on card-style listings the anchor often wraps the title PLUS the
+    location, work mode and posted date with no separator, which otherwise
+    all get glued into one string."""
+    heading = anchor_tag.find(["h1", "h2", "h3", "h4", "h5", "strong"])
+    if heading:
+        txt = heading.get_text(strip=True)
+        if txt:
+            return txt
+    return anchor_tag.get_text(strip=True)
+
+
+def _nearby_text(anchor_tag, max_len=300):
+    """Best-effort location text: walk up a couple of ancestor containers and
+    grab their text, since job boards rarely put location in the <a> itself."""
+    node = anchor_tag
+    collected = []
+    for _ in range(3):
+        if node is None or node.parent is None:
+            break
+        node = node.parent
+        txt = node.get_text(" ", strip=True)
+        if txt:
+            collected.append(txt)
+        if len(" ".join(collected)) > max_len:
+            break
+    return " ".join(collected)[:max_len]
+
+
+def _extract_jobposting_jsonld(html, base_url):
+    """Many ATS/career pages embed schema.org JobPosting structured data
+    (JSON-LD) for SEO -- when present, it's far more reliable than scraping
+    visible links, since it can't be confused with nav/marketing content."""
+    results = []
+    try:
+        soup = BeautifulSoup(html, "html.parser")
+    except Exception:
+        return results
+
+    for script in soup.find_all("script", type="application/ld+json"):
+        raw = script.string or script.get_text() or ""
+        if not raw.strip():
+            continue
+        try:
+            data = json.loads(raw)
+        except Exception:
+            continue
+
+        candidates = data if isinstance(data, list) else [data]
+        entries = []
+        for item in candidates:
+            if not isinstance(item, dict):
+                continue
+            if isinstance(item.get("@graph"), list):
+                entries.extend(item["@graph"])
+            else:
+                entries.append(item)
+
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            entry_type = entry.get("@type")
+            is_job = entry_type == "JobPosting" or (isinstance(entry_type, list) and "JobPosting" in entry_type)
+            if not is_job:
+                continue
+
+            title = (entry.get("title") or "").strip()
+            if not title:
+                continue
+
+            url = entry.get("url") or (entry.get("hiringOrganization") or {}).get("sameAs") or base_url
+            if not str(url).startswith("http"):
+                url = requests.compat.urljoin(base_url, str(url))
+
+            location_text = ""
+            loc = entry.get("jobLocation")
+            if isinstance(loc, list):
+                loc = loc[0] if loc else {}
+            if isinstance(loc, dict):
+                addr = loc.get("address", {})
+                if isinstance(addr, dict):
+                    location_text = ", ".join(filter(None, [
+                        addr.get("addressLocality"), addr.get("addressRegion"), addr.get("addressCountry")
+                    ]))
+            if entry.get("jobLocationType") == "TELECOMMUTE":
+                location_text = (location_text + " Remote").strip(", ")
+
+            results.append({"title": title, "url": url, "location_text": location_text})
+
+    return results
+
+
+def fetch_playwright_generic(cfg):
+    """Generic scraper for a careers page: loads the url (optionally clicking a
+    'view all'-style button first), then tries schema.org JobPosting structured
+    data first (most reliable), falling back to anchors that look like job
+    postings by URL pattern. Best-effort by nature -- sites that render
+    results via unusual JS or hide them behind auth/captchas may return few
+    or zero results and will need a follow-up look at the Action logs."""
+    jobs = []
+    company = cfg.get("company", cfg["name"])
+    urls = cfg.get("urls") or [cfg.get("url")]
+    click_text = cfg.get("click_button_text")
+
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+            for url in urls:
+                if not url:
+                    continue
+                try:
+                    page.goto(url, wait_until="domcontentloaded", timeout=40000)
+                    time.sleep(4)
+
+                    if click_text:
+                        try:
+                            page.get_by_text(click_text, exact=False).first.click(timeout=5000)
+                            time.sleep(3)
+                        except Exception:
+                            print("[INFO] " + cfg["name"] + ": click_button_text '" + click_text + "' not found/clickable, continuing without it.")
+
+                    html = page.content()
+
+                    jsonld_jobs = _extract_jobposting_jsonld(html, url)
+                    if jsonld_jobs:
+                        for jd in jsonld_jobs:
+                            jobs.append({
+                                "id": make_job_id(cfg["name"], jd["title"], jd["url"], company),
+                                "source": cfg["name"],
+                                "title": jd["title"],
+                                "company": company,
+                                "url": jd["url"],
+                                "location_text": jd["location_text"],
+                                "body_text": jd["title"] + " at " + company + " (" + jd["location_text"] + ")"
+                            })
+                        print("[INFO] " + cfg["name"] + ": used JobPosting structured data (" + str(len(jsonld_jobs)) + " postings) for " + url)
+                        continue
+
+                    soup = BeautifulSoup(html, "html.parser")
+                    for a in soup.find_all("a", href=True):
+                        href = a["href"]
+                        raw_text = a.get_text(strip=True)
+                        if not _looks_like_job_link(href, raw_text):
+                            continue
+                        title = _extract_title_text(a)
+                        if title.lower() in NAV_TEXT_BLACKLIST or len(title.split()) < 2:
+                            continue
+                        full_url = href if href.startswith("http") else requests.compat.urljoin(url, href)
+                        location_text = _nearby_text(a)
+                        jobs.append({
+                            "id": make_job_id(cfg["name"], title, full_url, company),
+                            "source": cfg["name"],
+                            "title": title,
+                            "company": company,
+                            "url": full_url,
+                            "location_text": location_text,
+                            "body_text": title + " at " + company + " (" + location_text + ")"
+                        })
+                except Exception as e:
+                    print("[WARN] " + cfg["name"] + " failed on " + url + ": " + str(e))
+
+            browser.close()
+    except Exception as e:
+        print("[WARN] " + cfg["name"] + " Playwright session failed: " + str(e))
+
+    print("[INFO] " + cfg["name"] + " (Playwright, generic): Found " + str(len(jobs)) + " postings.")
+    return jobs
+
+
+def fetch_bamboohr(cfg):
+    jobs = []
+    company = cfg.get("company", "Eavor Technologies")
+    url = "https://eavortechnologies.bamboohr.com/careers/list"
+    try:
+        resp = requests.get(url, headers={"Accept": "application/json"}, timeout=15)
         if resp.status_code == 200:
             for result in resp.json().get("result", []):
                 title = result.get("jobOpeningName", "").strip()
                 job_id_num = result.get("id", "")
-                link = f"https://eavortechnologies.bamboohr.com/careers/{job_id_num}"
-                if title:
-                    jobs.append(_make_job(
-                        source["id"], company, title, link,
-                        location_hint=source.get("location_hint", "")
-                    ))
-            print(f"[INFO] {company}: Found {len(jobs)} postings.")
+                location_text = result.get("location", {}).get("city", "") if isinstance(result.get("location"), dict) else ""
+                link = "https://eavortechnologies.bamboohr.com/careers/" + str(job_id_num)
+                jobs.append({
+                    "id": make_job_id(cfg["name"], title, link, company),
+                    "source": cfg["name"],
+                    "title": title,
+                    "company": company,
+                    "url": link,
+                    "location_text": location_text,
+                    "body_text": title + " - " + company + " Calgary"
+                })
+            print("[INFO] " + cfg["name"] + ": Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] {company} BambooHR failed: {e}")
+        print("[WARN] " + cfg["name"] + " API failed: " + str(e))
     return jobs
 
 
-def fetch_workable(source):
+def fetch_workable(cfg):
     jobs = []
-    url = source["urls"][0]
-    company = source["company"]
+    company = cfg.get("company", "Seeq")
+    url = "https://apply.workable.com/api/v3/accounts/seeq/jobs"
     try:
-        resp = requests.post(
-            url,
-            json={"query": "", "location": [], "department": []},
-            headers={"User-Agent": "Mozilla/5.0"},
-            timeout=20
-        )
+        resp = requests.post(url, json={"query": "", "location": [], "department": []}, headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
         if resp.status_code == 200:
             for item in resp.json().get("results", []):
                 title = item.get("title", "").strip()
                 shortcode = item.get("shortcode", "")
-                link = f"https://apply.workable.com/seeq/j/{shortcode}/"
-                loc = ", ".join(
-                    l.get("city") or l.get("country") or ""
-                    for l in item.get("locations", [])
-                )
-                if title:
-                    jobs.append(_make_job(
-                        source["id"], company, title, link,
-                        location=loc,
-                        location_hint=source.get("location_hint", "")
-                    ))
-            print(f"[INFO] {company}: Found {len(jobs)} postings.")
+                location_text = item.get("location", {}).get("city", "") if isinstance(item.get("location"), dict) else ""
+                link = "https://apply.workable.com/seeq/j/" + shortcode + "/"
+                jobs.append({
+                    "id": make_job_id(cfg["name"], title, link, company),
+                    "source": cfg["name"],
+                    "title": title,
+                    "company": company,
+                    "url": link,
+                    "location_text": location_text,
+                    "body_text": title + " - " + company + " Careers"
+                })
+            print("[INFO] " + cfg["name"] + ": Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] {company} Workable failed: {e}")
+        print("[WARN] " + cfg["name"] + " API failed: " + str(e))
     return jobs
 
 
-def fetch_workday(source):
-    """Generic Workday CXS API scraper (POST /jobs + optional detail)."""
+def fetch_kanin_energy(cfg):
     jobs = []
-    company = source["company"]
-    base_url = source["urls"][0].rstrip("/")
-    # Derive the CXS endpoint from the careers URL
-    # e.g. https://aveva.wd3.myworkdayjobs.com/en-GB/AVEVA_careers
-    #   → https://aveva.wd3.myworkdayjobs.com/wday/cxs/aveva/AVEVA_careers
-    try:
-        parsed = urlparse(base_url)
-        host = parsed.netloc
-        path_parts = [p for p in parsed.path.split("/") if p]
-        # last non-empty segment is usually the site name
-        site = path_parts[-1] if path_parts else "External"
-        tenant = host.split(".")[0]
-        cxs_base = f"https://{host}/wday/cxs/{tenant}/{site}"
-    except Exception:
-        print(f"[WARN] Could not parse Workday URL for {company}")
-        return jobs
-
-    try:
-        offset = 0
-        limit = 20
-        while True:
-            payload = {
-                "appliedFacets": source.get("workday_facets", {}),
-                "limit": limit,
-                "offset": offset,
-                "searchText": ""
-            }
-            resp = requests.post(
-                f"{cxs_base}/jobs",
-                json=payload,
-                headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"},
-                timeout=25
-            )
-            if resp.status_code != 200:
-                print(f"[WARN] Workday list failed for {company}: {resp.status_code}")
-                break
-            data = resp.json()
-            postings = data.get("jobPostings", [])
-            if not postings:
-                break
-            for p in postings:
-                title = p.get("title", "").strip()
-                external_path = p.get("externalPath", "")
-                locations = p.get("locationsText", "") or p.get("bulletFields", [""])[0]
-                link = urljoin(base_url + "/", external_path.lstrip("/"))
-                if title:
-                    jobs.append(_make_job(
-                        source["id"], company, title, link,
-                        location=locations,
-                        body_text=locations,
-                        location_hint=source.get("location_hint", "")
-                    ))
-            total = data.get("total", 0)
-            offset += limit
-            if offset >= total or len(postings) < limit:
-                break
-            time.sleep(0.4)
-        print(f"[INFO] {company} (Workday): Found {len(jobs)} postings.")
-    except Exception as e:
-        print(f"[WARN] {company} Workday failed: {e}")
-    return jobs
-
-
-def fetch_kanin(source):
-    jobs = []
-    url = source["urls"][0]
-    company = source["company"]
+    company = cfg.get("company", "Kanin Energy")
+    url = "https://kaninenergy.com/wp-json/wp/v2/pages?slug=careers"
     try:
         resp = requests.get(url, timeout=15)
-        if resp.status_code == 200 and resp.json():
+        if resp.status_code == 200 and len(resp.json()) > 0:
             content = resp.json()[0].get("content", {}).get("rendered", "")
             soup = BeautifulSoup(content, "html.parser")
-            for el in soup.find_all(["h2", "h3", "h4", "p", "a"]):
+            elements = soup.find_all(["h2", "h3", "h4", "p", "a"])
+            for el in elements:
                 text = el.get_text(strip=True)
-                if any(k in text.lower() for k in ["engineer", "manager", "director", "lead", "developer", "specialist"]):
+                if any(k in text.lower() for k in ROLE_KEYWORDS):
                     link = el.get("href") if el.name == "a" else "https://kaninenergy.com/careers/"
-                    jobs.append(_make_job(
-                        source["id"], company, text, link,
-                        location_hint=source.get("location_hint", "")
-                    ))
-            print(f"[INFO] {company}: Found {len(jobs)} postings.")
+                    jobs.append({
+                        "id": make_job_id(cfg["name"], text, link, company),
+                        "source": cfg["name"],
+                        "title": text,
+                        "company": company,
+                        "url": link,
+                        "location_text": "Calgary",
+                        "body_text": text + " at " + company
+                    })
+            print("[INFO] " + cfg["name"] + ": Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] {company} failed: {e}")
+        print("[WARN] " + cfg["name"] + " fetch failed: " + str(e))
     return jobs
 
 
-def fetch_playwright_generic(source):
-    """
-    Generic Playwright scraper used for most of the new target companies.
-    Tries common job-card / link patterns and extracts title + href + nearby location text.
-    """
+def fetch_city_of_calgary(cfg):
     jobs = []
-    company = source["company"]
-    location_hint = source.get("location_hint", "")
-    click_view_all = source.get("click_view_all", False)
-
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            context = browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-            )
-            page = context.new_page()
-
-            for url in source["urls"]:
-                try:
-                    page.goto(url, wait_until="domcontentloaded", timeout=45000)
-                    time.sleep(3)
-
-                    if click_view_all:
-                        # C3.ai and similar – try common “View All” / “See all jobs” buttons
-                        for selector in [
-                            "button:has-text('View All')",
-                            "a:has-text('View All')",
-                            "button:has-text('See all')",
-                            "[data-testid*='view-all']",
-                            "text=View all open positions"
-                        ]:
-                            try:
-                                btn = page.locator(selector).first
-                                if btn.is_visible(timeout=2000):
-                                    btn.click()
-                                    time.sleep(2)
-                                    break
-                            except Exception:
-                                continue
-
-                    # Scroll a bit to trigger lazy loading
-                    for _ in range(3):
-                        page.mouse.wheel(0, 2000)
-                        time.sleep(1)
-
-                    content = page.content()
-                    soup = BeautifulSoup(content, "html.parser")
-
-                    # Broad set of link patterns that usually indicate a job posting
-                    candidates = []
-                    for a in soup.find_all("a", href=True):
-                        href = a["href"]
-                        title = a.get_text(strip=True)
-                        if not title or len(title) < 4:
-                            continue
-                        low_href = href.lower()
-                        low_title = title.lower()
-                        if any(x in low_href for x in ["/job/", "/jobs/", "/careers/", "/position/", "/opening/", "requisition", "apply"]):
-                            if "search" not in low_title and "filter" not in low_title:
-                                candidates.append((title, href))
-
-                    # Also look for common job-card containers
-                    for card in soup.select("[class*='job'], [class*='position'], [class*='opening'], [data-job], li"):
-                        a = card.find("a", href=True)
-                        if not a:
-                            continue
-                        title = a.get_text(strip=True) or card.get_text(strip=True)[:120]
-                        href = a["href"]
-                        if title and len(title) > 4:
-                            candidates.append((title, href))
-
-                    seen = set()
-                    for title, href in candidates:
-                        full_url = href if href.startswith("http") else urljoin(url, href)
-                        key = (clean_string(title), normalize_url(full_url))
-                        if key in seen:
-                            continue
-                        seen.add(key)
-
-                        # Try to find a location nearby in the DOM
-                        loc = ""
-                        # This is best-effort; the location scorer will also look at body_text
-                        jobs.append(_make_job(
-                            source["id"], company, title, full_url,
-                            location=loc,
-                            location_hint=location_hint
-                        ))
-
-                except Exception as e:
-                    print(f"[WARN] Playwright page error for {company} ({url}): {e}")
-
-            browser.close()
-            print(f"[INFO] {company} (Playwright): Found {len(jobs)} postings.")
-    except Exception as e:
-        print(f"[WARN] {company} Playwright failed: {e}")
-    return jobs
-
-
-def fetch_city_of_calgary(source):
-    """Special-case for the PeopleSoft-style City of Calgary portal."""
-    jobs = []
-    url = source["urls"][0]
-    company = source["company"]
+    company = cfg.get("company", "City of Calgary")
+    url = "https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U"
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
-            page.goto(url, wait_until="networkidle", timeout=45000)
+            page.goto(url, wait_until="networkidle", timeout=40000)
             time.sleep(5)
 
             for frame in page.frames:
@@ -503,155 +536,38 @@ def fetch_city_of_calgary(source):
                     soup = BeautifulSoup(frame.content(), "html.parser")
                     for a in soup.find_all(["a", "span"]):
                         title = a.get_text(strip=True)
-                        if any(k in title.lower() for k in [
-                            "engineer", "manager", "planner", "analyst", "lead",
-                            "coordinator", "officer", "specialist", "project"
-                        ]):
-                            jobs.append(_make_job(
-                                source["id"], company, title, url,
-                                location_hint=source.get("location_hint", "Calgary")
-                            ))
+                        if any(k in title.lower() for k in ROLE_KEYWORDS):
+                            jobs.append({
+                                "id": make_job_id(cfg["name"], title, url, company),
+                                "source": cfg["name"],
+                                "title": title,
+                                "company": company,
+                                "url": url,
+                                "location_text": "Calgary",
+                                "body_text": title + " - " + company + " Careers"
+                            })
                 except Exception:
                     continue
+
             browser.close()
-            print(f"[INFO] {company}: Found {len(jobs)} postings.")
+            print("[INFO] " + cfg["name"] + ": Found " + str(len(jobs)) + " postings.")
     except Exception as e:
-        print(f"[WARN] {company} failed: {e}")
+        print("[WARN] " + cfg["name"] + " Playwright fetch failed: " + str(e))
     return jobs
 
-def fetch_airtable_climatetech(source):
-    """
-    Fetches records from Airtable's public view endpoint and applies custom location/remote filters:
-    ("Job Location" Contains "Calgary") OR ("Country" Contains "United States of America" AND "Remote" Does Not Contain "Onsite Only")
-    """
-    jobs = []
-    url = source["urls"][0]
-    
-    # Extract shared View ID and Table ID from the URL
-    m = re.search(r"/(shr[A-Za-z0-9]+)/(tbl[A-Za-z0-9]+)", url)
-    if not m:
-        print(f"[WARN] Could not parse Airtable view/table IDs from URL: {url}")
-        return jobs
 
-    share_id, table_id = m.group(1), m.group(2)
-    api_url = f"https://airtable.com/v0.3/table/{table_id}/read"
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-        "x-airtable-inter-service-client": "webClient",
-        "x-requested-with": "XMLHttpRequest"
-    }
-
-    offset = None
-    total_fetched = 0
-
-    try:
-        while True:
-            params = {
-                "requestId": "reqFetcher",
-                "shareLinkId": share_id
-            }
-            if offset:
-                params["offset"] = offset
-
-            resp = requests.get(api_url, headers=headers, params=params, timeout=25)
-            if resp.status_code != 200:
-                print(f"[WARN] Airtable read failed with status: {resp.status_code}")
-                break
-
-            data = resp.json().get("data", {})
-            rows = data.get("rows", [])
-            if not rows:
-                break
-
-            for row in rows:
-                cell_values = row.get("cellValuesByColumnId", {})
-                
-                # Stringify all row cell values for filter checks
-                row_str_map = {}
-                for k, v in cell_values.items():
-                    if isinstance(v, list):
-                        row_str_map[k] = " ".join([str(x) for x in v])
-                    else:
-                        row_str_map[k] = str(v) if v is not None else ""
-
-                full_row_text = " ".join(row_str_map.values())
-
-                # Extract title & URL heuristics
-                job_url = ""
-                job_title = ""
-                company_name = source.get("company", "Climate Tech List")
-
-                for k, v in cell_values.items():
-                    if isinstance(v, str) and v.startswith("http"):
-                        job_url = v
-                    elif isinstance(v, dict) and "url" in v:
-                        job_url = v["url"]
-
-                title_candidates = [v for v in cell_values.values() if isinstance(v, str) and not v.startswith("http") and len(v) > 2]
-                if title_candidates:
-                    job_title = title_candidates[0]
-
-                # Applied Filters:
-                # ("Job Location" Contains "Calgary") OR ("Country" Contains "United States of America" AND "Remote" Does Not Contain "Onsite Only")
-                has_calgary = "calgary" in full_row_text.lower()
-                has_usa = "united states" in full_row_text.lower() or "usa" in full_row_text.lower()
-                is_onsite_only = "onsite only" in full_row_text.lower() or "on-site only" in full_row_text.lower()
-
-                condition_1 = has_calgary
-                condition_2 = has_usa and not is_onsite_only
-
-                if condition_1 or condition_2:
-                    if job_title:
-                        link = job_url if job_url else url
-                        jobs.append(_make_job(
-                            source["id"],
-                            company_name,
-                            job_title,
-                            link,
-                            body_text=full_row_text,
-                            location="Calgary / US Remote",
-                            location_hint=source.get("location_hint", "")
-                        ))
-
-            total_fetched += len(rows)
-            offset = data.get("offset")
-            if not offset:
-                break
-            time.sleep(0.3)
-
-        print(f"[INFO] Climate Tech List (Airtable): Processed {total_fetched} rows, matched {len(jobs)} postings.")
-    except Exception as e:
-        print(f"[WARN] Climate Tech List Airtable fetch failed: {e}")
-
-    return jobs
-
-# ---------------------------------------------------------
-# Dispatcher
-# ---------------------------------------------------------
-
-FETCHERS = {
-    "airtable": fetch_airtable_climatetech,  # <--- ADD THIS LINE
+TYPE_HANDLERS = {
+    "workday": fetch_workday_jobs,
+    "playwright": fetch_playwright_generic,
     "bamboohr": fetch_bamboohr,
     "workable": fetch_workable,
-    "workday": fetch_workday,
-    "requests_json": fetch_kanin,
-    "playwright": fetch_playwright_generic,
-    "custom": fetch_playwright_generic,
+    "wordpress_json": fetch_kanin_energy,
+    "psft_iframe": fetch_city_of_calgary,
 }
 
 
-def fetch_source(source):
-    src_type = source.get("type", "playwright")
-    # Special override for City of Calgary
-    if source["id"] == "city_of_calgary":
-        return fetch_city_of_calgary(source)
-    fetcher = FETCHERS.get(src_type, fetch_playwright_generic)
-    return fetcher(source)
-
-
 # ---------------------------------------------------------
-# Dashboard (unchanged except for minor polish)
+# Report Writer & HTML Dashboard Generator
 # ---------------------------------------------------------
 
 DASHBOARD_SCRIPT = """
@@ -661,13 +577,18 @@ const STORAGE_REPO_KEY = 'gh_repo';
 const STORAGE_PENDING_KEY = 'gh_pending_changes';
 
 function loadPending() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_PENDING_KEY) || '{}'); }
-  catch (e) { return {}; }
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_PENDING_KEY) || '{}');
+  } catch (e) {
+    return {};
+  }
 }
+
 function savePending(pending) {
   localStorage.setItem(STORAGE_PENDING_KEY, JSON.stringify(pending));
   updatePendingBadge();
 }
+
 function updatePendingBadge() {
   const pending = loadPending();
   const count = Object.keys(pending).length;
@@ -676,29 +597,47 @@ function updatePendingBadge() {
   if (badge) badge.innerText = count;
   if (syncBtn) syncBtn.style.display = count > 0 ? 'inline-block' : 'none';
 }
+
 function setGithubConfig() {
   const token = document.getElementById('ghTokenInput').value.trim();
   const repo = document.getElementById('ghRepoInput').value.trim();
-  if (token) localStorage.setItem(STORAGE_TOKEN_KEY, token); else localStorage.removeItem(STORAGE_TOKEN_KEY);
-  if (repo) localStorage.setItem(STORAGE_REPO_KEY, repo); else localStorage.removeItem(STORAGE_REPO_KEY);
+  if (token) { localStorage.setItem(STORAGE_TOKEN_KEY, token); } else { localStorage.removeItem(STORAGE_TOKEN_KEY); }
+  if (repo) { localStorage.setItem(STORAGE_REPO_KEY, repo); } else { localStorage.removeItem(STORAGE_REPO_KEY); }
   alert('Saved locally in this browser.');
 }
+
+function clearBrowserData() {
+  if (!confirm('This clears your saved GitHub token, repo name, and any un-synced status clicks from this browser. Continue?')) {
+    return;
+  }
+  localStorage.removeItem(STORAGE_TOKEN_KEY);
+  localStorage.removeItem(STORAGE_REPO_KEY);
+  localStorage.removeItem(STORAGE_PENDING_KEY);
+  location.reload();
+}
+
 window.onload = function() {
   const savedToken = localStorage.getItem(STORAGE_TOKEN_KEY);
   const savedRepo = localStorage.getItem(STORAGE_REPO_KEY);
   if (savedToken) document.getElementById('ghTokenInput').value = savedToken;
   if (savedRepo) document.getElementById('ghRepoInput').value = savedRepo;
+
   const pending = loadPending();
-  Object.keys(pending).forEach(function(jobId) { applyStatusToRow(jobId, pending[jobId].status); });
+  Object.keys(pending).forEach(function(jobId) {
+    applyStatusToRow(jobId, pending[jobId].status);
+  });
+
   updatePendingBadge();
   filterTab('new');
 };
+
 function filterTab(tabName) {
   currentTab = tabName;
   document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
   document.getElementById('tab-' + tabName).classList.add('active');
   applyFilters();
 }
+
 function applyFilters() {
   const searchInput = document.getElementById("searchBox").value.toLowerCase();
   const rows = document.querySelectorAll("#jobTable tbody tr");
@@ -710,18 +649,23 @@ function applyFilters() {
     row.style.display = (matchesTab && matchesSearch) ? "" : "none";
   });
 }
+
 function applyStatusToRow(jobId, status) {
   const tr = document.getElementById('job-row-' + jobId);
   if (!tr) return;
   tr.setAttribute('data-status', status);
   const tag = tr.querySelector('.status-tag');
-  if (tag) { tag.className = 'status-tag status-' + status; tag.innerText = status; }
+  if (tag) {
+    tag.className = 'status-tag status-' + status;
+    tag.innerText = status;
+  }
   tr.querySelectorAll('.btn-action').forEach(function(btn) {
     btn.classList.remove('active-new', 'active-interested', 'active-applied', 'active-dismissed');
   });
   const activeBtn = tr.querySelector('[data-status-btn="' + status + '"]');
   if (activeBtn) activeBtn.classList.add('active-' + status);
 }
+
 function queueStatusChange(jobId, status) {
   const pending = loadPending();
   pending[jobId] = { status: status, updated_at: new Date().toISOString() };
@@ -729,6 +673,7 @@ function queueStatusChange(jobId, status) {
   applyStatusToRow(jobId, status);
   applyFilters();
 }
+
 async function syncNow() {
   const token = localStorage.getItem(STORAGE_TOKEN_KEY);
   const repo = localStorage.getItem(STORAGE_REPO_KEY);
@@ -739,10 +684,13 @@ async function syncNow() {
   const pending = loadPending();
   const jobIds = Object.keys(pending);
   if (jobIds.length === 0) return;
+
   const syncBtn = document.getElementById('syncBtn');
   syncBtn.disabled = true;
   syncBtn.innerText = 'Syncing...';
+
   const apiUrl = 'https://api.github.com/repos/' + repo + '/contents/jobs_cache.json';
+
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const getResp = await fetch(apiUrl, {
@@ -752,11 +700,13 @@ async function syncNow() {
       const fileData = await getResp.json();
       const rawJson = decodeURIComponent(escape(atob(fileData.content)));
       const cacheObj = JSON.parse(rawJson);
+
       jobIds.forEach(function(jobId) {
         if (!cacheObj[jobId]) cacheObj[jobId] = {};
         cacheObj[jobId].status = pending[jobId].status;
         cacheObj[jobId].updated_at = pending[jobId].updated_at;
       });
+
       const putResp = await fetch(apiUrl, {
         method: "PUT",
         headers: { "Authorization": "Bearer " + token, "Accept": "application/vnd.github.v3+json" },
@@ -766,14 +716,18 @@ async function syncNow() {
           sha: fileData.sha
         })
       });
-      if (putResp.status === 409 && attempt === 0) continue;
+
+      if (putResp.status === 409 && attempt === 0) {
+        continue;
+      }
       if (!putResp.ok) throw new Error("GitHub write failed: " + putResp.statusText);
+
       savePending({});
-      syncBtn.innerText = 'Synced ✓';
+      syncBtn.innerText = 'Synced \\u2713';
       setTimeout(updatePendingBadge, 1500);
       return;
     } catch (e) {
-      alert("Sync failed: " + e.message + ". Your changes are still saved in this browser — try Sync again.");
+      alert("Sync failed: " + e.message + ". Your changes are still saved in this browser -- try Sync again.");
       syncBtn.disabled = false;
       syncBtn.innerText = 'Sync Now';
       return;
@@ -783,23 +737,28 @@ async function syncNow() {
   syncBtn.disabled = false;
   syncBtn.innerText = 'Sync Now';
 }
+
 function sortTable(colIndex, type) {
   const table = document.getElementById('jobTable');
   const tbody = table.querySelector('tbody');
   const rows = Array.from(tbody.querySelectorAll('tr'));
   const th = table.querySelectorAll('th')[colIndex];
   const asc = !th.classList.contains('asc');
+
   table.querySelectorAll('th').forEach(function(h) { h.classList.remove('asc', 'desc'); });
   th.classList.add(asc ? 'asc' : 'desc');
+
   rows.sort(function(a, b) {
     let va = a.children[colIndex].innerText.trim();
     let vb = b.children[colIndex].innerText.trim();
     if (type === 'number') {
-      va = parseFloat(va) || 0; vb = parseFloat(vb) || 0;
+      va = parseFloat(va) || 0;
+      vb = parseFloat(vb) || 0;
       return asc ? va - vb : vb - va;
     }
     return asc ? va.localeCompare(vb) : vb.localeCompare(va);
   });
+
   rows.forEach(function(r) { tbody.appendChild(r); });
 }
 """
@@ -808,6 +767,7 @@ DASHBOARD_STYLE = """
   body { font-family: system-ui, -apple-system, sans-serif; margin: 30px; background: #f8f9fa; color: #333; }
   h1 { margin-bottom: 5px; color: #1a252f; }
   .sub { color: #6c757d; margin-bottom: 20px; }
+
   .token-bar { background: #fff3cd; border: 1px solid #ffeeba; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .token-bar input { padding: 6px 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 13px; }
   .token-bar input#ghTokenInput { flex: 1; min-width: 220px; }
@@ -815,19 +775,25 @@ DASHBOARD_STYLE = """
   .token-bar button { padding: 6px 12px; background: #856404; color: white; border: none; border-radius: 4px; cursor: pointer; }
   #syncBtn { background: #0066cc; display: none; }
   #pendingCount { background: #dc3545; color: white; border-radius: 10px; padding: 1px 7px; font-size: 11px; margin-left: 4px; }
+  .clear-link { margin-left: auto; font-size: 12px; color: #856404; cursor: pointer; text-decoration: underline; background: none; border: none; padding: 0; }
+
   .tabs { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 2px solid #e9ecef; padding-bottom: 8px; }
   .tab { padding: 8px 16px; border: none; background: #e9ecef; border-radius: 4px; cursor: pointer; font-weight: 600; color: #495057; }
   .tab.active { background: #0066cc; color: white; }
+
   .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
   #searchBox { padding: 9px 12px; width: 320px; font-size: 14px; border: 1px solid #ced4da; border-radius: 4px; }
+
   table { border-collapse: collapse; width: 100%; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
   th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e9ecef; }
   th { background-color: #0066cc; color: white; cursor: pointer; user-select: none; }
   th:hover { background-color: #0052a5; }
-  th.asc::after { content: " ▲"; font-size: 10px; }
-  th.desc::after { content: " ▼"; font-size: 10px; }
+  th.asc::after { content: " \\25B2"; font-size: 10px; }
+  th.desc::after { content: " \\25BC"; font-size: 10px; }
   tr:hover { background-color: #f1f5f9; }
+
   .score-badge { font-weight: bold; padding: 4px 8px; border-radius: 4px; background: #e3f2fd; color: #0d47a1; }
+
   .btn-group { display: flex; gap: 4px; }
   .btn-action { border: 1px solid #ced4da; background: white; padding: 5px 8px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
   .btn-action:hover { background: #e2e8f0; }
@@ -835,13 +801,16 @@ DASHBOARD_STYLE = """
   .btn-action.active-interested { background: #fff3cd; border-color: #ffeeba; color: #856404; font-weight: bold; }
   .btn-action.active-applied { background: #d4edda; border-color: #c3e6cb; color: #155724; font-weight: bold; }
   .btn-action.active-dismissed { background: #f8d7da; border-color: #f5c6cb; color: #721c24; font-weight: bold; }
+
   a.btn-link { text-decoration: none; background: #0066cc; color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; display: inline-block; }
   a.btn-link:hover { background: #0052a5; }
+
   .status-tag { font-size: 11px; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; font-weight: bold; display: inline-block; margin-bottom: 4px; }
   .status-new { background: #e2e8f0; color: #475569; }
   .status-interested { background: #fef08a; color: #854d0e; }
   .status-applied { background: #bbf7d0; color: #166534; }
   .status-dismissed { background: #fecdd3; color: #9f1239; }
+  .location-tag { font-size: 11px; color: #6c757d; }
 """
 
 
@@ -850,84 +819,86 @@ def render_job_row(job, cache_data, today_str):
     status = cache_data.get(job_id, {}).get("status", "new")
     first_seen = cache_data.get(job_id, {}).get("first_seen", today_str)
     age_str = compute_posting_age(first_seen)
+    location_text = job.get("location_text", "") or "—"
 
     def active_class(btn_status):
         return "active-" + btn_status if status == btn_status else ""
 
-    loc_display = job.get("location") or job.get("location_hint") or ""
     return (
-        f'<tr id="job-row-{job_id}" data-status="{status}">'
-        f'<td><span class="score-badge">{job["score"]:.2f}</span></td>'
-        f'<td><div><span class="status-tag status-{status}">{status}</span></div>'
-        f'<strong>{job["title"]}</strong><br>'
-        f'<a href="{job["url"]}" target="_blank" class="btn-link" style="margin-top:4px;">View Posting ↗</a></td>'
-        f'<td>{job["company"]}<br><small style="color:#6c757d">{loc_display}</small></td>'
-        f'<td>{age_str}</td>'
-        f'<td>{job["source"]}</td>'
-        f'<td><div class="btn-group">'
-        f'<button title="Mark Interested" data-status-btn="interested" class="btn-action {active_class("interested")}" onclick="queueStatusChange(\'{job_id}\', \'interested\')">⭐</button>'
-        f'<button title="Mark Applied" data-status-btn="applied" class="btn-action {active_class("applied")}" onclick="queueStatusChange(\'{job_id}\', \'applied\')">🚀</button>'
-        f'<button title="Dismiss Posting" data-status-btn="dismissed" class="btn-action {active_class("dismissed")}" onclick="queueStatusChange(\'{job_id}\', \'dismissed\')">❌</button>'
-        f'<button title="Reset to Inbox" data-status-btn="new" class="btn-action {active_class("new")}" onclick="queueStatusChange(\'{job_id}\', \'new\')">📥</button>'
-        f'</div></td></tr>'
+        '<tr id="job-row-' + job_id + '" data-status="' + status + '">'
+        '<td><span class="score-badge">' + format(job["score"], ".2f") + '</span></td>'
+        '<td><div><span class="status-tag status-' + status + '">' + status + '</span></div>'
+        '<strong>' + job["title"] + '</strong><br>'
+        '<span class="location-tag">' + location_text + '</span><br>'
+        '<a href="' + job["url"] + '" target="_blank" class="btn-link" style="margin-top: 4px;">View Posting &#8599;</a></td>'
+        '<td>' + job["company"] + '</td>'
+        '<td>' + age_str + '</td>'
+        '<td>' + job["source"] + '</td>'
+        '<td><div class="btn-group">'
+        '<button title="Mark Interested" data-status-btn="interested" class="btn-action ' + active_class("interested") + '" onclick="queueStatusChange(\'' + job_id + '\', \'interested\')">&#11088;</button>'
+        '<button title="Mark Applied" data-status-btn="applied" class="btn-action ' + active_class("applied") + '" onclick="queueStatusChange(\'' + job_id + '\', \'applied\')">&#128640;</button>'
+        '<button title="Dismiss Posting" data-status-btn="dismissed" class="btn-action ' + active_class("dismissed") + '" onclick="queueStatusChange(\'' + job_id + '\', \'dismissed\')">&#10060;</button>'
+        '<button title="Reset to Inbox" data-status-btn="new" class="btn-action ' + active_class("new") + '" onclick="queueStatusChange(\'' + job_id + '\', \'new\')">&#128229;</button>'
+        '</div></td></tr>'
     )
 
 
 def render_html_dashboard(ranked_jobs, cache_data, today_str):
     rows_html = "".join(render_job_row(job, cache_data, today_str) for job in ranked_jobs)
-    page_title = f"Engineering-Tech Job Matcher — {today_str}"
-    if TEMPLATE_PATH.exists():
-        page_title = TEMPLATE_PATH.read_text(encoding="utf-8").replace("{{TODAY}}", today_str).strip()
 
-    html = f"""<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>{page_title}</title>
-<style>
-{DASHBOARD_STYLE}
-</style>
-<script>
-{DASHBOARD_SCRIPT}
-</script>
-</head>
-<body>
-<h1>{page_title}</h1>
-<div class="sub">{len(ranked_jobs)} postings found (Calgary / Remote Engineering-Tech focus).
-Click statuses freely, then hit "Sync Now" — nothing is written to GitHub until you sync.</div>
-<div class="token-bar">
-<input id="ghTokenInput" type="password" placeholder="GitHub token (repo-scoped, Contents: read/write)">
-<input id="ghRepoInput" type="text" placeholder="username/job-matcher">
-<button onclick="setGithubConfig()">Save</button>
-<button id="syncBtn" onclick="syncNow()">Sync Now (<span id="pendingCount">0</span>)</button>
-</div>
-<div class="tabs">
-<button class="tab" id="tab-new" onclick="filterTab('new')">New</button>
-<button class="tab" id="tab-interested" onclick="filterTab('interested')">Interested</button>
-<button class="tab" id="tab-applied" onclick="filterTab('applied')">Applied</button>
-<button class="tab" id="tab-dismissed" onclick="filterTab('dismissed')">Dismissed</button>
-<button class="tab" id="tab-all" onclick="filterTab('all')">All</button>
-</div>
-<div class="controls">
-<input id="searchBox" type="text" placeholder="Search title, company, location..." oninput="applyFilters()">
-</div>
-<table id="jobTable">
-<thead><tr>
-<th onclick="sortTable(0, 'number')">Score</th>
-<th onclick="sortTable(1, 'text')">Job</th>
-<th onclick="sortTable(2, 'text')">Company / Location</th>
-<th onclick="sortTable(3, 'text')">Posted</th>
-<th onclick="sortTable(4, 'text')">Source</th>
-<th>Status</th>
-</tr></thead>
-<tbody>
-{rows_html}
-</tbody>
-</table>
-</body>
-</html>
-"""
-    return html
+    if TEMPLATE_PATH.exists():
+        title_template = TEMPLATE_PATH.read_text(encoding="utf-8")
+    else:
+        title_template = "Job Matching Dashboard — {{TODAY}}"
+    page_title = title_template.replace("{{TODAY}}", today_str).strip()
+
+    html_parts = []
+    html_parts.append("<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n")
+    html_parts.append("<title>" + page_title + "</title>\n")
+    html_parts.append("<style>\n" + DASHBOARD_STYLE + "\n</style>\n")
+    html_parts.append("<script>\n" + DASHBOARD_SCRIPT + "\n</script>\n")
+    html_parts.append("</head>\n<body>\n")
+    html_parts.append("<h1>" + page_title + "</h1>\n")
+    html_parts.append(
+        '<div class="sub">' + str(len(ranked_jobs)) +
+        ' postings found. Click statuses freely, then hit &quot;Sync Now&quot; to save '
+        '&mdash; nothing is written to GitHub until you sync.</div>\n'
+    )
+    html_parts.append(
+        '<div class="token-bar">'
+        '<input id="ghTokenInput" type="password" placeholder="GitHub token (repo-scoped, Contents: read/write)">'
+        '<input id="ghRepoInput" type="text" placeholder="username/job-matcher">'
+        '<button onclick="setGithubConfig()">Save</button>'
+        '<button id="syncBtn" onclick="syncNow()">Sync Now (<span id="pendingCount">0</span>)</button>'
+        '<button class="clear-link" onclick="clearBrowserData()">Clear saved token / pending changes</button>'
+        '</div>\n'
+    )
+    html_parts.append(
+        '<div class="tabs">'
+        '<button class="tab" id="tab-new" onclick="filterTab(\'new\')">New</button>'
+        '<button class="tab" id="tab-interested" onclick="filterTab(\'interested\')">Interested</button>'
+        '<button class="tab" id="tab-applied" onclick="filterTab(\'applied\')">Applied</button>'
+        '<button class="tab" id="tab-dismissed" onclick="filterTab(\'dismissed\')">Dismissed</button>'
+        '<button class="tab" id="tab-all" onclick="filterTab(\'all\')">All</button>'
+        '</div>\n'
+    )
+    html_parts.append(
+        '<div class="controls">'
+        '<input id="searchBox" type="text" placeholder="Search title, company..." oninput="applyFilters()">'
+        '</div>\n'
+    )
+    html_parts.append('<table id="jobTable"><thead><tr>')
+    html_parts.append('<th onclick="sortTable(0, \'number\')">Score</th>')
+    html_parts.append('<th onclick="sortTable(1, \'text\')">Job</th>')
+    html_parts.append('<th onclick="sortTable(2, \'text\')">Company</th>')
+    html_parts.append('<th onclick="sortTable(3, \'text\')">Posted</th>')
+    html_parts.append('<th onclick="sortTable(4, \'text\')">Source</th>')
+    html_parts.append('<th>Status</th>')
+    html_parts.append('</tr></thead><tbody>')
+    html_parts.append(rows_html)
+    html_parts.append('</tbody></table>\n</body>\n</html>\n')
+
+    return "".join(html_parts)
 
 
 # ---------------------------------------------------------
@@ -939,16 +910,20 @@ def main():
     cache_data = load_cache()
     sources = load_sources()
 
-    all_jobs = []
-    for source in sources:
-        print(f"[INFO] Fetching source: {source['id']} ({source.get('type')})")
-        try:
-            jobs = fetch_source(source)
-            all_jobs.extend(jobs)
-        except Exception as e:
-            print(f"[WARN] Source {source['id']} raised: {e}")
+    known_target_companies = set(clean_string(s.get("company", "")) for s in sources if s.get("company"))
 
-    # De-duplicate
+    all_jobs = []
+    for cfg in sources:
+        handler = TYPE_HANDLERS.get(cfg.get("type"))
+        if not handler:
+            print("[WARN] No handler for source type '" + str(cfg.get("type")) + "' (" + cfg.get("name", "?") + ")")
+            continue
+        try:
+            all_jobs.extend(handler(cfg))
+        except Exception as e:
+            print("[WARN] Source '" + cfg.get("name", "?") + "' raised an unexpected error: " + str(e))
+
+    # De-duplicate: keep the first occurrence of each unique job id.
     seen_ids = set()
     unique_jobs = []
     for job in all_jobs:
@@ -957,15 +932,14 @@ def main():
         seen_ids.add(job["id"])
         unique_jobs.append(job)
 
-    print(f"[INFO] Total postings before de-dup: {len(all_jobs)}, after: {len(unique_jobs)}")
+    print("[INFO] Total postings before de-dup: " + str(len(all_jobs)) + ", after de-dup: " + str(len(unique_jobs)))
 
     if unique_jobs:
         model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
-        compute_composite_scores(unique_jobs, cache_data, model)
+        compute_composite_scores(unique_jobs, cache_data, model, known_target_companies)
 
-    ranked_jobs = sorted(unique_jobs, key=lambda j: j.get("score", 0), reverse=True)
+    ranked_jobs = sorted(unique_jobs, key=lambda j: j["score"], reverse=True)
 
-    # Update cache
     for job in ranked_jobs:
         jid = job["id"]
         if jid not in cache_data:
@@ -982,11 +956,14 @@ def main():
     save_cache(cache_data)
 
     html = render_html_dashboard(ranked_jobs, cache_data, today_str)
-    report_path = REPORTS_DIR / f"report-{today_str}.html"
-    report_path.write_text(html, encoding="utf-8")
-    (DOCS_DIR / "index.html").write_text(html, encoding="utf-8")
 
-    print(f"[INFO] Dashboard written to {report_path} and docs/index.html")
+    report_path = REPORTS_DIR / ("report-" + today_str + ".html")
+    report_path.write_text(html, encoding="utf-8")
+
+    latest_path = DOCS_DIR / "index.html"
+    latest_path.write_text(html, encoding="utf-8")
+
+    print("[INFO] Dashboard written to " + str(report_path) + " and " + str(latest_path))
 
 
 if __name__ == "__main__":
