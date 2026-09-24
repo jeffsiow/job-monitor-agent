@@ -28,11 +28,11 @@ sources:
     company: "Cognite"
     url: "https://www.cognite.com/en/company/careers?location=USA+%28remote%29#open-positions"
 
-  - name: c3ai
-    type: playwright
-    company: "C3.ai"
-    url: "https://c3.ai/careers"
-    click_button_text: "View All"
+  #- name: c3ai
+  #  type: playwright
+  #  company: "C3.ai"
+  #  url: "https://c3.ai/careers"
+  #  click_button_text: "View All"
 
   - name: symphonyai
     type: playwright
@@ -62,12 +62,22 @@ sources:
   - name: siemens
     type: playwright
     company: "Siemens"
+    # Heavily JS-driven search widget; blind pattern-guessing hasn't nailed
+    # it yet (matched FAQ/footer/language-switcher links, not real jobs).
+    # Needs a concrete href sample from a real posting to fix precisely --
+    # see the note back in chat.
     url: "https://jobs.siemens.com/en_US/externaljobs/SearchJobs/?42386=%5B812214%5D&42386_format=17546&42387=%5B813888%5D&42387_format=17547&42388=%5B14136998%5D&42388_format=17879&42389=%5B102117%2C102133%2C102134%5D&42389_format=17549&listFilterMode=1&folderRecordsPerPage=6&"
 
   - name: autodesk
     type: playwright
     company: "Autodesk"
     url: "https://jobs.autodesk.com/careers?start=0&location=calgary&pid=1443152973457&sort_by=distance&filter_distance=160&filter_include_remote=1&filter_include_relocation=0"
+    # The "pid=" param suggests this is Eightfold.ai-hosted -- those pages are
+    # heavily client-rendered, and results may sit in an embedded iframe, so
+    # wait longer for network activity to settle and check iframes too.
+    wait_until: networkidle
+    extra_wait_seconds: 6
+    scan_frames: true
 
   - name: hexagon
     type: playwright
