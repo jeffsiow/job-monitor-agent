@@ -52,10 +52,10 @@ sources:
 
   - id: climate_tech_list
     company: Climate Tech List
-    type: playwright
+    type: airtable
     urls:
-      - https://www.climatetechlist.com/jobs?location=calgary
-    location_hint: Calgary
+      - https://airtable.com/appo9WyVgYvpap792/shrbAhhxKqvWjaJMs/tblkJ11dnpAvYtRYa
+    location_hint: Calgary / US Remote
     enabled: true
 
   # ── New target companies ──────────────────────────────────────
