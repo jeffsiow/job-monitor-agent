@@ -1,144 +1,99 @@
-# sources.yaml — all job sources for the Engineering-Tech Calgary/Remote matcher
-# Each entry has:
-#   id:          unique key used in job IDs and logging
-#   company:     display name
-#   type:        one of: workday | requests_json | playwright | bamboohr | workable | custom
-#   urls:        list of starting URLs (some sources use multiple)
-#   location_hint: optional free-text that helps the location scorer
-#   enabled:     true/false
+# Sources for the Daily Job Matcher.
+#
+# type: workday          -> fetched via Workday's CXS JSON API (no Playwright needed)
+# type: playwright       -> generic scrape: loads url(s) in a headless browser, pulls
+#                            out job-like links, and grabs nearby text for location scoring.
+#                            Optional click_button_text will click a button (e.g. "View All")
+#                            before scraping, for pages that hide postings behind a click.
+# type: bamboohr / workable / wordpress_json / psft_iframe -> bespoke fetchers in agent.py
+#
+# To add a new company later: for a Workday-hosted board, add a "workday" entry with the
+# tenant/site/location_ids from its URL. For anything else, add a "playwright" entry with
+# its careers URL (ideally already filtered to Calgary/remote in the URL, since not every
+# site supports that -- location is also scored after the fact as a backstop).
 
 sources:
-  # ── Kept sources ──────────────────────────────────────────────
-  - id: eavor
-    company: Eavor Technologies
-    type: bamboohr
-    urls:
-      - https://eavortechnologies.bamboohr.com/careers/list
-    location_hint: Calgary
-    enabled: true
-
-  - id: seeq
-    company: Seeq
-    type: workable
-    urls:
-      - https://apply.workable.com/api/v3/accounts/seeq/jobs
-    location_hint: Remote / Calgary
-    enabled: true
-
-  - id: black_veatch
-    company: Black & Veatch
-    type: playwright
-    urls:
-      - https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada+OR+united+states&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5=Project+Management
-      - https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5=
-    location_hint: Canada / Remote
-    enabled: true
-
-  - id: kanin_energy
-    company: Kanin Energy
-    type: requests_json
-    urls:
-      - https://kaninenergy.com/wp-json/wp/v2/pages?slug=careers
-    location_hint: Calgary
-    enabled: true
-
-  - id: city_of_calgary
-    company: City of Calgary
-    type: playwright
-    urls:
-      - https://recruiting.calgary.ca/psc/hcm/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U
-    location_hint: Calgary
-    enabled: true
-
-  - id: climate_tech_list
-    company: Climate Tech List
-    type: airtable
-    urls:
-      - https://airtable.com/appo9WyVgYvpap792/shrbAhhxKqvWjaJMs/tblkJ11dnpAvYtRYa
-    location_hint: Calgary / US Remote
-    enabled: true
-
-  # ── New target companies ──────────────────────────────────────
-  - id: aveva
-    company: AVEVA
+  # --- New target companies ---
+  - name: aveva
     type: workday
-    urls:
-      - https://aveva.wd3.myworkdayjobs.com/en-GB/AVEVA_careers
-    # Optional facet for Calgary if the site supports it
-    workday_facets: {}
-    location_hint: Calgary / Canada / Remote
-    enabled: true
+    company: "AVEVA"
+    tenant: aveva
+    wd_host: wd3
+    site: AVEVA_careers
+    locale: en-GB
+    location_ids: ["ce13858e525f100c6c92e5ed60dd0000"]
 
-  - id: cognite
-    company: Cognite
+  - name: cognite
     type: playwright
-    urls:
-      - https://www.cognite.com/en/company/careers?location=USA+%28remote%29#open-positions
-    location_hint: Remote
-    enabled: true
+    company: "Cognite"
+    url: "https://www.cognite.com/en/company/careers?location=USA+%28remote%29#open-positions"
 
-  - id: c3_ai
-    company: C3.ai
+  - name: c3ai
     type: playwright
-    urls:
-      - https://c3.ai/careers
-    # Needs "View All" click
-    click_view_all: true
-    location_hint: Remote / Canada
-    enabled: true
+    company: "C3.ai"
+    url: "https://c3.ai/careers"
+    click_button_text: "View All"
 
-  - id: symphonyai
-    company: SymphonyAI
+  - name: symphonyai
     type: playwright
-    urls:
-      - https://jobs.symphonyai.com/jobs?page=1&location=Calgary,%20AB,%20Canada&woe=7&regionCode=CA&stretchUnit=MILES&stretch=10
-    location_hint: Calgary
-    enabled: true
+    company: "SymphonyAI"
+    url: "https://jobs.symphonyai.com/jobs?page=1&location=Calgary%2C%20AB%2C%20Canada&woe=7&regionCode=CA&stretchUnit=MILES&stretch=10"
 
-  - id: sightmachine
-    company: Sight Machine
+  - name: sight_machine
     type: playwright
-    urls:
-      - https://ats.rippling.com/en-GB/sightmachine/jobs?jobBoardSlug=sightmachine&searchQuery=&workplaceType=REMOTE&country=&state=&city=&page=0&pageSize=20
-    location_hint: Remote
-    enabled: true
+    company: "Sight Machine"
+    url: "https://ats.rippling.com/en-GB/sightmachine/jobs?jobBoardSlug=sightmachine&searchQuery=&workplaceType=REMOTE&country=&state=&city=&page=0&pageSize=20"
 
-  - id: flowmingo
-    company: Flowmingo
+  - name: flowmingo
     type: playwright
-    urls:
-      - https://talent.flowmingo.ai/careers/MTg5NTY
-    location_hint: Remote / Calgary
-    enabled: true
+    company: "Flowmingo"
+    url: "https://talent.flowmingo.ai/careers/MTg5NTY"
 
-  - id: apex_systems
-    company: Apex Systems
+  - name: apex_systems
     type: playwright
-    urls:
-      - https://www.apexsystems.com/search-results-crp?catalogcode=CRP&address=&radius=50&page=1&rows=25&query=%2A&remote=true
-    location_hint: Remote
-    enabled: true
+    company: "Apex Systems"
+    url: "https://www.apexsystems.com/search-results-crp?catalogcode=CRP&address=&radius=50&page=1&rows=25&query=%2A&remote=true"
 
-  - id: siemens
-    company: Siemens
+  - name: siemens
     type: playwright
-    urls:
-      - https://jobs.siemens.com/en_US/externaljobs/SearchJobs/?42386=%5B812214%5D&42386_format=17546&42387=%5B813888%5D&42387_format=17547&42388=%5B14136998%5D&42388_format=17879&42389=%5B102117%2C102133%2C102134%5D&42389_format=17549&listFilterMode=1&folderRecordsPerPage=6&
-    location_hint: Calgary / Canada / Remote
-    enabled: true
+    company: "Siemens"
+    url: "https://jobs.siemens.com/en_US/externaljobs/SearchJobs/?42386=%5B812214%5D&42386_format=17546&42387=%5B813888%5D&42387_format=17547&42388=%5B14136998%5D&42388_format=17879&42389=%5B102117%2C102133%2C102134%5D&42389_format=17549&listFilterMode=1&folderRecordsPerPage=6&"
 
-  - id: autodesk
-    company: Autodesk
+  - name: autodesk
     type: playwright
-    urls:
-      - https://jobs.autodesk.com/careers?start=0&location=calgary&pid=1443152973457&sort_by=distance&filter_distance=160&filter_include_remote=1&filter_include_relocation=0
-    location_hint: Calgary / Remote
-    enabled: true
+    company: "Autodesk"
+    url: "https://jobs.autodesk.com/careers?start=0&location=calgary&pid=1443152973457&sort_by=distance&filter_distance=160&filter_include_remote=1&filter_include_relocation=0"
 
-  - id: hexagon
-    company: Hexagon
+  - name: hexagon
     type: playwright
+    company: "Hexagon"
+    url: "https://careers-hexagonpositioning.icims.com/jobs/search?ss=1&searchLocation=--Calgary%2C+AB%2C+Canada+%2B+Tucson%2C+AZ%2C+United+States"
+
+  # --- Kept from before ---
+  - name: black_veatch
+    type: playwright
+    company: "Black & Veatch"
     urls:
-      - https://hexagon.com/company/careers/job-listings#jl_country=Canada&nearme=1&jl_jobtypename=Engineering&jl_e=0
-    location_hint: Canada / Calgary
-    enabled: true
+      - "https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada+OR+united+states&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5=Project+Management"
+      - "https://careers.bv.com/search/?createNewAlert=false&q=project+manager&locationsearch=canada&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield5="
+
+  - name: climate_tech_list
+    type: playwright
+    company: "Climate Tech List"
+    url: "https://www.climatetechlist.com/jobs?location=calgary"
+
+  - name: kanin_energy
+    type: wordpress_json
+    company: "Kanin Energy"
+
+  - name: city_of_calgary
+    type: psft_iframe
+    company: "City of Calgary"
+
+  - name: eavor
+    type: bamboohr
+    company: "Eavor Technologies"
+
+  - name: seeq
+    type: workable
+    company: "Seeq"
