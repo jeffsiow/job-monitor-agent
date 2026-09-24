@@ -766,4 +766,121 @@ def render_job_row(job, cache_data, today_str):
     )
 
 
-def render_html_dashboard(ranked_jobs, 
+def render_html_dashboard(ranked_jobs, cache_data, today_str):
+    rows_html = "".join(render_job_row(job, cache_data, today_str) for job in ranked_jobs)
+    page_title = f"Engineering-Tech Job Matcher — {today_str}"
+    if TEMPLATE_PATH.exists():
+        page_title = TEMPLATE_PATH.read_text(encoding="utf-8").replace("{{TODAY}}", today_str).strip()
+
+    html = f"""<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{page_title}</title>
+<style>
+{DASHBOARD_STYLE}
+</style>
+<script>
+{DASHBOARD_SCRIPT}
+</script>
+</head>
+<body>
+<h1>{page_title}</h1>
+<div class="sub">{len(ranked_jobs)} postings found (Calgary / Remote Engineering-Tech focus).
+Click statuses freely, then hit "Sync Now" — nothing is written to GitHub until you sync.</div>
+<div class="token-bar">
+<input id="ghTokenInput" type="password" placeholder="GitHub token (repo-scoped, Contents: read/write)">
+<input id="ghRepoInput" type="text" placeholder="username/job-matcher">
+<button onclick="setGithubConfig()">Save</button>
+<button id="syncBtn" onclick="syncNow()">Sync Now (<span id="pendingCount">0</span>)</button>
+</div>
+<div class="tabs">
+<button class="tab" id="tab-new" onclick="filterTab('new')">New</button>
+<button class="tab" id="tab-interested" onclick="filterTab('interested')">Interested</button>
+<button class="tab" id="tab-applied" onclick="filterTab('applied')">Applied</button>
+<button class="tab" id="tab-dismissed" onclick="filterTab('dismissed')">Dismissed</button>
+<button class="tab" id="tab-all" onclick="filterTab('all')">All</button>
+</div>
+<div class="controls">
+<input id="searchBox" type="text" placeholder="Search title, company, location..." oninput="applyFilters()">
+</div>
+<table id="jobTable">
+<thead><tr>
+<th onclick="sortTable(0, 'number')">Score</th>
+<th onclick="sortTable(1, 'text')">Job</th>
+<th onclick="sortTable(2, 'text')">Company / Location</th>
+<th onclick="sortTable(3, 'text')">Posted</th>
+<th onclick="sortTable(4, 'text')">Source</th>
+<th>Status</th>
+</tr></thead>
+<tbody>
+{rows_html}
+</tbody>
+</table>
+</body>
+</html>
+"""
+    return html
+
+
+# ---------------------------------------------------------
+# Main
+# ---------------------------------------------------------
+
+def main():
+    today_str = datetime.utcnow().strftime("%Y-%m-%d")
+    cache_data = load_cache()
+    sources = load_sources()
+
+    all_jobs = []
+    for source in sources:
+        print(f"[INFO] Fetching source: {source['id']} ({source.get('type')})")
+        try:
+            jobs = fetch_source(source)
+            all_jobs.extend(jobs)
+        except Exception as e:
+            print(f"[WARN] Source {source['id']} raised: {e}")
+
+    # De-duplicate
+    seen_ids = set()
+    unique_jobs = []
+    for job in all_jobs:
+        if job["id"] in seen_ids:
+            continue
+        seen_ids.add(job["id"])
+        unique_jobs.append(job)
+
+    print(f"[INFO] Total postings before de-dup: {len(all_jobs)}, after: {len(unique_jobs)}")
+
+    if unique_jobs:
+        model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+        compute_composite_scores(unique_jobs, cache_data, model)
+
+    ranked_jobs = sorted(unique_jobs, key=lambda j: j.get("score", 0), reverse=True)
+
+    # Update cache
+    for job in ranked_jobs:
+        jid = job["id"]
+        if jid not in cache_data:
+            cache_data[jid] = {
+                "title": job["title"],
+                "company": job["company"],
+                "status": "new",
+                "first_seen": today_str
+            }
+        else:
+            cache_data[jid]["title"] = job["title"]
+            cache_data[jid]["company"] = job["company"]
+
+    save_cache(cache_data)
+
+    html = render_html_dashboard(ranked_jobs, cache_data, today_str)
+    report_path = REPORTS_DIR / f"report-{today_str}.html"
+    report_path.write_text(html, encoding="utf-8")
+    (DOCS_DIR / "index.html").write_text(html, encoding="utf-8")
+
+    print(f"[INFO] Dashboard written to {report_path} and docs/index.html")
+
+
+if __name__ == "__main__":
+    main()
