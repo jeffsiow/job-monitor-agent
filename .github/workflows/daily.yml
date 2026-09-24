@@ -29,6 +29,9 @@ jobs:
         run: |
           playwright install chromium --with-deps
 
+      - name: Run Job Matcher          # ← this step was missing
+        run: python agent.py
+
       - name: Commit and Push Updated Reports & Cache
         run: |
           git config --global user.name "github-actions[bot]"
