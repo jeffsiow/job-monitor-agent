@@ -37,7 +37,12 @@ sources:
   - name: symphonyai
     type: playwright
     company: "SymphonyAI"
-    url: "https://jobs.symphonyai.com/jobs?page=1&location=Calgary%2C%20AB%2C%20Canada&woe=7&regionCode=CA&stretchUnit=MILES&stretch=10"
+    # Their jobs.symphonyai.com wrapper links out to this iCIMS-hosted board
+    # (seen in an actual "Apply Now" link) -- pointed here directly since
+    # iCIMS boards tend to expose cleaner structured data. Unverified against
+    # the live site from this environment; adjust if the search params don't
+    # give the results you expect.
+    url: "https://globalcareers-symphonyai.icims.com/jobs/search?ss=1"
 
   - name: sight_machine
     type: playwright
