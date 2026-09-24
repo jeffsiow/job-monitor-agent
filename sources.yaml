@@ -59,14 +59,14 @@ sources:
     company: "Apex Systems"
     url: "https://www.apexsystems.com/search-results-crp?catalogcode=CRP&address=&radius=50&page=1&rows=25&query=%2A&remote=true"
 
-  - name: siemens
-    type: playwright
-    company: "Siemens"
-    # Heavily JS-driven search widget; blind pattern-guessing hasn't nailed
+  #- name: siemens
+   # type: playwright
+   # company: "Siemens"
+   # # Heavily JS-driven search widget; blind pattern-guessing hasn't nailed
     # it yet (matched FAQ/footer/language-switcher links, not real jobs).
     # Needs a concrete href sample from a real posting to fix precisely --
     # see the note back in chat.
-    url: "https://jobs.siemens.com/en_US/externaljobs/SearchJobs/?42386=%5B812214%5D&42386_format=17546&42387=%5B813888%5D&42387_format=17547&42388=%5B14136998%5D&42388_format=17879&42389=%5B102117%2C102133%2C102134%5D&42389_format=17549&listFilterMode=1&folderRecordsPerPage=6&"
+   # url: "https://jobs.siemens.com/en_US/externaljobs/SearchJobs/?42386=%5B812214%5D&42386_format=17546&42387=%5B813888%5D&42387_format=17547&42388=%5B14136998%5D&42388_format=17879&42389=%5B102117%2C102133%2C102134%5D&42389_format=17549&listFilterMode=1&folderRecordsPerPage=6&"
 
   - name: autodesk
     type: playwright
