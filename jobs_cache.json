@@ -1259,5 +1259,41 @@
     "status": "dismissed",
     "first_seen": "2026-09-28",
     "updated_at": "2026-09-29T11:58:25.697Z"
+  },
+  "8702613e2ca4e0a3": {
+    "title": "Specialist, Order Management - Americas",
+    "company": "AVEVA",
+    "status": "new",
+    "first_seen": "2026-09-29"
+  },
+  "6e428373ec60d219": {
+    "title": "Business Development Director – Supply Chain Center of Excellence (CoE)",
+    "company": "Cognite",
+    "status": "new",
+    "first_seen": "2026-09-29"
+  },
+  "f06dc7d28bfa6734": {
+    "title": "Calgary Police Service - Space Planning Leader",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-29"
+  },
+  "8e6208a0b7c63886": {
+    "title": "Journeyman Signals Electrician/ Technician",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-09-29"
+  },
+  "e3fc1a2361e9adec": {
+    "title": "Accounting Director",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-09-29"
+  },
+  "9ae032727ee4e4c4": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-09-29"
   }
 }
