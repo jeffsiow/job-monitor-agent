@@ -1242,19 +1242,22 @@
   "79bc30ab549fa4ee": {
     "title": "Leader, Human Resources - People, Strategy, and Partnerships",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-28"
+    "status": "dismissed",
+    "first_seen": "2026-09-28",
+    "updated_at": "2026-09-29T11:58:19.207Z"
   },
   "dd409391ff4a7271": {
     "title": "Geospatial Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-28"
+    "status": "dismissed",
+    "first_seen": "2026-09-28",
+    "updated_at": "2026-09-29T11:58:23.864Z"
   },
   "da9b4cfedb1b7846": {
     "title": "Calgary Police Service - People and Culture Consultant",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-28"
+    "status": "dismissed",
+    "first_seen": "2026-09-28",
+    "updated_at": "2026-09-29T11:58:25.697Z"
   }
 }
