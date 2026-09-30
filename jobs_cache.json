@@ -1263,115 +1263,134 @@
   "8702613e2ca4e0a3": {
     "title": "Specialist, Order Management - Americas",
     "company": "AVEVA",
-    "status": "new",
-    "first_seen": "2026-09-29"
+    "status": "dismissed",
+    "first_seen": "2026-09-29",
+    "updated_at": "2026-09-30T20:55:08.983Z"
   },
   "6e428373ec60d219": {
     "title": "Business Development Director – Supply Chain Center of Excellence (CoE)",
     "company": "Cognite",
-    "status": "new",
-    "first_seen": "2026-09-29"
+    "status": "applied",
+    "first_seen": "2026-09-29",
+    "updated_at": "2026-09-30T20:56:26.293Z"
   },
   "f06dc7d28bfa6734": {
     "title": "Calgary Police Service - Space Planning Leader",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-29"
+    "status": "dismissed",
+    "first_seen": "2026-09-29",
+    "updated_at": "2026-09-30T20:56:28.807Z"
   },
   "8e6208a0b7c63886": {
     "title": "Journeyman Signals Electrician/ Technician",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-29"
+    "status": "dismissed",
+    "first_seen": "2026-09-29",
+    "updated_at": "2026-09-30T20:56:29.385Z"
   },
   "e3fc1a2361e9adec": {
     "title": "Accounting Director",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-09-29"
+    "status": "dismissed",
+    "first_seen": "2026-09-29",
+    "updated_at": "2026-09-30T20:56:51.586Z"
   },
   "9ae032727ee4e4c4": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-09-29"
+    "status": "dismissed",
+    "first_seen": "2026-09-29",
+    "updated_at": "2026-09-30T20:56:55.621Z"
   },
   "33876e3c1409c1fe": {
     "title": "Leader, Systems and Data Assets",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:55:12.629Z"
   },
   "b8ff0da4390c36ba": {
     "title": "Project Manager",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:10.781Z"
   },
   "eecbedddab289659": {
     "title": "Team Lead, Project Management Office",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:18.462Z"
   },
   "0af562e12515433f": {
     "title": "Junior Business Analyst, Part-Time",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:20.216Z"
   },
   "d8c3d189e83461ff": {
     "title": "Senior Project Engineer, Green Line",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "applied",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:22.432Z"
   },
   "1466b86c1e046dd9": {
     "title": "Engineer-In-Training",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:25.260Z"
   },
   "1329b6961984bd62": {
     "title": "IT Developer",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:27.606Z"
   },
   "c5ad25490e7cd09e": {
     "title": "Software Engineer – Java",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:30.200Z"
   },
   "0b9d64fc29ef3f7d": {
     "title": "Calgary Police Service - Senior Legal Counsel and Director, Access and Privacy Section",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:30.883Z"
   },
   "706b21288fc13b6b": {
     "title": "Data Center Detailed Design & MEP Execution Lead",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:33.549Z"
   },
   "19c347261b5d5db8": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:49.191Z"
   },
   "acb79787edb9f191": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:49.706Z"
   },
   "e83de689d32c4ff7": {
     "title": "Associate Electrical Engineer - Substation",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-09-30"
+    "status": "dismissed",
+    "first_seen": "2026-09-30",
+    "updated_at": "2026-09-30T20:56:56.473Z"
   }
 }
