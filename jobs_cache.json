@@ -1392,5 +1392,83 @@
     "status": "dismissed",
     "first_seen": "2026-09-30",
     "updated_at": "2026-09-30T20:56:56.473Z"
+  },
+  "93d1a749dfea1878": {
+    "title": "Senior Process Engineer - Industrial Water/Wastewater",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "4d74397e03e60ec9": {
+    "title": "Staff Software Engineer - Developer Experience",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "e48e59266da3eb2b": {
+    "title": "Senior Technical Success Consultant",
+    "company": "AVEVA",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "389b993db7858c49": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "3009431025035da8": {
+    "title": "Application Support Engineer, Customer Support",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "8a6377bb312acbc6": {
+    "title": "Project Manager - Underground Transmission",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "456b02c92dd77d91": {
+    "title": "Project Manager - Transmission",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "ea6d0774e396319c": {
+    "title": "Managing Consultant (Enterprise Data Architect)",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "da1707709f01d84f": {
+    "title": "Managing Consultant (AI Governance)",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "09ea479a8a4157a1": {
+    "title": "Senior Registered Electrical Engineer - Nuclear Power",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "ddc319af7f29234a": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "5ae25e19c1459bfb": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-01"
+  },
+  "8e38295279caab84": {
+    "title": "Senior Salesforce Agentforce Developer",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-01"
   }
 }
