@@ -8,9 +8,6 @@ This is a comprehensive, consolidated, and deduplicated Master Experience Librar
 
 ### Contact Details
 - **Name**: Jeffrey Siow
-- **Location**: Calgary, AB
-- **Phone**: 825.712.7540
-- **Email**: jeffsiow@gmail.com
 - **LinkedIn**: [linkedin.com/in/jeffreysiow](https://www.linkedin.com/in/jeffreysiow/)
 
 ### Professional Credentials & Education
