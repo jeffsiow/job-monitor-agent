@@ -1554,5 +1554,89 @@
     "company": "Black & Veatch",
     "status": "new",
     "first_seen": "2026-10-02"
+  },
+  "ccab9ef303900872": {
+    "title": "Capital Grant Consultant",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "13c4ce41bde977b5": {
+    "title": "Leader, Planning",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "51042b862ebd0f28": {
+    "title": "Intergovernmental Relation Consultant",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "3d6a62a5ed47bf1a": {
+    "title": "Senior Lead Consultant - Datacenter Project Manager",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "3493c8e94769913d": {
+    "title": "Project Manager - Power Generation",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "30ddb5a2348f43d8": {
+    "title": "Lead Consultant - Azure Cloud Engineer",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "b9d8c233a25f8940": {
+    "title": "Managing Consultant - Palantir Architect",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "aaab7c78525b7fbd": {
+    "title": "Senior Salesforce Business Analyst",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "36fd361b53083bab": {
+    "title": "Senior Consultant - Azure Cloud Engineer",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "fd795b937c763a12": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "2aeba7ea6d4f1496": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "60e1f1d405696d7d": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "13c4d4d798a5b6d8": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
+  },
+  "b00b75ecc4a5f6f9": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-10-03"
   }
 }
