@@ -1396,8 +1396,9 @@
   "93d1a749dfea1878": {
     "title": "Senior Process Engineer - Industrial Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:02.044Z"
   },
   "4d74397e03e60ec9": {
     "title": "Staff Software Engineer - Developer Experience",
@@ -1408,20 +1409,23 @@
   "e48e59266da3eb2b": {
     "title": "Senior Technical Success Consultant",
     "company": "AVEVA",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T15:43:01.068Z"
   },
   "389b993db7858c49": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:09.352Z"
   },
   "3009431025035da8": {
     "title": "Application Support Engineer, Customer Support",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:24.646Z"
   },
   "8a6377bb312acbc6": {
     "title": "Project Manager - Underground Transmission",
@@ -1438,14 +1442,16 @@
   "ea6d0774e396319c": {
     "title": "Managing Consultant (Enterprise Data Architect)",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:18.271Z"
   },
   "da1707709f01d84f": {
     "title": "Managing Consultant (AI Governance)",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:23.084Z"
   },
   "09ea479a8a4157a1": {
     "title": "Senior Registered Electrical Engineer - Nuclear Power",
@@ -1456,128 +1462,149 @@
   "ddc319af7f29234a": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:26.761Z"
   },
   "5ae25e19c1459bfb": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:32.280Z"
   },
   "8e38295279caab84": {
     "title": "Senior Salesforce Agentforce Developer",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-01"
+    "status": "dismissed",
+    "first_seen": "2026-10-01",
+    "updated_at": "2026-10-02T14:56:29.496Z"
   },
   "0fde1c21157aa34e": {
     "title": "Deputy Director, Portfolio Finance",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:55:46.083Z"
   },
   "3a86986b56213d28": {
     "title": "Senior Solutions Consultant - APAC",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:55:50.632Z"
   },
   "161b431aea8b6259": {
     "title": "Detours Engineering Technician 1",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:55:51.979Z"
   },
   "fb0e69a61fbe0feb": {
     "title": "Registered Project Electrical Engineer - Power Generation",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:55:53.904Z"
   },
   "2e2dd57894f32933": {
     "title": "Journeyperson 1 Parts Technician - Rover",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:55:54.834Z"
   },
   "5b68e69a710fe381": {
     "title": "Senior Technical Project Manager - Financial Services (AI-first)",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:55:57.936Z"
   },
   "d3c572960a3f38d1": {
     "title": "Technical Project Manager – Financial Services (AI-first)",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:55:59.140Z"
   },
   "b42b42b52c8249e7": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:56:07.768Z"
   },
   "6baeff9a6ff78b4c": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:56:08.414Z"
   },
   "3aef1f7c964ce19b": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:56:08.793Z"
   },
   "593c874199369161": {
     "title": "Client Success Lead",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:57:07.271Z"
   },
   "00922b1e073c74fc": {
     "title": "Sr. Lead Consultant (Technical Program Manager)",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:56:17.050Z"
   },
   "5170a126efa85c00": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:56:25.985Z"
   },
   "1c3f49a98c3811cc": {
     "title": "Senior Registered Electrical Engineer - Nuclear Power",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-02"
+    "status": "dismissed",
+    "first_seen": "2026-10-02",
+    "updated_at": "2026-10-02T14:56:33.606Z"
   },
   "ccab9ef303900872": {
     "title": "Capital Grant Consultant",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:04.198Z"
   },
   "13c4ce41bde977b5": {
     "title": "Leader, Planning",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:04.765Z"
   },
   "51042b862ebd0f28": {
     "title": "Intergovernmental Relation Consultant",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:05.271Z"
   },
   "3d6a62a5ed47bf1a": {
     "title": "Senior Lead Consultant - Datacenter Project Manager",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:29.031Z"
   },
   "3493c8e94769913d": {
     "title": "Project Manager - Power Generation",
@@ -1588,91 +1615,106 @@
   "30ddb5a2348f43d8": {
     "title": "Lead Consultant - Azure Cloud Engineer",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:29.737Z"
   },
   "b9d8c233a25f8940": {
     "title": "Managing Consultant - Palantir Architect",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:19:40.898Z"
   },
   "aaab7c78525b7fbd": {
     "title": "Senior Salesforce Business Analyst",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:43.706Z"
   },
   "36fd361b53083bab": {
     "title": "Senior Consultant - Azure Cloud Engineer",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:45.182Z"
   },
   "fd795b937c763a12": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:48.836Z"
   },
   "2aeba7ea6d4f1496": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:49.429Z"
   },
   "60e1f1d405696d7d": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:50.478Z"
   },
   "13c4d4d798a5b6d8": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:53.975Z"
   },
   "b00b75ecc4a5f6f9": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-03"
+    "status": "dismissed",
+    "first_seen": "2026-10-03",
+    "updated_at": "2026-10-06T17:16:55.022Z"
   },
   "eece9ba054fff47f": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-10-04"
+    "status": "dismissed",
+    "first_seen": "2026-10-04",
+    "updated_at": "2026-10-06T17:16:20.382Z"
   },
   "051858cf3a44caaa": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-10-04"
+    "status": "dismissed",
+    "first_seen": "2026-10-04",
+    "updated_at": "2026-10-06T17:16:21.670Z"
   },
   "a463299e470151d1": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-10-04"
+    "status": "dismissed",
+    "first_seen": "2026-10-04",
+    "updated_at": "2026-10-06T17:16:22.057Z"
   },
   "de64a6dcc95ed80b": {
     "title": "IT and Enterprise GTM Strategy, Director",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-10-06"
+    "status": "dismissed",
+    "first_seen": "2026-10-06",
+    "updated_at": "2026-10-06T17:16:11.441Z"
   },
   "b2814e3d6e3574bf": {
     "title": "Calgary Police Service - Manager, Access & Privacy",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-06"
+    "status": "dismissed",
+    "first_seen": "2026-10-06",
+    "updated_at": "2026-10-06T17:16:12.041Z"
   },
   "16969920a4f00a5c": {
     "title": "Project Manager - APG Services",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-06"
+    "status": "dismissed",
+    "first_seen": "2026-10-06",
+    "updated_at": "2026-10-06T17:16:25.038Z"
   }
 }
