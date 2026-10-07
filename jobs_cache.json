@@ -1716,5 +1716,59 @@
     "status": "dismissed",
     "first_seen": "2026-10-06",
     "updated_at": "2026-10-06T17:16:25.038Z"
+  },
+  "be9b752bac7989db": {
+    "title": "Project Manager, Policy",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "42ffe3c48bdb5840": {
+    "title": "Business Development Manager",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "fe0cf0707956045a": {
+    "title": "Intergovernmental Affairs Consultant",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "7a2dcd811c041c31": {
+    "title": "Administrative Assistant - Manager",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "b954c13edd45767d": {
+    "title": "Platform Software Engineer - Staff/Principal",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "cd5d235788d0e55a": {
+    "title": "Staff Accountant (Contractor December to June)",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "313a9e12ef916aa9": {
+    "title": "Calgary Police Service - Workforce Planning Analyst",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "b6d2463309de8150": {
+    "title": "Detours Engineering Technician 1 - AMENDMENT",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-07"
+  },
+  "f7c18ef66a98676d": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-07"
   }
 }
