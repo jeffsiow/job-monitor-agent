@@ -1720,32 +1720,37 @@
   "be9b752bac7989db": {
     "title": "Project Manager, Policy",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:49:44.440Z"
   },
   "42ffe3c48bdb5840": {
     "title": "Business Development Manager",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:49:48.669Z"
   },
   "fe0cf0707956045a": {
     "title": "Intergovernmental Affairs Consultant",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:49:51.011Z"
   },
   "7a2dcd811c041c31": {
     "title": "Administrative Assistant - Manager",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:49:57.103Z"
   },
   "b954c13edd45767d": {
     "title": "Platform Software Engineer - Staff/Principal",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:50:07.233Z"
   },
   "cd5d235788d0e55a": {
     "title": "Staff Accountant (Contractor December to June)",
@@ -1756,91 +1761,106 @@
   "313a9e12ef916aa9": {
     "title": "Calgary Police Service - Workforce Planning Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:50:19.147Z"
   },
   "b6d2463309de8150": {
     "title": "Detours Engineering Technician 1 - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:50:19.584Z"
   },
   "f7c18ef66a98676d": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-07"
+    "status": "dismissed",
+    "first_seen": "2026-10-07",
+    "updated_at": "2026-10-08T14:50:22.778Z"
   },
   "6859d0c5188b337c": {
     "title": "Infrastructure Invest Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:49:43.609Z"
   },
   "adbbded39c8dccac": {
     "title": "Leader, Community Revitalization",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:49:45.801Z"
   },
   "7947eed75cc815d3": {
     "title": "Business Development Representative - EMEA",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:49:51.657Z"
   },
   "280d27f3e20df5fc": {
     "title": "Occupational Health & Safety Systems Project Manager",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:49:57.559Z"
   },
   "16964d0c85385c9c": {
     "title": "Account Executive- Retail SaaS- Spain",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:02.119Z"
   },
   "0492bdf8caa6ca8b": {
     "title": "Sr. Project Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:07.707Z"
   },
   "59f624ffe83167e5": {
     "title": "Staff Accountant (Six-Month Contract)",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:09.132Z"
   },
   "1535916e3cfaddd5": {
     "title": "Services Senior Staff Project Manager",
     "company": "AVEVA",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:19.981Z"
   },
   "9e0e5de4173c7ac7": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:21.491Z"
   },
   "4522c81ae87f337d": {
     "title": "Project Engineering Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "applied",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:23.166Z"
   },
   "449d290f65d00973": {
     "title": "Utility BESS EPC Project Director",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:26.356Z"
   },
   "550c9fb6c5e708c6": {
     "title": "Project Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-08"
+    "status": "dismissed",
+    "first_seen": "2026-10-08",
+    "updated_at": "2026-10-08T14:50:26.504Z"
   }
 }
