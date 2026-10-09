@@ -1862,5 +1862,35 @@
     "status": "dismissed",
     "first_seen": "2026-10-08",
     "updated_at": "2026-10-08T14:50:26.504Z"
+  },
+  "43e8b0271008b948": {
+    "title": "Infrastructure Investment Analyst",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-09"
+  },
+  "a20abc3db4043e01": {
+    "title": "Analyst / Associate",
+    "company": "Kanin Energy",
+    "status": "new",
+    "first_seen": "2026-10-09"
+  },
+  "5923526e84c006ee": {
+    "title": "Arts Centre Specialist, On-Call",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-09"
+  },
+  "c575c1f63d9cc5d9": {
+    "title": "Investment Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-09"
+  },
+  "f5d1e75ff2fc21dc": {
+    "title": "Kanin Energy is seeking a sharp, motivated Analyst or Associate with a background in power generation related project finance, energy M&A/investment banking, or electricity market analysis to join our Calgary-based team. Reporting to the Manager, Corporate Development,...",
+    "company": "Kanin Energy",
+    "status": "new",
+    "first_seen": "2026-10-09"
   }
 }
