@@ -2186,5 +2186,35 @@
     "company": "Black & Veatch",
     "status": "new",
     "first_seen": "2026-10-15"
+  },
+  "596c4a912f36d26d": {
+    "title": "Director, Technical Enablement",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-10-16"
+  },
+  "c3583298b301d7b2": {
+    "title": "Category Management Specialist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-16"
+  },
+  "aa14f122540c3592": {
+    "title": "Business Support Technical Analyst",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-16"
+  },
+  "d9ff9a25bc9a2377": {
+    "title": "Systems Control Technician",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-16"
+  },
+  "9f1c7318361a9bf0": {
+    "title": "Staff Reg Engineer-Mechanical Systems",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-10-16"
   }
 }
