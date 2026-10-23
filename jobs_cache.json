@@ -956,9 +956,9 @@
   "c394026a1b537cf7": {
     "title": "Project Engineering Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "interested",
+    "status": "dismissed",
     "first_seen": "2026-09-25",
-    "updated_at": "2026-09-25T21:04:54.440Z"
+    "updated_at": "2026-10-20T17:58:47.821Z"
   },
   "a71df3f7e011c455": {
     "title": "Project Manager - Water/Wastewater",
@@ -977,9 +977,9 @@
   "8b175c7beecf8bae": {
     "title": "Project Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "interested",
+    "status": "dismissed",
     "first_seen": "2026-09-25",
-    "updated_at": "2026-09-25T21:06:01.761Z"
+    "updated_at": "2026-10-20T17:58:48.214Z"
   },
   "3c289000fd1b1a34": {
     "title": "Project Director - Water/Wastewater",
@@ -2197,8 +2197,9 @@
   "3ae627c9ac15984c": {
     "title": "Consultant, Presales - IV",
     "company": "AVEVA",
-    "status": "new",
-    "first_seen": "2026-10-15"
+    "status": "interested",
+    "first_seen": "2026-10-15",
+    "updated_at": "2026-10-23T16:34:05.876Z"
   },
   "7adf170921d61e41": {
     "title": "VP of Utility Operations (Bird Electric)",
@@ -2348,20 +2349,23 @@
   "0cb6a8f6662fa9f1": {
     "title": "Leader, Strategy & Performance",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:32:58.542Z"
   },
   "a707eb3b07d590ff": {
     "title": "Engineer-In-Training - Street Light Design",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:33:01.751Z"
   },
   "f6933c0febb3b885": {
     "title": "Calgary Police Service - Corporate Health Consultant",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:33:06.579Z"
   },
   "eb66831581c8aa1c": {
     "title": "Calgary Police Service - Police Information Research Specialist",
@@ -2372,73 +2376,85 @@
   "75ae268a3e974b2a": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:34:03.156Z"
   },
   "299cf65d32f85312": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:34:14.296Z"
   },
   "e90c895b8c4693d6": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:34:19.927Z"
   },
   "dac7cb41e3f25aaf": {
     "title": "Associate Project Manager - Distribution",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:34:23.526Z"
   },
   "bf000bb98643f6d5": {
     "title": "AI Solution Architect",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-21"
+    "status": "dismissed",
+    "first_seen": "2026-10-21",
+    "updated_at": "2026-10-23T16:34:27.346Z"
   },
   "dc4b7f4a4e368aa5": {
     "title": "Leader, Energy Management Project Development",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-22"
+    "status": "interested",
+    "first_seen": "2026-10-22",
+    "updated_at": "2026-10-23T16:31:19.181Z"
   },
   "cc76dfcac2171dc9": {
     "title": "Financial Reporting Consultant",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-22"
+    "status": "dismissed",
+    "first_seen": "2026-10-22",
+    "updated_at": "2026-10-23T16:33:00.480Z"
   },
   "a9039da4904969ed": {
     "title": "Safety Technician",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-22"
+    "status": "dismissed",
+    "first_seen": "2026-10-22",
+    "updated_at": "2026-10-23T16:33:04.562Z"
   },
   "329202786fe63a11": {
     "title": "Recruiting Coordinator - 6-month Contract",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-10-22"
+    "status": "dismissed",
+    "first_seen": "2026-10-22",
+    "updated_at": "2026-10-23T16:33:05.493Z"
   },
   "ca569875e80983d6": {
     "title": "Senior Project Manager - Water/Wastewater",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-22"
+    "status": "dismissed",
+    "first_seen": "2026-10-22",
+    "updated_at": "2026-10-23T16:34:09.762Z"
   },
   "129df4cc607b61ad": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-22"
+    "status": "dismissed",
+    "first_seen": "2026-10-22",
+    "updated_at": "2026-10-23T16:34:12.434Z"
   },
   "04a5b1f6c020e8c0": {
     "title": "SCM Support & Hypercare Consultant",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-22"
+    "status": "dismissed",
+    "first_seen": "2026-10-22",
+    "updated_at": "2026-10-23T16:34:28.442Z"
   }
 }
