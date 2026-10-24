@@ -2498,5 +2498,41 @@
     "company": "Black & Veatch",
     "status": "new",
     "first_seen": "2026-10-23"
+  },
+  "0eea711f355822a2": {
+    "title": "Leader, Quality Control",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-24"
+  },
+  "8b5ba9cdd388d582": {
+    "title": "Senior Development Engineer",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-24"
+  },
+  "26161ebeb93d389f": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-24"
+  },
+  "1309a92fd4a9960c": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-24"
+  },
+  "1566f784324f50f3": {
+    "title": "Lead Backend Engineer",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-24"
+  },
+  "ca00be56e8ab1a0d": {
+    "title": "Senior Cloud Engineer - SRE",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-24"
   }
 }
