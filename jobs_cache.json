@@ -2540,5 +2540,47 @@
     "company": "City of Calgary",
     "status": "new",
     "first_seen": "2026-10-26"
+  },
+  "6753cb5763020c61": {
+    "title": "Corporate Consultant",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-10-27"
+  },
+  "b69f07a849144941": {
+    "title": "Project Director",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-27"
+  },
+  "c93f5e9f20c76657": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-27"
+  },
+  "c6312c41c639a11f": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-27"
+  },
+  "f243901fe5e3dad3": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-27"
+  },
+  "6a26f994f731977f": {
+    "title": "Data Scientist",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-27"
+  },
+  "026009958950e93f": {
+    "title": "Technical Consultant",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-10-27"
   }
 }
