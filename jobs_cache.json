@@ -2733,67 +2733,78 @@
   "d3c3cb4bd133c657": {
     "title": "Contract Coordinator",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:22.613Z"
   },
   "f16d13e6471da060": {
     "title": "Calgary Police Service - Manager, Chief Crowfoot Learning Centre Administration",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:23.095Z"
   },
   "148e084c4e49d7af": {
     "title": "Engineer-In-Training - Street Light Design - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:24.385Z"
   },
   "d21c55aff6990ae4": {
     "title": "Delivery, Lead Consultant",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "applied",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:26.147Z"
   },
   "3baf47f78af5cab6": {
     "title": "Technical Project Manager",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:29.954Z"
   },
   "f2f6a01f693284dd": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:31.174Z"
   },
   "1084c1b0ca5981f4": {
     "title": "Technical Support Principal Engineer",
     "company": "AVEVA",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:32.321Z"
   },
   "1fb6d53138c5004a": {
     "title": "Employee Relations & Workplace Investigations Specialist",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:36.150Z"
   },
   "e81ca0ca02b5154e": {
     "title": "Project Manager- Substation and Transmission",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:36.879Z"
   },
   "b9d39c6dfa451691": {
     "title": "Industrial Cybersecurity Senior Consultant",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:37.400Z"
   },
   "c1cdd4d73d8f90f7": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-10-29"
+    "status": "dismissed",
+    "first_seen": "2026-10-29",
+    "updated_at": "2026-10-30T15:06:40.533Z"
   }
 }
