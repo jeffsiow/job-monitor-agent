@@ -3077,5 +3077,47 @@
     "status": "dismissed",
     "first_seen": "2026-11-03",
     "updated_at": "2026-11-04T15:25:28.582Z"
+  },
+  "4628ef3ec6a5de2b": {
+    "title": "CADD Team Lead",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-04"
+  },
+  "6e15142acb832fdc": {
+    "title": "Electrical Project Engineer",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-04"
+  },
+  "ca84e85b7a06d77f": {
+    "title": "(Referral Eligible) Construction Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-04"
+  },
+  "4ecee25117a663db": {
+    "title": "Journeyperson Instrumentation Technician - AMENDMENT",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-04"
+  },
+  "e1a5e3e28f846529": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-04"
+  },
+  "c04b23cf52767545": {
+    "title": "Senior Substation Project Manager",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-11-04"
+  },
+  "57b2392ea8ee1a58": {
+    "title": "Site Reliability Engineer",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-04"
   }
 }
