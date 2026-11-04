@@ -2870,50 +2870,58 @@
   "c835b198bc691e6a": {
     "title": "Human Resources Business Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:08.723Z"
   },
   "18a6ab881590f5e6": {
     "title": "Senior Engineer, Quality Assurance and Integrity Management",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:12.722Z"
   },
   "68e8b4cab8708b31": {
     "title": "Workforce Support Consultant",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:14.389Z"
   },
   "7fa65c7331946dc9": {
     "title": "Journeyperson HVAC Technician",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:15.460Z"
   },
   "d15dd91515e583ee": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:18.494Z"
   },
   "e8543bb20f04b853": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:18.865Z"
   },
   "2b2a3454f300720e": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:19.410Z"
   },
   "e8faf59e79d2bc24": {
     "title": "Director, Supply Chain Solutions & Functional Consulting",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:20.663Z"
   },
   "cba2412f697348b0": {
     "title": "Program Management Portfolio Leader",
@@ -2924,14 +2932,16 @@
   "abf40f87b5085323": {
     "title": "Manager, Customer Insights",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:21.122Z"
   },
   "8b798cb640b12f41": {
     "title": "Senior Manager, Customer Insights ( Onsite-Los Angeles)",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-04T15:25:27.437Z"
   },
   "abbfbc7d6e53cd8d": {
     "title": "Project Director - Industrial Water",
@@ -2948,14 +2958,16 @@
   "ae92271f8848bdb8": {
     "title": "Enterprise Payments Solutions Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-31"
+    "status": "dismissed",
+    "first_seen": "2026-10-31",
+    "updated_at": "2026-11-04T15:25:09.616Z"
   },
   "d62e65338cec58a9": {
     "title": "Senior Analyst, Performance Securities & Counterparty Risk",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-10-31"
+    "status": "dismissed",
+    "first_seen": "2026-10-31",
+    "updated_at": "2026-11-04T15:25:10.136Z"
   },
   "3520e7f0e7b0e8a8": {
     "title": "Leader, Technical Services - LRV",
@@ -2966,44 +2978,51 @@
   "7e912e8b2bc16e86": {
     "title": "Working Foreperson/Leadhand",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:07.108Z"
   },
   "c90e7aa406d3c59c": {
     "title": "Subject Matter Expert",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:11.476Z"
   },
   "4438ccce7f805d82": {
     "title": "Leader, Safety Programs & Training - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:13.764Z"
   },
   "d549f9dcf0492f30": {
     "title": "Project Manager, APG EPC",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:16.792Z"
   },
   "3adf250efe8f3c40": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:17.659Z"
   },
   "1f20cafdec216fad": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:18.021Z"
   },
   "2d83bb72e81d902c": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:18.282Z"
   },
   "3f6c0e16bfe4f250": {
     "title": "Read More",
@@ -3014,14 +3033,16 @@
   "43c846fee4410762": {
     "title": "Technical Consultant",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:22.778Z"
   },
   "35442f4e0cb0b9d5": {
     "title": "Technical Consultant",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:25:23.550Z"
   },
   "e659cea89bfa341d": {
     "title": "Technical Consultant",
@@ -3032,25 +3053,29 @@
   "c6439784234c7dbd": {
     "title": "Recreation Program Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-03"
+    "status": "dismissed",
+    "first_seen": "2026-11-03",
+    "updated_at": "2026-11-04T15:25:10.616Z"
   },
   "d7e984e65ad5147b": {
     "title": "Indigenous Government Relations Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-03"
+    "status": "dismissed",
+    "first_seen": "2026-11-03",
+    "updated_at": "2026-11-04T15:25:12.186Z"
   },
   "6c5af11877dca859": {
     "title": "Laboratory Technician",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-03"
+    "status": "dismissed",
+    "first_seen": "2026-11-03",
+    "updated_at": "2026-11-04T15:25:15.894Z"
   },
   "27ed344be80891fc": {
     "title": "Civil Engineer - Water",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-11-03"
+    "status": "dismissed",
+    "first_seen": "2026-11-03",
+    "updated_at": "2026-11-04T15:25:28.582Z"
   }
 }
