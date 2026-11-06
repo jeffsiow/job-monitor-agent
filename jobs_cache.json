@@ -2972,8 +2972,9 @@
   "3520e7f0e7b0e8a8": {
     "title": "Leader, Technical Services - LRV",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-02"
+    "status": "dismissed",
+    "first_seen": "2026-11-02",
+    "updated_at": "2026-11-04T15:26:07.857Z"
   },
   "7e912e8b2bc16e86": {
     "title": "Working Foreperson/Leadhand",
@@ -3081,32 +3082,37 @@
   "4628ef3ec6a5de2b": {
     "title": "CADD Team Lead",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-04"
+    "status": "dismissed",
+    "first_seen": "2026-11-04",
+    "updated_at": "2026-11-06T20:57:48.822Z"
   },
   "6e15142acb832fdc": {
     "title": "Electrical Project Engineer",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-04"
+    "status": "dismissed",
+    "first_seen": "2026-11-04",
+    "updated_at": "2026-11-06T20:57:57.477Z"
   },
   "ca84e85b7a06d77f": {
     "title": "(Referral Eligible) Construction Coordinator",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-04"
+    "status": "dismissed",
+    "first_seen": "2026-11-04",
+    "updated_at": "2026-11-06T20:58:04.760Z"
   },
   "4ecee25117a663db": {
     "title": "Journeyperson Instrumentation Technician - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-04"
+    "status": "dismissed",
+    "first_seen": "2026-11-04",
+    "updated_at": "2026-11-06T20:58:06.711Z"
   },
   "e1a5e3e28f846529": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-04"
+    "status": "dismissed",
+    "first_seen": "2026-11-04",
+    "updated_at": "2026-11-06T20:58:22.509Z"
   },
   "c04b23cf52767545": {
     "title": "Senior Substation Project Manager",
@@ -3117,163 +3123,190 @@
   "57b2392ea8ee1a58": {
     "title": "Site Reliability Engineer",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-04"
+    "status": "dismissed",
+    "first_seen": "2026-11-04",
+    "updated_at": "2026-11-06T20:58:32.772Z"
   },
   "ad64b1b11237c30c": {
     "title": "Corporate Finance Leader Process",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:57:50.471Z"
   },
   "20d406b6886fe796": {
     "title": "Sales Executive - Financial Services",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:57:51.420Z"
   },
   "ab93140d4cb9b215": {
     "title": "Records and Information Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:57:55.458Z"
   },
   "adaef253ff7987f8": {
     "title": "Financial Support Administrator",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:57:58.015Z"
   },
   "0260ce1230e27381": {
     "title": "Senior Transportation Engineer, Power Systems",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:03.433Z"
   },
   "7d7bef4e6ace80b5": {
     "title": "Senior Transportation Engineer",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:04.387Z"
   },
   "01f8b7695c3459a4": {
     "title": "Workforce Support Consultant  - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:05.686Z"
   },
   "9ed401857be731b7": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:15.551Z"
   },
   "16486d6e8f725237": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:15.931Z"
   },
   "c4096f8d7633506d": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:22.027Z"
   },
   "daaede479703ce75": {
     "title": "Project Director- Retail SaaS",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:25.772Z"
   },
   "bebdb96d395a035d": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:25.178Z"
   },
   "5c5f57be963fada7": {
     "title": "APG EPC Project Manager",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:27.126Z"
   },
   "c85c60b212e41577": {
     "title": "Substation Project Manager",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:28.050Z"
   },
   "07c12b50128baa51": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:30.551Z"
   },
   "dcc05fdb27df0f6e": {
     "title": "Salesforce Enterprise Architect - Managing Consultant",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:32.305Z"
   },
   "6d3809a43d12a5e6": {
     "title": "Virginia Beach",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-05"
+    "status": "dismissed",
+    "first_seen": "2026-11-05",
+    "updated_at": "2026-11-06T20:58:35.060Z"
   },
   "d669929a8529c6a2": {
     "title": "Team Lead, Recreation Programs",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:57:52.581Z"
   },
   "f8978056de84cf2d": {
     "title": "Business Development Representative - APAC",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:57:53.861Z"
   },
   "87412a36046ca69b": {
     "title": "Research and Policy Analyst - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:57:54.477Z"
   },
   "cc2b8d9f57767110": {
     "title": "Global Strategic Account Executive",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:57:55.959Z"
   },
   "b185a8f34a9f0c67": {
     "title": "Peace Officer, Community Safety",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:57:56.442Z"
   },
   "124e76ca0b828b12": {
     "title": "Peace Officer, Transit Public Safety",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:57:58.542Z"
   },
   "dba1e0b18ff39275": {
     "title": "Calgary Police Service - CPIC Information Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:58:05.181Z"
   },
   "7229997e8320952a": {
     "title": "Project Manager - Water/Wastewater 1",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:58:16.379Z"
   },
   "d162ee5cc39ab9b9": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-06"
+    "status": "dismissed",
+    "first_seen": "2026-11-06",
+    "updated_at": "2026-11-06T20:58:21.446Z"
   }
 }
