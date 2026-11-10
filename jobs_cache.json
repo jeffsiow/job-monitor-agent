@@ -3312,61 +3312,71 @@
   "a90bb6dacbbee614": {
     "title": "Corporate Finance Leader Process - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-07"
+    "status": "dismissed",
+    "first_seen": "2026-11-07",
+    "updated_at": "2026-11-10T12:59:57.282Z"
   },
   "fc559877bfb0cb7e": {
     "title": "Social Research Policy Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T12:59:58.338Z"
   },
   "13e33db4e492ea7f": {
     "title": "Full Stack Software Engineer - Staff or Principal",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:02.187Z"
   },
   "c668c1ddca1b1e04": {
     "title": "Business Development Representative - Australia",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:04.183Z"
   },
   "10cf85443e786b17": {
     "title": "Calgary Police Service - Security Investigation Specialist - On-Call",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:04.827Z"
   },
   "769bb0d8ee38132b": {
     "title": "Senior Manager - Product Intelligence & Strategic Insights",
     "company": "AVEVA",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:06.183Z"
   },
   "e3f626178fa144a8": {
     "title": "Salesforce Tech Lead - Solution Architect",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:06.632Z"
   },
   "9b271cc3e199a646": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:10.295Z"
   },
   "8868dfe06ccf3fb8": {
     "title": "Salesforce Forward Deployed Engineer",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:10.655Z"
   },
   "bb4167dc6fb275e9": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-09"
+    "status": "dismissed",
+    "first_seen": "2026-11-09",
+    "updated_at": "2026-11-10T13:00:11.901Z"
   }
 }
