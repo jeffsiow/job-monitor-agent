@@ -3382,26 +3382,30 @@
   "ab2aa48aa933cf17": {
     "title": "Web & Digital Project Manager",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-10"
+    "status": "dismissed",
+    "first_seen": "2026-11-10",
+    "updated_at": "2026-11-17T15:58:12.921Z"
   },
   "70b28f9f1285b61e": {
     "title": "Office Coordinator",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-10"
+    "status": "dismissed",
+    "first_seen": "2026-11-10",
+    "updated_at": "2026-11-17T15:58:31.105Z"
   },
   "4561b1bb041a4aae": {
     "title": "Business Development Representative - Singapore",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-10"
+    "status": "dismissed",
+    "first_seen": "2026-11-10",
+    "updated_at": "2026-11-17T15:58:44.978Z"
   },
   "dd61a2f228da6a86": {
     "title": "Indigenous Government Relations Specialist - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-10"
+    "status": "dismissed",
+    "first_seen": "2026-11-10",
+    "updated_at": "2026-11-17T16:00:33.260Z"
   },
   "a6dee795a60935cc": {
     "title": "Global Events Keynote Lead",
@@ -3424,8 +3428,9 @@
   "a29bb71daeef201b": {
     "title": "Account Manager Renewals - APAC",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-11"
+    "status": "dismissed",
+    "first_seen": "2026-11-11",
+    "updated_at": "2026-11-17T15:58:36.037Z"
   },
   "4c8a97cad113a019": {
     "title": "Account Manager Renewals - APAC",
@@ -3436,26 +3441,30 @@
   "6861347c12c54370": {
     "title": "Senior Campaign Manager",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-11"
+    "status": "dismissed",
+    "first_seen": "2026-11-11",
+    "updated_at": "2026-11-17T15:58:44.572Z"
   },
   "78f50367f18d094d": {
     "title": "Industry Marketing Manager, Batch Industries",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-11"
+    "status": "dismissed",
+    "first_seen": "2026-11-11",
+    "updated_at": "2026-11-17T15:58:45.375Z"
   },
   "fb418319a6524bb1": {
     "title": "AI Application Engineer, EMEA",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-11"
+    "status": "dismissed",
+    "first_seen": "2026-11-11",
+    "updated_at": "2026-11-17T15:58:46.040Z"
   },
   "91ea7c5cd8333ccf": {
     "title": "Calgary Police Service - Management Systems Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-11"
+    "status": "dismissed",
+    "first_seen": "2026-11-11",
+    "updated_at": "2026-11-17T16:00:33.751Z"
   },
   "01ed495abfdbda47": {
     "title": "Read More",
@@ -3508,32 +3517,37 @@
   "0a3c4818824e2c11": {
     "title": "Corporate Environmental Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-12"
+    "status": "dismissed",
+    "first_seen": "2026-11-12",
+    "updated_at": "2026-11-17T15:58:23.741Z"
   },
   "5bb323ab5de5f1af": {
     "title": "Calgary Police Service - Analytical Technician",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-12"
+    "status": "dismissed",
+    "first_seen": "2026-11-12",
+    "updated_at": "2026-11-17T16:00:40.875Z"
   },
   "6580053fc7dca103": {
     "title": "Lead AI Delivery Engineer",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-12"
+    "status": "dismissed",
+    "first_seen": "2026-11-12",
+    "updated_at": "2026-11-17T16:00:43.695Z"
   },
   "68a0508b4384dc7c": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-12"
+    "status": "dismissed",
+    "first_seen": "2026-11-12",
+    "updated_at": "2026-11-17T16:01:38.306Z"
   },
   "9dfc4f1d1591f3c2": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-12"
+    "status": "dismissed",
+    "first_seen": "2026-11-12",
+    "updated_at": "2026-11-17T16:01:38.884Z"
   },
   "23176ea9ece46277": {
     "title": "Read More",
@@ -3568,8 +3582,9 @@
   "2bf7bb9fbb08c0b9": {
     "title": "Sales Executive (Director) – Retail/CPG (Singapore based, Relocation provided)",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-12"
+    "status": "dismissed",
+    "first_seen": "2026-11-12",
+    "updated_at": "2026-11-17T16:01:44.099Z"
   },
   "e17eea755f08dd8e": {
     "title": "Industrial Water Technical Director",
@@ -3580,20 +3595,23 @@
   "31ee64ec3b3e92af": {
     "title": "Account Executive",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T15:58:19.893Z"
   },
   "0d9d26e2258c6213": {
     "title": "Senior Leader, Fleet Maintenance - Light Rail Vehicle (LRV)",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T15:58:22.609Z"
   },
   "20139b48ad46e945": {
     "title": "Senior Solutions Consultant, EMEA",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T15:58:32.369Z"
   },
   "ba9a28d10c7b47e0": {
     "title": "Senior Solutions Consultant - Mining & Metals",
@@ -3610,38 +3628,44 @@
   "adb4986111fcc431": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T16:01:37.642Z"
   },
   "5808bd2e040afc80": {
     "title": "Go-To-Market Enablement Specialist",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T16:01:40.827Z"
   },
   "509d9fee423eba71": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T16:01:46.064Z"
   },
   "e08112909ace1e07": {
     "title": "Brand Designer",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T16:01:47.089Z"
   },
   "b27cc85fb6efec20": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-13"
+    "status": "dismissed",
+    "first_seen": "2026-11-13",
+    "updated_at": "2026-11-17T16:01:48.933Z"
   },
   "4d9a87bfef1a5136": {
     "title": "Partnership Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-14"
+    "status": "dismissed",
+    "first_seen": "2026-11-14",
+    "updated_at": "2026-11-17T15:58:15.135Z"
   },
   "c2d012b2f6f6059f": {
     "title": "Leader, Strategy & Performance - AMENDMENT",
@@ -3652,14 +3676,16 @@
   "2ab5974459a4539c": {
     "title": "Contract Manager-Negotiator",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-14"
+    "status": "dismissed",
+    "first_seen": "2026-11-14",
+    "updated_at": "2026-11-17T15:58:35.200Z"
   },
   "fc37938317a59a4e": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-14"
+    "status": "dismissed",
+    "first_seen": "2026-11-14",
+    "updated_at": "2026-11-17T16:01:37.121Z"
   },
   "cb3d159319216625": {
     "title": "👉 Apply",
@@ -3670,91 +3696,106 @@
   "b9490e9244ec8cdc": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-11-15"
+    "status": "dismissed",
+    "first_seen": "2026-11-15",
+    "updated_at": "2026-11-17T16:01:28.984Z"
   },
   "17b08accae616665": {
     "title": "👉 Apply",
     "company": "Climate Tech List",
-    "status": "new",
-    "first_seen": "2026-11-15"
+    "status": "dismissed",
+    "first_seen": "2026-11-15",
+    "updated_at": "2026-11-17T16:01:31.702Z"
   },
   "c9cadae25646fd1a": {
     "title": "SDET Lead",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T15:58:12.426Z"
   },
   "7d55639ff4c0abf1": {
     "title": "Project Controls Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T15:58:13.415Z"
   },
   "7f3267b97c9a30fa": {
     "title": "Lead Backend Engineer",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T15:58:27.984Z"
   },
   "8e57b1c654679d01": {
     "title": "Technical Architect (Backend)",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T15:58:29.215Z"
   },
   "b0c588a49df26d96": {
     "title": "Calgary Police Service - Security Investigation Specialist (On-Call)",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:00:39.374Z"
   },
   "3d21124bdc575ecb": {
     "title": "Calgary Police Service - Criminal Record Information Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:00:42.803Z"
   },
   "f40911055e52129b": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:01:33.506Z"
   },
   "4ef0f7939e8455c0": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:01:34.294Z"
   },
   "93616b92f97bdd5a": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:01:35.100Z"
   },
   "41e3b70d2d88835d": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:01:35.670Z"
   },
   "98cff7d7a637e44f": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:01:36.429Z"
   },
   "8218a9ab429b1f47": {
     "title": "Senior DevOps - SRE Automation Engineer",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:01:42.106Z"
   },
   "a7d52b104ebf2269": {
     "title": "Cloud Engineer - SRE",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-16"
+    "status": "dismissed",
+    "first_seen": "2026-11-16",
+    "updated_at": "2026-11-17T16:01:43.197Z"
   }
 }
