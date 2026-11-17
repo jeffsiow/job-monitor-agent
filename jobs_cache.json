@@ -3797,5 +3797,47 @@
     "status": "dismissed",
     "first_seen": "2026-11-16",
     "updated_at": "2026-11-17T16:01:43.197Z"
+  },
+  "4146d129ba701287": {
+    "title": "Laboratory Technician - AMENDMENT",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-17"
+  },
+  "c092406a12380989": {
+    "title": "Calgary Police Service - Police Information Research Specialist (On-Call)",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-17"
+  },
+  "8472ecd79c1c8f72": {
+    "title": "Calgary Police Service - CPIC Information Specialist - AMENDMENT",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-17"
+  },
+  "b442bbb78582c378": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-17"
+  },
+  "7f55313ba3d352da": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-17"
+  },
+  "ec33d3d165a0bcf6": {
+    "title": "Director, Supply Chain Solutions & Functional Consulting",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-17"
+  },
+  "49f0412f70549002": {
+    "title": "Functional Consultant",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-17"
   }
 }
