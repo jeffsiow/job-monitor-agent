@@ -3943,5 +3943,35 @@
     "status": "dismissed",
     "first_seen": "2026-11-19",
     "updated_at": "2026-11-20T14:43:42.538Z"
+  },
+  "b5dff2594d8705a0": {
+    "title": "Auxiliary Fleet Coordinator",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-20"
+  },
+  "1f0b5ff4126707bf": {
+    "title": "Peace Officer, Community Safety - AMENDMENT",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-20"
+  },
+  "a53323059d24eab1": {
+    "title": "Read More",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-20"
+  },
+  "6b8ad4e925f547ee": {
+    "title": "Distribution Project Manager",
+    "company": "Black & Veatch",
+    "status": "new",
+    "first_seen": "2026-11-20"
+  },
+  "b43cb66155f7276c": {
+    "title": "Senior HR Manager",
+    "company": "SymphonyAI",
+    "status": "new",
+    "first_seen": "2026-11-20"
   }
 }
