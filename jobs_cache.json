@@ -2077,8 +2077,9 @@
   "c2ae37b7a48316f3": {
     "title": "Data Center Project Manager",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-13"
+    "status": "interested",
+    "first_seen": "2026-10-13",
+    "updated_at": "2026-11-20T14:43:49.411Z"
   },
   "1a2955355b8166a5": {
     "title": "Data Center Project Director",
@@ -3947,43 +3948,50 @@
   "b5dff2594d8705a0": {
     "title": "Auxiliary Fleet Coordinator",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-20"
+    "status": "dismissed",
+    "first_seen": "2026-11-20",
+    "updated_at": "2026-11-23T15:20:53.596Z"
   },
   "1f0b5ff4126707bf": {
     "title": "Peace Officer, Community Safety - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-20"
+    "status": "dismissed",
+    "first_seen": "2026-11-20",
+    "updated_at": "2026-11-23T15:20:54.623Z"
   },
   "a53323059d24eab1": {
     "title": "Read More",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-20"
+    "status": "dismissed",
+    "first_seen": "2026-11-20",
+    "updated_at": "2026-11-23T15:20:56.751Z"
   },
   "6b8ad4e925f547ee": {
     "title": "Distribution Project Manager",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-11-20"
+    "status": "dismissed",
+    "first_seen": "2026-11-20",
+    "updated_at": "2026-11-23T15:20:59.539Z"
   },
   "b43cb66155f7276c": {
     "title": "Senior HR Manager",
     "company": "SymphonyAI",
-    "status": "new",
-    "first_seen": "2026-11-20"
+    "status": "dismissed",
+    "first_seen": "2026-11-20",
+    "updated_at": "2026-11-23T15:21:00.622Z"
   },
   "28da72ba074a9ee1": {
     "title": "Research & Development Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-21"
+    "status": "dismissed",
+    "first_seen": "2026-11-21",
+    "updated_at": "2026-11-23T15:20:52.993Z"
   },
   "2c320a302b1da7ce": {
     "title": "Project Manager - St. George, Utah",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-11-22"
+    "status": "dismissed",
+    "first_seen": "2026-11-22",
+    "updated_at": "2026-11-23T15:21:03.699Z"
   }
 }
