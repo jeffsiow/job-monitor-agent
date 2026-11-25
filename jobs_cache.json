@@ -4023,5 +4023,35 @@
     "company": "City of Calgary",
     "status": "new",
     "first_seen": "2026-11-24"
+  },
+  "b14813ca903b8111": {
+    "title": "Financial Recovery Specialist",
+    "company": "City of Calgary",
+    "status": "new",
+    "first_seen": "2026-11-25"
+  },
+  "9c6842634ac52df5": {
+    "title": "Senior Backend Software Engineer - AI",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-11-25"
+  },
+  "7c058bac5fe302cf": {
+    "title": "Senior Backend Software Engineer - AI",
+    "company": "Seeq",
+    "status": "new",
+    "first_seen": "2026-11-25"
+  },
+  "bda6a38d493b6a85": {
+    "title": "Alliance Solutions Sales Executive - Salesforce",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-11-25"
+  },
+  "f51eb4cb5f640f06": {
+    "title": "Glen Allen",
+    "company": "Apex Systems",
+    "status": "new",
+    "first_seen": "2026-11-25"
   }
 }
