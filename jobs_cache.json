@@ -2964,8 +2964,9 @@
   "abbfbc7d6e53cd8d": {
     "title": "Project Director - Industrial Water",
     "company": "Black & Veatch",
-    "status": "new",
-    "first_seen": "2026-10-30"
+    "status": "dismissed",
+    "first_seen": "2026-10-30",
+    "updated_at": "2026-11-28T13:12:05.240Z"
   },
   "ba33863bea0e3d17": {
     "title": "Industrial Cybersecurity Senior Consultant 1",
@@ -4003,67 +4004,78 @@
   "7770f3c277aeab4c": {
     "title": "Crime Analyst, Transit Public Safety",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-24"
+    "status": "dismissed",
+    "first_seen": "2026-11-24",
+    "updated_at": "2026-11-28T13:11:48.816Z"
   },
   "ca013c445b459621": {
     "title": "IT Application Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-24"
+    "status": "dismissed",
+    "first_seen": "2026-11-24",
+    "updated_at": "2026-11-28T13:11:55.814Z"
   },
   "1a35555dd6983ecc": {
     "title": "Power Systems Engineer - AMENDMENT",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-24"
+    "status": "dismissed",
+    "first_seen": "2026-11-24",
+    "updated_at": "2026-11-28T13:11:58.748Z"
   },
   "2180c969f55b4f17": {
     "title": "Calgary Police Service - Chief Crowfoot Learning Centre Administrator",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-24"
+    "status": "dismissed",
+    "first_seen": "2026-11-24",
+    "updated_at": "2026-11-28T13:12:00.735Z"
   },
   "b14813ca903b8111": {
     "title": "Financial Recovery Specialist",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-25"
+    "status": "dismissed",
+    "first_seen": "2026-11-25",
+    "updated_at": "2026-11-28T13:11:46.215Z"
   },
   "9c6842634ac52df5": {
     "title": "Senior Backend Software Engineer - AI",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-25"
+    "status": "dismissed",
+    "first_seen": "2026-11-25",
+    "updated_at": "2026-11-28T13:11:53.690Z"
   },
   "7c058bac5fe302cf": {
     "title": "Senior Backend Software Engineer - AI",
     "company": "Seeq",
-    "status": "new",
-    "first_seen": "2026-11-25"
+    "status": "dismissed",
+    "first_seen": "2026-11-25",
+    "updated_at": "2026-11-28T13:11:54.598Z"
   },
   "bda6a38d493b6a85": {
     "title": "Alliance Solutions Sales Executive - Salesforce",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-25"
+    "status": "dismissed",
+    "first_seen": "2026-11-25",
+    "updated_at": "2026-11-28T13:12:01.662Z"
   },
   "f51eb4cb5f640f06": {
     "title": "Glen Allen",
     "company": "Apex Systems",
-    "status": "new",
-    "first_seen": "2026-11-25"
+    "status": "dismissed",
+    "first_seen": "2026-11-25",
+    "updated_at": "2026-11-28T13:12:05.971Z"
   },
   "a9e0b0b388bcab17": {
     "title": "Calgary Police Service - Payroll Analyst",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-26"
+    "status": "dismissed",
+    "first_seen": "2026-11-26",
+    "updated_at": "2026-11-28T13:11:57.246Z"
   },
   "ac3c786198b63964": {
     "title": "Training Officer",
     "company": "City of Calgary",
-    "status": "new",
-    "first_seen": "2026-11-26"
+    "status": "dismissed",
+    "first_seen": "2026-11-26",
+    "updated_at": "2026-11-28T13:11:57.786Z"
   }
 }
